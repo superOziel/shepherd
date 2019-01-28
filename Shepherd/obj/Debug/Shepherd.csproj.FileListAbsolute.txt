@@ -34,3 +34,39 @@ C:\Users\oiguzman\Documents\Visual Studio 2012\Projects\Shepherd\Shepherd\bin\En
 C:\Users\oiguzman\Documents\Visual Studio 2012\Projects\Shepherd\Shepherd\bin\EntityFramework.SqlServer.dll
 C:\Users\oiguzman\Documents\Visual Studio 2012\Projects\Shepherd\Shepherd\bin\EntityFramework.xml
 C:\Users\oiguzman\Documents\Visual Studio 2012\Projects\Shepherd\Shepherd\bin\EntityFramework.SqlServer.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Shepherd.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Shepherd.pdb
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Antlr3.Runtime.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\EntityFramework.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\EntityFramework.SqlServer.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Newtonsoft.Json.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Net.Http.Formatting.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Helpers.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Http.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Http.WebHost.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Mvc.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Optimization.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Razor.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Deployment.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Razor.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\WebGrease.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Antlr3.Runtime.pdb
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\EntityFramework.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\EntityFramework.SqlServer.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\Newtonsoft.Json.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Optimization.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Net.Http.Formatting.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Helpers.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Http.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Http.WebHost.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Mvc.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Razor.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Deployment.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Razor.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.csprojResolveAssemblyReference.cache
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.pdb
