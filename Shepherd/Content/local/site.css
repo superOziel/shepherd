@@ -1,0 +1,148 @@
+﻿body {
+    background-color: #20558B!important;
+    margin: 0;
+    font-size:12px!important;
+}
+
+.mainDiv {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #FFF;
+    width: 95%;
+    margin: auto;
+    padding-top: 0;
+}
+
+.title {
+    font: 15px "segoe ui",arial,sans-serif;
+    color: #20558B;
+    font-size: xx-large;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.font-large {
+    font-size: xx-large;
+}
+
+table#table_id tbody tr td:first-child {
+    cursor: pointer;
+    color: #23527c;
+    text-decoration: underline;
+}
+
+table#table_id tbody tr td:nth-child(3){
+    cursor: pointer;
+    color: #23527c;
+    text-decoration: underline;
+}
+
+#table_id span{
+  display:none;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-top-10{
+    margin-top: 10px;
+}
+
+
+.text-align-center {
+    text-align: center
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-left {
+    display: block;
+    text-align: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.no-padding-sides {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.no-marginbottom {
+    margin-bottom:0!important
+}
+
+.hide {
+    display: none;
+}
+
+.card-header-ruh {
+    color: #20558B;
+    border: 1px solid;
+    border-color: #20558B;
+    background: #f1f5fb;
+    margin-bottom: 15px;
+    padding: 10px 0px 10px 5px;
+    margin-top: 10px;
+}
+
+.backg {
+    border: 1px solid #7398d957!important;
+    height: 20px!important;
+
+    font: 12px "Segoe UI",Arial,sans-serif!important;
+    color: #1e395b!important;
+
+    padding: 0px!important;
+}
+
+.dataTables_filter,
+.dataTables_info {
+  display: none;
+}
+
+#table_id thead tr {
+    border-color: #f6f9fb #fff #c2cedb #e1eaf3;
+    border-top-width: 0;
+    background: #f1f5fb;
+
+}
+table.dataTable thead th,
+table.dataTable thead td {
+    
+}
+
+#table_id thead tr th {
+    overflow: hidden;
+    color: #4c607a;
+    font-weight: normal;
+    font-size: 13px;
+    text-align: left;
+    padding: 5px 7px 4px 7px!important;
+}
+
+#table_id tbody tr:hover {
+    background-color: #ffffff!important;
+}
+table#table_id tbody tr.odd {
+    background-color: #ffffff!important;
+}
+
+table.dataTable.display tbody tr.odd  {
+    background-color: #ffffff!important;
+}
+table#table_id tabody tr.even {
+    background-color: none!important;
+}
+
+.input-sm {
+    height: calc(1.8125rem + 2px)!important;
+}
+
+.sorting_1:hover {
+    background-color: none!important;
+}

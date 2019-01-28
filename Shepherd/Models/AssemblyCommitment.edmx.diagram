@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="336463b9a20d48669039d0983bd37d25" Name="Diagram1">
+        <EntityTypeShape EntityType="APQP_betaModel.Assembly_Commitment" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="APQP_betaModel.Locations" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="APQP_betaModel.PlanInfo" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="APQP_betaModel.PlanInfo_Jobs" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="APQP_betaModel.ViewGetSalesOrderReadyToShip" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="APQP_betaModel.Sales_Orders" Width="1.5" PointX="7.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

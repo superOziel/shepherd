@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="APQP_betaModelStoreContainer" CdmEntityContainer="APQP_betaEntities">
+    <EntitySetMapping Name="Assembly_Commitment">
+      <EntityTypeMapping TypeName="APQP_betaModel.Assembly_Commitment">
+        <MappingFragment StoreEntitySet="Assembly_Commitment">
+          <ScalarProperty Name="readytoship" ColumnName="readytoship" />
+          <ScalarProperty Name="casting_date" ColumnName="casting_date" />
+          <ScalarProperty Name="bom_date" ColumnName="bom_date" />
+          <ScalarProperty Name="machining_days" ColumnName="machining_days" />
+          <ScalarProperty Name="assembly_days" ColumnName="assembly_days" />
+          <ScalarProperty Name="final_buffer" ColumnName="final_buffer" />
+          <ScalarProperty Name="assembly_number" ColumnName="assembly_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="APQP_betaModel.Locations">
+        <MappingFragment StoreEntitySet="Locations">
+          <ScalarProperty Name="BaanCompany" ColumnName="BaanCompany" />
+          <ScalarProperty Name="AD_Country" ColumnName="AD_Country" />
+          <ScalarProperty Name="ADGroup_Family" ColumnName="ADGroup_Family" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlanInfo">
+      <EntityTypeMapping TypeName="APQP_betaModel.PlanInfo">
+        <MappingFragment StoreEntitySet="PlanInfo">
+          <ScalarProperty Name="showDashboard" ColumnName="showDashboard" />
+          <ScalarProperty Name="activeDirectoryPM" ColumnName="activeDirectoryPM" />
+          <ScalarProperty Name="isShown" ColumnName="isShown" />
+          <ScalarProperty Name="CostTplId" ColumnName="CostTplId" />
+          <ScalarProperty Name="MultiResponsible" ColumnName="MultiResponsible" />
+          <ScalarProperty Name="UseHrs" ColumnName="UseHrs" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="xEngSched" ColumnName="xEngSched" />
+          <ScalarProperty Name="temp_BLV" ColumnName="temp_BLV" />
+          <ScalarProperty Name="BaselineVer" ColumnName="BaselineVer" />
+          <ScalarProperty Name="CurrentVersion" ColumnName="CurrentVersion" />
+          <ScalarProperty Name="IsCompassPlan" ColumnName="IsCompassPlan" />
+          <ScalarProperty Name="CalId" ColumnName="CalId" />
+          <ScalarProperty Name="LockingModule" ColumnName="LockingModule" />
+          <ScalarProperty Name="LockedBy" ColumnName="LockedBy" />
+          <ScalarProperty Name="Locked" ColumnName="Locked" />
+          <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+          <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlanInfo_Jobs">
+      <EntityTypeMapping TypeName="APQP_betaModel.PlanInfo_Jobs">
+        <MappingFragment StoreEntitySet="PlanInfo_Jobs">
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+          <ScalarProperty Name="Def_resp_ProfileId" ColumnName="Def_resp_ProfileId" />
+          <ScalarProperty Name="IsBuyout" ColumnName="IsBuyout" />
+          <ScalarProperty Name="EngSched" ColumnName="EngSched" />
+          <ScalarProperty Name="RemotePM" ColumnName="RemotePM" />
+          <ScalarProperty Name="RemoteProjectNum" ColumnName="RemoteProjectNum" />
+          <ScalarProperty Name="RemoteLocation" ColumnName="RemoteLocation" />
+          <ScalarProperty Name="JobOwnerLocation" ColumnName="JobOwnerLocation" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="BaanProjectNum" ColumnName="BaanProjectNum" />
+          <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewGetSalesOrderReadyToShip">
+      <EntityTypeMapping TypeName="APQP_betaModel.ViewGetSalesOrderReadyToShip">
+        <MappingFragment StoreEntitySet="ViewGetSalesOrderReadyToShip">
+          <ScalarProperty Name="SO_Ln_PlnRecDate" ColumnName="SO_Ln_PlnRecDate" />
+          <ScalarProperty Name="BaanCompany" ColumnName="BaanCompany" />
+          <ScalarProperty Name="projplan" ColumnName="projplan" />
+          <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+          <ScalarProperty Name="BaanProjectNum" ColumnName="BaanProjectNum" />
+          <ScalarProperty Name="readytoship" ColumnName="readytoship" />
+          <ScalarProperty Name="Oper_ComplTotal" ColumnName="Oper_ComplTotal" />
+          <ScalarProperty Name="Item_PumpType" ColumnName="Item_PumpType" />
+          <ScalarProperty Name="Item_PumpLine" ColumnName="Item_PumpLine" />
+          <ScalarProperty Name="SO_PLS_Name" ColumnName="SO_PLS_Name" />
+          <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
+          <ScalarProperty Name="SO_Item" ColumnName="SO_Item" />
+          <ScalarProperty Name="MaxDelivDate" ColumnName="MaxDelivDate" />
+          <ScalarProperty Name="MinStartDate" ColumnName="MinStartDate" />
+          <ScalarProperty Name="SO_Ln_OpenAmount" ColumnName="SO_Ln_OpenAmount" />
+          <ScalarProperty Name="SO_CustomerName" ColumnName="SO_CustomerName" />
+          <ScalarProperty Name="SO_Project" ColumnName="SO_Project" />
+          <ScalarProperty Name="SO_QtyOpen" ColumnName="SO_QtyOpen" />
+          <ScalarProperty Name="ProdOrderNr" ColumnName="ProdOrderNr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sales_Orders">
+      <EntityTypeMapping TypeName="APQP_betaModel.Sales_Orders">
+        <MappingFragment StoreEntitySet="Sales_Orders">
+          <ScalarProperty Name="MaxDelivDate" ColumnName="MaxDelivDate" />
+          <ScalarProperty Name="MinStartDate" ColumnName="MinStartDate" />
+          <ScalarProperty Name="FirstInProcessOperation" ColumnName="FirstInProcessOperation" />
+          <ScalarProperty Name="FirstInProcessOperationMachineName" ColumnName="FirstInProcessOperationMachineName" />
+          <ScalarProperty Name="FirstInProcessOperationMachine" ColumnName="FirstInProcessOperationMachine" />
+          <ScalarProperty Name="Oper_ComplTotal" ColumnName="Oper_ComplTotal" />
+          <ScalarProperty Name="ProdOrder_QtyBal" ColumnName="ProdOrder_QtyBal" />
+          <ScalarProperty Name="ProdOrder_QtyRjc" ColumnName="ProdOrder_QtyRjc" />
+          <ScalarProperty Name="ProdOrder_QtyDlv" ColumnName="ProdOrder_QtyDlv" />
+          <ScalarProperty Name="ProdOrder_QtyOrd" ColumnName="ProdOrder_QtyOrd" />
+          <ScalarProperty Name="ProdOrder_ConfDate" ColumnName="ProdOrder_ConfDate" />
+          <ScalarProperty Name="ProdOrder_PlnDlvDate" ColumnName="ProdOrder_PlnDlvDate" />
+          <ScalarProperty Name="ProdOrder_PlnStrDate" ColumnName="ProdOrder_PlnStrDate" />
+          <ScalarProperty Name="ProdOrder_Route" ColumnName="ProdOrder_Route" />
+          <ScalarProperty Name="ProdOrder_Status" ColumnName="ProdOrder_Status" />
+          <ScalarProperty Name="ProdOrderNr" ColumnName="ProdOrderNr" />
+          <ScalarProperty Name="SO_Reference_B" ColumnName="SO_Reference_B" />
+          <ScalarProperty Name="SO_Reference_A" ColumnName="SO_Reference_A" />
+          <ScalarProperty Name="SO_GPS_Quote" ColumnName="SO_GPS_Quote" />
+          <ScalarProperty Name="SO_PLS_Name" ColumnName="SO_PLS_Name" />
+          <ScalarProperty Name="SO_PM_Name" ColumnName="SO_PM_Name" />
+          <ScalarProperty Name="SO_CustomerPO_Date" ColumnName="SO_CustomerPO_Date" />
+          <ScalarProperty Name="SO_CustomerPO" ColumnName="SO_CustomerPO" />
+          <ScalarProperty Name="SO_Currency" ColumnName="SO_Currency" />
+          <ScalarProperty Name="SO_Ln_OpenAmount" ColumnName="SO_Ln_OpenAmount" />
+          <ScalarProperty Name="SO_Price" ColumnName="SO_Price" />
+          <ScalarProperty Name="SO_Unit" ColumnName="SO_Unit" />
+          <ScalarProperty Name="SO_QtyOpen" ColumnName="SO_QtyOpen" />
+          <ScalarProperty Name="SO_QtyDlv" ColumnName="SO_QtyDlv" />
+          <ScalarProperty Name="SO_QtyOrd" ColumnName="SO_QtyOrd" />
+          <ScalarProperty Name="SO_Ln_ExpRevDate" ColumnName="SO_Ln_ExpRevDate" />
+          <ScalarProperty Name="SO_Ln_ExpShpDate" ColumnName="SO_Ln_ExpShpDate" />
+          <ScalarProperty Name="SO_Ln_OrigExpShpDate" ColumnName="SO_Ln_OrigExpShpDate" />
+          <ScalarProperty Name="SO_Ln_PlnRecDate" ColumnName="SO_Ln_PlnRecDate" />
+          <ScalarProperty Name="SO_Ln_PlnDlvDate" ColumnName="SO_Ln_PlnDlvDate" />
+          <ScalarProperty Name="SO_Date" ColumnName="SO_Date" />
+          <ScalarProperty Name="Item_PumpType" ColumnName="Item_PumpType" />
+          <ScalarProperty Name="Item_PumpLine" ColumnName="Item_PumpLine" />
+          <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
+          <ScalarProperty Name="SO_Item" ColumnName="SO_Item" />
+          <ScalarProperty Name="SO_Project" ColumnName="SO_Project" />
+          <ScalarProperty Name="SO_CustomerName" ColumnName="SO_CustomerName" />
+          <ScalarProperty Name="SO_CustomerCode" ColumnName="SO_CustomerCode" />
+          <ScalarProperty Name="SO_Sq" ColumnName="SO_Sq" />
+          <ScalarProperty Name="SO_Ln" ColumnName="SO_Ln" />
+          <ScalarProperty Name="SO_Nr" ColumnName="SO_Nr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

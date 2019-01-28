@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="APQP_betaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Assembly_Commitment">
+    <Key>
+      <PropertyRef Name="assembly_number" />
+    </Key>
+    <Property Name="assembly_number" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="final_buffer" Type="int" Nullable="false" />
+    <Property Name="assembly_days" Type="int" Nullable="false" />
+    <Property Name="machining_days" Type="int" Nullable="false" />
+    <Property Name="bom_date" Type="datetime" />
+    <Property Name="casting_date" Type="datetime" />
+    <Property Name="readytoship" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Locations">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ADGroup_Family" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="AD_Country" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="BaanCompany" Type="varchar" MaxLength="3" />
+  </EntityType>
+  <EntityType Name="PlanInfo">
+    <Key>
+      <PropertyRef Name="PlanId" />
+    </Key>
+    <Property Name="PlanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlanName" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Locked" Type="bit" />
+    <Property Name="LockedBy" Type="nvarchar" MaxLength="150" />
+    <Property Name="LockingModule" Type="nvarchar" MaxLength="50" />
+    <Property Name="CalId" Type="int" />
+    <Property Name="IsCompassPlan" Type="bit" />
+    <Property Name="CurrentVersion" Type="int" />
+    <Property Name="BaselineVer" Type="int" />
+    <Property Name="temp_BLV" Type="int" />
+    <Property Name="xEngSched" Type="bit" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+    <Property Name="LocationId" Type="int" />
+    <Property Name="UseHrs" Type="bit" />
+    <Property Name="MultiResponsible" Type="bit" />
+    <Property Name="CostTplId" Type="int" />
+    <Property Name="isShown" Type="bit" />
+    <Property Name="activeDirectoryPM" Type="nchar" MaxLength="20" />
+    <Property Name="showDashboard" Type="bit" />
+  </EntityType>
+  <EntityType Name="PlanInfo_Jobs">
+    <Key>
+      <PropertyRef Name="PlanId" />
+    </Key>
+    <Property Name="PlanId" Type="int" Nullable="false" />
+    <Property Name="BaanProjectNum" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ClassId" Type="int" Nullable="false" />
+    <Property Name="JobOwnerLocation" Type="int" Nullable="false" />
+    <Property Name="RemoteLocation" Type="int" />
+    <Property Name="RemoteProjectNum" Type="varchar" MaxLength="20" />
+    <Property Name="RemotePM" Type="nvarchar" MaxLength="50" />
+    <Property Name="EngSched" Type="bit" Nullable="false" />
+    <Property Name="IsBuyout" Type="bit" />
+    <Property Name="Def_resp_ProfileId" Type="int" />
+    <Property Name="ProjectType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Creator" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Sales_Orders">
+    <Key>
+      <PropertyRef Name="ProdOrderNr" />
+    </Key>
+    <Property Name="SO_Nr" Type="varchar" MaxLength="50" />
+    <Property Name="SO_Ln" Type="varchar" MaxLength="10" />
+    <Property Name="SO_Sq" Type="varchar" MaxLength="10" />
+    <Property Name="SO_CustomerCode" Type="varchar" MaxLength="25" />
+    <Property Name="SO_CustomerName" Type="varchar" MaxLength="60" />
+    <Property Name="SO_Project" Type="varchar" MaxLength="50" />
+    <Property Name="SO_Item" Type="varchar" MaxLength="50" />
+    <Property Name="Item_Description" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="Item_PumpLine" Type="varchar" MaxLength="50" />
+    <Property Name="Item_PumpType" Type="varchar" MaxLength="50" />
+    <Property Name="SO_Date" Type="datetime" />
+    <Property Name="SO_Ln_PlnDlvDate" Type="datetime" />
+    <Property Name="SO_Ln_PlnRecDate" Type="datetime" />
+    <Property Name="SO_Ln_OrigExpShpDate" Type="datetime" />
+    <Property Name="SO_Ln_ExpShpDate" Type="datetime" />
+    <Property Name="SO_Ln_ExpRevDate" Type="datetime" />
+    <Property Name="SO_QtyOrd" Type="varchar" MaxLength="10" />
+    <Property Name="SO_QtyDlv" Type="varchar" MaxLength="10" />
+    <Property Name="SO_QtyOpen" Type="varchar" MaxLength="10" />
+    <Property Name="SO_Unit" Type="varchar" MaxLength="10" />
+    <Property Name="SO_Price" Type="money" />
+    <Property Name="SO_Ln_OpenAmount" Type="money" />
+    <Property Name="SO_Currency" Type="varchar" MaxLength="15" />
+    <Property Name="SO_CustomerPO" Type="varchar" MaxLength="50" />
+    <Property Name="SO_CustomerPO_Date" Type="datetime" />
+    <Property Name="SO_PM_Name" Type="varchar" MaxLength="70" />
+    <Property Name="SO_PLS_Name" Type="varchar" MaxLength="70" />
+    <Property Name="SO_GPS_Quote" Type="varchar" MaxLength="50" />
+    <Property Name="SO_Reference_A" Type="varchar" MaxLength="50" />
+    <Property Name="SO_Reference_B" Type="varchar" MaxLength="50" />
+    <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProdOrder_Status" Type="varchar" MaxLength="25" />
+    <Property Name="ProdOrder_Route" Type="varchar" MaxLength="15" />
+    <Property Name="ProdOrder_PlnStrDate" Type="datetime" />
+    <Property Name="ProdOrder_PlnDlvDate" Type="datetime" />
+    <Property Name="ProdOrder_ConfDate" Type="datetime" />
+    <Property Name="ProdOrder_QtyOrd" Type="varchar" MaxLength="15" />
+    <Property Name="ProdOrder_QtyDlv" Type="varchar" MaxLength="15" />
+    <Property Name="ProdOrder_QtyRjc" Type="varchar" MaxLength="15" />
+    <Property Name="ProdOrder_QtyBal" Type="varchar" MaxLength="15" />
+    <Property Name="Oper_ComplTotal" Type="varchar" MaxLength="15" />
+    <Property Name="FirstInProcessOperationMachine" Type="varchar" MaxLength="50" />
+    <Property Name="FirstInProcessOperationMachineName" Type="varchar" MaxLength="50" />
+    <Property Name="FirstInProcessOperation" Type="varchar" MaxLength="15" />
+    <Property Name="MinStartDate" Type="datetime" Nullable="false" />
+    <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewGetSalesOrderReadyToShip">
+    <Key>
+      <PropertyRef Name="ProdOrderNr" />
+      <PropertyRef Name="SO_QtyOpen" />
+      <PropertyRef Name="SO_Project" />
+      <PropertyRef Name="SO_CustomerName" />
+      <PropertyRef Name="SO_Ln_OpenAmount" />
+      <PropertyRef Name="MinStartDate" />
+      <PropertyRef Name="MaxDelivDate" />
+      <PropertyRef Name="SO_Item" />
+      <PropertyRef Name="Item_Description" />
+      <PropertyRef Name="SO_PLS_Name" />
+      <PropertyRef Name="Item_PumpLine" />
+      <PropertyRef Name="Item_PumpType" />
+      <PropertyRef Name="Oper_ComplTotal" />
+      <PropertyRef Name="SO_Ln_PlnRecDate" />
+    </Key>
+    <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_QtyOpen" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_Project" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_Ln_OpenAmount" Type="money" Nullable="false" />
+    <Property Name="MinStartDate" Type="datetime" Nullable="false" />
+    <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
+    <Property Name="SO_Item" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Item_Description" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="SO_PLS_Name" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="Item_PumpLine" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Item_PumpType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Oper_ComplTotal" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="readytoship" Type="datetime" />
+    <Property Name="BaanProjectNum" Type="varchar" MaxLength="20" />
+    <Property Name="PlanName" Type="nvarchar" MaxLength="30" />
+    <Property Name="projplan" Type="int" />
+    <Property Name="BaanCompany" Type="varchar" MaxLength="3" />
+    <Property Name="SO_Ln_PlnRecDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="APQP_betaModelStoreContainer">
+    <EntitySet Name="Assembly_Commitment" EntityType="Self.Assembly_Commitment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlanInfo" EntityType="Self.PlanInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlanInfo_Jobs" EntityType="Self.PlanInfo_Jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales_Orders" EntityType="Self.Sales_Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewGetSalesOrderReadyToShip" EntityType="Self.ViewGetSalesOrderReadyToShip" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewGetSalesOrderReadyToShip].[ProdOrderNr] AS [ProdOrderNr], 
+    [ViewGetSalesOrderReadyToShip].[SO_QtyOpen] AS [SO_QtyOpen], 
+    [ViewGetSalesOrderReadyToShip].[SO_Project] AS [SO_Project], 
+    [ViewGetSalesOrderReadyToShip].[SO_CustomerName] AS [SO_CustomerName], 
+    [ViewGetSalesOrderReadyToShip].[SO_Ln_OpenAmount] AS [SO_Ln_OpenAmount], 
+    [ViewGetSalesOrderReadyToShip].[MinStartDate] AS [MinStartDate], 
+    [ViewGetSalesOrderReadyToShip].[MaxDelivDate] AS [MaxDelivDate], 
+    [ViewGetSalesOrderReadyToShip].[SO_Item] AS [SO_Item], 
+    [ViewGetSalesOrderReadyToShip].[Item_Description] AS [Item_Description], 
+    [ViewGetSalesOrderReadyToShip].[SO_PLS_Name] AS [SO_PLS_Name], 
+    [ViewGetSalesOrderReadyToShip].[Item_PumpLine] AS [Item_PumpLine], 
+    [ViewGetSalesOrderReadyToShip].[Item_PumpType] AS [Item_PumpType], 
+    [ViewGetSalesOrderReadyToShip].[Oper_ComplTotal] AS [Oper_ComplTotal], 
+    [ViewGetSalesOrderReadyToShip].[readytoship] AS [readytoship], 
+    [ViewGetSalesOrderReadyToShip].[BaanProjectNum] AS [BaanProjectNum], 
+    [ViewGetSalesOrderReadyToShip].[PlanName] AS [PlanName], 
+    [ViewGetSalesOrderReadyToShip].[projplan] AS [projplan], 
+    [ViewGetSalesOrderReadyToShip].[BaanCompany] AS [BaanCompany], 
+    [ViewGetSalesOrderReadyToShip].[SO_Ln_PlnRecDate] AS [SO_Ln_PlnRecDate]
+    FROM [dbo].[ViewGetSalesOrderReadyToShip] AS [ViewGetSalesOrderReadyToShip]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

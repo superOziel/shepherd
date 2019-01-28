@@ -1,0 +1,441 @@
+﻿
+<div class="d-flex justify-content-center" id="loading">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div id="commitment_info" style="display:none">
+    <div class="row">
+        <div class="col-sm-10">
+            <b>Assembly Order: @ViewBag.Assembly / Item #: @ViewBag.SO_Item / @ViewBag.Item_Description</b> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div style="text-align: left">   
+                <b>Project #: @ViewBag.SO_Project</b>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 text-align-right">
+        <b><a href="#" id="view">View</a></b>
+    </div> 
+</div>
+
+<div class="row" id="headers" style="display: none">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-3 text-align-center bold">Start</div>
+    <div class="col-sm-2">&nbsp;</div>
+    <div class="col-sm-3 text-align-center bold">End</div>
+</div>
+
+<div class="card" id="commitment_capture" style="display: none">
+    <ul class="list-group list-group-flush no-marginbottom" >
+        <li class="list-group-item" style="background-color:#ddd">
+            <div class="col-sm-4 text-align-right bold">Casting Release: </div>
+            <div class="col-sm-5"></div>
+            <div class="col-sm-3">
+                <div class='input-group date' id='castingdate'>
+                    <input type='text' class="form-control" id="castingdateval" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-4 margin-top-10 text-align-right bold">Required BOM Complete:</div>
+            <div class="col-sm-5 margin-top-10"></div>
+            <div class="col-sm-3 margin-top-10">
+                <div class='input-group date' id='bomdate'>
+                    <input type='text' class="form-control" id="bomdatevalue" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item" style="background-color:#c0c1c1">
+            <div class="col-sm-4 bold text-align-right"> Boyouts & Remaining Parts: </div>
+            <div class="col-sm-5"> &nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="boyoutdate"></label>&nbsp;</div>
+
+            <div class="col-sm-4 bold text-align-right">Fabrications: </div>
+            <div class="col-sm-5"> &nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="fabrications"></label>&nbsp;</div>
+
+            <div class="col-sm-4 bold text-align-right">Foundry: </div>
+            <div class="col-sm-5"> &nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="foundry"></label>&nbsp;</div>
+
+            <div class="col-sm-4 bold text-align-right">Release to Manufacturing: </div>
+            <div class="col-sm-5"> &nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="manufacturing"></label>&nbsp;</div>
+
+            <div class="col-sm-4 bold text-align-right">Machining: </div>
+            <div class="col-sm-3 text-align-center"> <label id="machiningstart"></label>&nbsp;</div>
+            <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="machining_days" placeholder="Days" disabled>&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="machiningend"></label>&nbsp;</div>
+
+        </li>
+        <li class="list-group-item" style="background-color:#b3c3d0">
+            <div class="col-sm-4 bold text-align-right">Componets: </div>
+            <div class="col-sm-5"> &nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="componentdate"></label>&nbsp;</div>
+           
+            <div class="col-sm-12 no-padding-sides" >
+                <div class="col-sm-4 bold text-align-right">Assembly: </div>
+                <div class="col-sm-3 text-align-center"> <label id="assemblydayscalculated"></label>&nbsp;</div>
+                <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="assembly_days" placeholder="Days" disabled>&nbsp;</div>
+                <div class="col-sm-3 text-align-center"> <label id="assemblystart"></label>&nbsp;</div>
+            </div>
+            
+            <div style="background-color: blue">
+                <div class="col-sm-4 bold text-align-right">Ready to ship: </div>
+                <div class="col-sm-5"> &nbsp;</div>
+                <div class="col-sm-3 text-align-center"> <label id="readytoship"></label>&nbsp;</div>
+            </div>
+            
+
+            <div class="col-sm-4 bold text-align-right">Buffer: </div>
+            <div class="col-sm-3 text-align-center"> <label id="finalbuffercalculated"></label>&nbsp;</div>
+            <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="final_buffer" placeholder="Days" >&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label>@ViewBag.MaxDelivDateStr</label>&nbsp;</div>
+
+
+        </li>
+  </ul>
+</div>
+
+@*<table class="table table-bordered" id="commitment_info" style="display:none">
+    <thead class="thead-light">
+        <tr>
+            <th># Assembly</th>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Proyect</th>
+            <th>View</th>
+            <th>MaxDelivDateStr</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>@ViewBag.Assembly</th>
+            <th>@ViewBag.SO_Item</th>
+            <th>@ViewBag.Item_Description</th>
+            <th>@ViewBag.SO_Project</th>
+            <th></th>
+            <th>@ViewBag.MaxDelivDateStr</th>
+        </tr>
+    </tbody>
+</table>*@
+
+@*<div id="commitment_capture" style="display:none">
+    <form>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label for="final_buffer" class="col-sm-4 col-form-label">Final buffer</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="final_buffer" placeholder="final buffer">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class=" col-form-label" id="finalbuffercalculated" ></label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="machining_days" class="col-sm-4 col-form-label">Machining days</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="machining_days" placeholder="machining days" disabled>
+                    </div>
+                </div>
+            
+                <div class="form-group row">
+                    <label for="casting_date" class="col-sm-4 col-form-label">Casting days</label>
+                    <div class="col-sm-7">
+                        <div class='input-group date' id='castingdate'>
+                            <input type='text' class="form-control" id="castingdateval" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        
+            <div class="col-sm-6">   
+                <div class="form-group row">
+                    <label for="assembly_days" class="col-sm-4 col-form-label">Assembly days</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="assembly_days" placeholder="assembly days" disabled>
+                    </div>
+                    <div class="col-sm-4">
+                        <label id="assemblydayscalculated" class=" col-form-label"></label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="bom_days" class="col-sm-4 col-form-label">Bom date</label>
+                    <div class="col-sm-7">
+                        <div class='input-group date' id='bomdate'>
+                            <input type='text' class="form-control" id="bomdatevalue"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>                           
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row" id="readytoshipdiv">
+                    <label for="" class="col-sm-5 col-form-label">Ready to ship:</label>
+                    <label class="col-sm-7 col-form-label" id="readytoship"></label>
+                </div>
+
+                <div class="form-group row" id="boyoutdatediv">
+                    <label for="" class="col-sm-5 col-form-label">Buyout date:</label>
+                    <label class="col-sm-7 col-form-label" id="boyoutdate"></label>
+                </div>
+
+                <div class="form-group row" id="fabricationsdiv">
+                    <label for="" class="col-sm-5 col-form-label">Fabrications:</label>
+                    <label class="col-sm-7 col-form-label" id="fabrications"></label>
+                </div>
+
+                <div class="form-group row" id="foundrydiv">
+                    <label for="" class="col-sm-5 col-form-label">Foundry start:</label>
+                    <label class="col-sm-7 col-form-label" id="foundry"></label>
+                </div>
+
+                <div class="form-group row" id="manufacturingdiv">
+                    <label for="" class="col-sm-5 col-form-label">Release to manufacturing:</label>
+                    <label class="col-sm-7 col-form-label" id="manufacturing"></label>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group row" id="componentdatediv">
+                    <label for="" class="col-sm-5 col-form-label">Component date:</label>
+                    <label class="col-sm-7 col-form-label" id="componentdate"></label>
+                </div>
+
+                <div class="form-group row" id="remainingpartdiv">
+                    <label for="" class="col-sm-5 col-form-label">Remaining Parts:</label>
+                    <label class="col-sm-7 col-form-label" id="remainingpart"></label>
+                </div>
+
+                <div class="form-group row" id="machiningenddiv">
+                    <label for="" class="col-sm-5 col-form-label">End of machining:</label>
+                    <label class="col-sm-7 col-form-label" id="machiningend"></label>
+                </div>
+
+                <div class="form-group row" id="machiningstartdiv">
+                    <label for="" class="col-sm-5 col-form-label">Start to machining:</label>
+                    <label class="col-sm-7 col-form-label" id="machiningstart"></label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>*@
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.spinner-border').hide();
+        $('#commitment_info').show();
+        $('#commitment_capture').show();
+        $('#headers').show();
+
+        $('#bomdate').datetimepicker({
+            format: 'MM/DD/YYYY',
+        });
+
+        $('#castingdate').datetimepicker({
+            format: 'MM/DD/YYYY',
+        });
+
+        var assembly_order;
+        var final_buffer;
+        var assembly_days;
+        var componentdate;
+        var boyout_remaining;
+        var machining_start;
+        var MaxDelivDateStr = moment('@ViewBag.MaxDelivDateStr');
+        var assemblydayscalculated;
+
+        $('#readytoshipdiv').hide();
+        $('#boyoutdatediv').hide();
+        $('#fabricationsdiv').hide();
+        $('#foundrydiv').hide();
+        $('#manufacturingdiv').hide();
+
+        $('#componentdatediv').hide();
+        $('#remainingpartdiv').hide();
+        $('#machiningenddiv').hide();
+        $('#machiningstartdiv').hide();
+
+        $('#final_buffer').change(function (data) {
+            calculateFinalBuffer();
+
+            if ($('#assembly_days').val()) {
+                calculateAssemblyDays();
+            }
+
+            if ($('#machining_days').val()) {
+                calculateMachiningStart();
+            }
+        });
+
+        $('#assembly_days').change(function (data) {
+            calculateAssemblyDays();
+
+            if ($("#machining_days").val()) {
+                calculateMachiningStart();
+            }
+        });
+
+        $('#machining_days').change(function () {
+            //Machining start
+            calculateMachiningStart();
+        });
+        assembly_order = '@ViewBag.Assembly';
+        getCommitment();
+
+        function getCommitment() {
+            $.ajax({
+                type: 'GET',
+                url: '/Commitment/GetCommitment?assembly_number=' + assembly_order,
+                contentType: 'application/json; charset=utf-8',
+                success: function (commitment) {
+                    $("#final_buffer").val(commitment.final_buffer);
+                    $("#assembly_days").val(commitment.assembly_days);
+                    $("#machining_days").val(commitment.machining_days);
+                    $('#bomdate').data({ date: moment(commitment.bom_date).format('MM/DD/YYYY') });
+                    $('#castingdate').data({ date: moment(commitment.casting_date).format('MM/DD/YYYY') });
+                    $('#bomdatevalue').val(moment(commitment.bom_date).format('MM/DD/YYYY'));
+                    $('#castingdateval').val(moment(commitment.casting_date).format('MM/DD/YYYY'));
+
+                    calculateFinalBuffer();
+                    calculateAssemblyDays();
+                    calculateMachiningStart();
+                }
+            });
+        }
+
+        function calculateFinalBuffer() {
+            var final_buffer_input = $("#final_buffer").val();
+            var MaxDelivDateStrDay = moment('@ViewBag.MaxDelivDateStr');
+            var final_buffer_local = MaxDelivDateStrDay.subtract(parseInt(final_buffer_input), 'days').format('MM/DD/YYYY');
+            final_buffer = checkDomingo(final_buffer_local);
+            $('#finalbuffercalculated').text(final_buffer);
+            $('#assemblystart').text(final_buffer);
+
+            //Ready to ship que es final buffer + 1 día
+            calculateReadyToShip(final_buffer);
+            $("#assembly_days").removeAttr('disabled');
+        }
+
+        function calculateAssemblyDays(assembly_days) {
+            var assembly_days = $('#assembly_days').val();
+            assemblydayscalculated = moment(final_buffer).subtract(parseInt(assembly_days), 'days').format('MM/DD/YYYY');
+            assemblydayscalculated = checkDomingo(assemblydayscalculated);
+
+            $('#assemblydayscalculated').text(assemblydayscalculated);
+            $("#machining_days").removeAttr('disabled');
+            //Component date día antes de comenzar ensamble
+            calculateComponentDate();
+
+            //Boyout un dia antes de component date
+            calculateBoyoutDate(componentdate);
+        }
+
+        function calculateReadyToShip(final_buffer) {
+            var date = moment(final_buffer).add(1, 'days').format('MM/DD/YYYY');
+            $('#readytoship').text(checkDomingo(date));
+            $('#readytoshipdiv').show();
+        }
+
+        function calculateComponentDate() {
+            componentdate = moment(assemblydayscalculated).subtract(1, 'days').format('MM/DD/YYYY');
+            componentdate = checkDomingo(componentdate)
+            $('#machiningend').text(componentdate);
+            $('#componentdate').text(componentdate);
+            $('#componentdatediv').show();
+            $('#machiningenddiv').show();
+
+        }
+
+        function calculateBoyoutDate() {
+            boyout_remaining = moment(componentdate).subtract(1, 'days').format('MM/DD/YYYY');
+            $('#boyoutdate').text(checkDomingo(boyout_remaining));
+            $('#remainingpart').text(checkDomingo(boyout_remaining));
+            $('#fabrications').text(checkDomingo(boyout_remaining));
+
+            $('#boyoutdatediv').show();
+            $('#remainingpartdiv').show();
+            $('#fabricationsdiv').show();
+        }
+
+        //Se inicia fundicion dos dias antes que le maquinado.
+        function calculateFoundryStart() {
+            var foundry = moment(machiningstart).subtract(2, 'days').format('MM/DD/YYYY');
+            foundry = checkDomingo(foundry);
+            $('#foundry').text(foundry);
+            $('#foundrydiv').show();
+        }
+
+        function calculateMachiningStart() {
+            var machining_days = $("#machining_days").val();
+            machiningstart = moment(componentdate).subtract(machining_days, 'days').format('MM/DD/YYYY');
+            machiningstart = checkDomingo(machiningstart);
+
+            //foundry dos dias antes del inicio de maquinado
+            calculateFoundryStart();
+            //Release to manufacturing un dia antes del inicio de maquinado(machiningstart)
+            calculateManufacturingDate();
+            $('#machiningstart').text(machiningstart);
+            $('#machiningstartdiv').show();
+        }
+
+        function calculateManufacturingDate() {
+            var manufacturing = moment(machiningstart).subtract(1, 'days').format('MM/DD/YYYY');
+            manufacturing = checkDomingo(manufacturing);
+            $('#manufacturing').text(manufacturing);
+            $('#manufacturingdiv').show();
+        }
+
+        function checkDomingo(date) {
+            var start = moment(date);
+
+            if (start.isoWeekday() === 7) {
+                return start.subtract(1, 'days').format('MM/DD/YYYY');
+            } else {
+                return date;
+            }
+        }
+
+        $("#view").on('click', function (){
+            $.ajax({
+                type: 'GET',
+                url: '/Commitment/getSaleOrder?assembly_number=' + assembly_order,
+                contentType: 'application/json; charset=utf-8',
+                success: function (item) {
+                    var W = screen.width - 220;
+                    var H = screen.height - 300;
+                    var xpos = 100;
+                    var ypos = 100;
+                    window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "popup", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
+                }
+            });
+        });
+    });
+</script>

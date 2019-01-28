@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+
+<h2>Report - @ViewBag.titulo  </h2>
+
+
+<ul>
+@foreach (var x in @ViewBag.tabla)
+    {<li>@x</li>}
+</ul>

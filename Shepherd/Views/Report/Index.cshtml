@@ -1,0 +1,338 @@
+﻿<span class="title">@ViewBag.titulo  </span>
+
+<div class="card card-header-ruh">
+  <div class="card-body">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="col-sm-10">
+                  <div style="display: flex;width: 25%">
+                      <div style="width:15%" >
+                          <span><b>Job: </b></span>
+
+                      </div>
+                      <div style="width:60%">
+                          <select class="form-control backg" id="locations"   >
+                              <option value="ALL" selected="true" >ALL </option>
+                          </select>
+                      </div>
+
+                      <div style="width:60%;margin-left:10px" >
+                          <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
+                      </div>
+                  </div>
+              </div> 
+              <div class="col-sm-2 font-large">
+                 FCST OTD: <span id="forecast_percent" class="font-large"></span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+    
+
+<div class="" style="background: #fcfcfc">
+    <table id="table_id" class="table table-bordered display">
+      <thead>
+        <tr>
+            <th>Assembly Production Order Number</th>
+            <th>Commitment</th>
+            <th>Details</th>
+            <th>Amount of pieces</th>
+            <th>View</th>  
+            <th>Project Number </th>
+            <th>Customer Name</th>
+            <th>Amount</th>
+            <th>Init Date</th>
+            <th>Planned Receipt Date</th>
+            <th>End Date</th>
+            <th>SO item</th>
+            <th>Item descripcion</th>
+            <th>PLS Name</th>
+            <th>Product Line</th>
+            <th>Pump Type</th>
+            <th>Operation Number</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+  <!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel"></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-align-left">Notice</h4>
+            <button type="button" class="close hide" id="closeConfirm" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-align-center" >
+            <h5>Commitment correctly <span id="comitment_saved"></span></h5>
+        </div>
+          
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var assembly_order;
+        var table_active = 0; // para el %
+        var total_items = 0;
+        $('#table_id').hide();
+
+        $.ajax({
+            url: "/Report/getLocations",
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                $.each(response, function (key, value) {
+                    $('#locations').append($("<option></option>")
+                        .attr('value', value.BaanCompany)
+                        .text((value.Location)));
+                });
+            }
+        });
+        getSalesOrders();
+        function getSalesOrders(job) {
+            if (job == undefined)
+                job = "ALL";
+            $.ajax({
+                url: "/Report/getSalesOrders?job=" + job,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    total_items = data.length;
+                    $.each(data, function (index, item) {
+                        item['View'] = "View";
+                        item['Details'] = '';
+                        item['Commitment'] = '';
+                        item['start_date'] = {
+                            "display": item.MinStartDateStr,
+                            "timestamp": moment(item.MinStartDateStr).format("YYYY/MM/DD")
+                        }
+                    });
+                    table = $('#table_id').DataTable({
+                        data: data,
+                        columns: [
+                            { data: 'ProdOrderNr' },
+                            { data: 'Commitment', render: editIcon },
+                            { data: 'Details'},
+                            { data: 'SO_QtyOpen' },
+                            { data: 'View' },
+                            { data: 'SO_Project' },
+                            { data: 'SO_CustomerName' },
+                            { data: 'SO_Ln_OpenAmount_Str' },
+                            {
+                                data: {
+                                    _: "start_date.display",
+                                    sort: "start_date.timestamp"
+                                }
+                            },
+                            { data: 'SO_Ln_PlnRecDateStr' },
+                            { data: 'MaxDelivDateStr' },
+                            { data: 'SO_Item' },
+                            { data: 'Item_Description' },
+                            { data: 'SO_PLS_Name' },
+                            { data: 'Item_PumpLine' },
+                            { data: 'Item_PumpType' },
+                            { data: 'Oper_ComplTotal' }
+                        ],
+                        columnDefs: [
+                            { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16 ] } //This part is ok now
+                        ],
+                        createdRow: function (row, data, dataIndex) {
+                            if (data.ReadyToShip) {
+                                console.log("Tiene ready compromiso ", data)
+                            }
+
+                            if (beforeToday(data.MinStartDateStr)) {
+                                $(row).addClass('table-active');
+                                table_active += 1;
+
+                                if (hasNotStarted(data.Oper_ComplTotal)) {
+                                    $(row).find('td').eq(16).addClass('bg-danger');
+                                }
+
+                                if (data.isBiggerThanPRD) {
+                                    $(row).find('td').eq(8).addClass('bg-danger');
+                                }
+
+                                if (data.isBetweenMaxDateAndPRD) {
+                                    $(row).find('td').eq(8).addClass('bg-warning');
+                                }
+                            }
+                        },                        
+                        order: [[8, "asc"]],
+                        paging: false,
+                        orderClasses: false, //false = remove class shorting 1
+                        ordering: true,
+                        searching: true,
+                        //fixedHeader: {
+                        //    header: true,
+                        //},
+                        //bLengthChange: false,
+                        //Filter: false,
+                        //Info: false
+                        //paging: true
+                    });
+                    $("#table_id").show();
+                    $("#table_id_wrapper").removeClass("container-fluid");
+                    getPercent();
+
+                },
+                error: function (error) {
+                }
+            });
+        }
+
+        var editIcon = function (data, type, row) {
+            console.log("Icon data: ", data, "type: ", type, "row: ", row);
+            if (type === 'display') {
+                if (row.ReadyToShip) {
+                    return data + '<ion-icon name="checkmark">';
+                } else {
+                    return data + '</ion-icon> <ion-icon name="help"></ion-icon>';
+                }
+            }
+            return data;
+        };
+
+        $("#table_id tbody").on("click", "td", function () {
+            
+            if ($(this).index() === 0) {
+                openModal($(this)[0].textContent);
+                var ajj;
+                $.map(table.rows(this).data(), function (item) {
+                    assembly_order = item.ProdOrderNr;
+                    var desc = item.Item_Description.replace(/\s/g, '%20');
+                    var url = '/Commitment/Index?item.ProdOrderNr=' + item.ProdOrderNr + '&item.SO_Item=' + item.SO_Item + '&item.Item_Description=' + desc + '&item.SO_Project=' + item.SO_Project + '&item.MaxDelivDateStr=' + item.MaxDelivDateStr;
+                    $('#modal-body').load(url);
+                });
+            } else if ($(this).index() === 2) {
+                $.map(table.rows(this).data(), function (item) {
+                    var W = screen.width - 220;
+                    var H = screen.height - 300;
+                    var xpos = 100;
+                    var ypos = 100;
+                    window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "popup", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
+                });
+            }
+        });
+
+        function openModal(OrderNumber) {
+            $('#exampleModalLabel').text('Capture of commitment');
+            $("#exampleModal").modal({
+                //backdrop: "static"
+            });
+        }
+
+        function beforeToday(initDay) {
+            var d = new Date();
+            var date1 = new Date((d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear());
+            var date2 = new Date(initDay);
+
+            var timeDiff = date2.getTime() - date1.getTime();
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (diffDays < 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function hasNotStarted(operationCompleteTotal) {
+            if (operationCompleteTotal.charAt(0) == "0") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $("#save").on('click', function (event) {
+            event.stopImmediatePropagation();
+            var assemblyObj = {
+                assembly_number: assembly_order,
+                final_buffer: $("#final_buffer").val(),
+                assembly_days: $("#assembly_days").val(),
+                machining_days: $("#machining_days").val(),
+                bom_date: $('#bomdate').data('date'),
+                casting_date: $('#castingdate').data('date'),
+                readytoship: $('#readytoship')[0].innerHTML
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Commitment/SaveCommitment',
+                data: assemblyObj,
+                success: function (data) {
+                    //$('#exampleModal').modal().hide();
+                    
+                    if (data) {
+                        $("#comitment_saved").text('saved');
+                    } else {
+                        $("#comitment_saved").text('updated');
+                    }
+
+                    $("#exampleModal #close").click();
+
+                    $("#confirmModal").modal();
+
+                    setTimeout(function () {
+                        $("#confirmModal #closeConfirm").click();
+                    }, 2000);
+                },
+                dataType: 'json',
+
+            });
+        });
+
+        function openConfirmModal() {
+            $("#confirmModal").modal({
+                
+            });
+        }
+
+        //o$('#table_id').DataTable();
+        $('#myInputTextField').keyup(function () {
+            table.search($(this).val()).draw();
+        })
+
+        $("#locations").on('change', function (ev) {
+            $("#table_id").hide();
+            table.destroy();
+            getSalesOrders($(this).val());
+        });
+
+        function getPercent() {
+            $('#forecast_percent').text(((table_active * 100) / total_items).toFixed(2) + " %");
+        }
+    });
+</script>
