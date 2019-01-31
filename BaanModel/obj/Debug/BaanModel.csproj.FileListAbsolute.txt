@@ -12,3 +12,17 @@ C:\Users\oiguzman\documents\visual studio 2012\Projects\Shepherd\BaanModel\bin\D
 C:\Users\oiguzman\documents\visual studio 2012\Projects\Shepherd\BaanModel\bin\Debug\Antlr3.Runtime.pdb
 C:\Users\oiguzman\documents\visual studio 2012\Projects\Shepherd\BaanModel\bin\Debug\Newtonsoft.Json.xml
 C:\Users\oiguzman\documents\visual studio 2012\Projects\Shepherd\BaanModel\bin\Debug\System.Web.Optimization.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\BaanModel.dll.config
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\BaanModel.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\BaanModel.pdb
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\Antlr3.Runtime.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\Newtonsoft.Json.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\System.Web.Optimization.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\WebGrease.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\Antlr3.Runtime.pdb
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\Newtonsoft.Json.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\bin\Debug\System.Web.Optimization.xml
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\obj\Debug\BaanModel.csprojResolveAssemblyReference.cache
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\obj\Debug\BaanModel.dll
+C:\Users\oiguzman\Documents\ShepherSourceTree\BaanModel\obj\Debug\BaanModel.pdb

@@ -14,26 +14,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Sales_Orders">
-      <EntityTypeMapping TypeName="APQP_betaModel.Sales_Orders">
-        <MappingFragment StoreEntitySet="Sales_Orders">
-          <ScalarProperty Name="MaxDelivDate" ColumnName="MaxDelivDate" />
-          <ScalarProperty Name="MinStartDate" ColumnName="MinStartDate" />
-          <ScalarProperty Name="Oper_ComplTotal" ColumnName="Oper_ComplTotal" />
-          <ScalarProperty Name="Item_PumpType" ColumnName="Item_PumpType" />
-          <ScalarProperty Name="Item_PumpLine" ColumnName="Item_PumpLine" />
-          <ScalarProperty Name="SO_PLS_Name" ColumnName="SO_PLS_Name" />
-          <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
-          <ScalarProperty Name="SO_Item" ColumnName="SO_Item" />
-          <ScalarProperty Name="SO_Ln_PlnRecDate" ColumnName="SO_Ln_PlnRecDate" />
-          <ScalarProperty Name="SO_Ln_OpenAmount" ColumnName="SO_Ln_OpenAmount" />
-          <ScalarProperty Name="SO_CustomerName" ColumnName="SO_CustomerName" />
-          <ScalarProperty Name="SO_Project" ColumnName="SO_Project" />
-          <ScalarProperty Name="SO_QtyOpen" ColumnName="SO_QtyOpen" />
-          <ScalarProperty Name="ProdOrderNr" ColumnName="ProdOrderNr" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Locations">
       <EntityTypeMapping TypeName="APQP_betaModel.Locations">
         <MappingFragment StoreEntitySet="Locations">
@@ -88,9 +68,63 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Sales_Orders">
+      <EntityTypeMapping TypeName="APQP_betaModel.Sales_Orders">
+        <MappingFragment StoreEntitySet="Sales_Orders">
+          <ScalarProperty Name="HasChangedPRD" ColumnName="HasChangedPRD" />
+          <ScalarProperty Name="MaxDelivDate" ColumnName="MaxDelivDate" />
+          <ScalarProperty Name="MinStartDate" ColumnName="MinStartDate" />
+          <ScalarProperty Name="FirstInProcessOperation" ColumnName="FirstInProcessOperation" />
+          <ScalarProperty Name="FirstInProcessOperationMachineName" ColumnName="FirstInProcessOperationMachineName" />
+          <ScalarProperty Name="FirstInProcessOperationMachine" ColumnName="FirstInProcessOperationMachine" />
+          <ScalarProperty Name="Oper_ComplTotal" ColumnName="Oper_ComplTotal" />
+          <ScalarProperty Name="ProdOrder_QtyBal" ColumnName="ProdOrder_QtyBal" />
+          <ScalarProperty Name="ProdOrder_QtyRjc" ColumnName="ProdOrder_QtyRjc" />
+          <ScalarProperty Name="ProdOrder_QtyDlv" ColumnName="ProdOrder_QtyDlv" />
+          <ScalarProperty Name="ProdOrder_QtyOrd" ColumnName="ProdOrder_QtyOrd" />
+          <ScalarProperty Name="ProdOrder_ConfDate" ColumnName="ProdOrder_ConfDate" />
+          <ScalarProperty Name="ProdOrder_PlnDlvDate" ColumnName="ProdOrder_PlnDlvDate" />
+          <ScalarProperty Name="ProdOrder_PlnStrDate" ColumnName="ProdOrder_PlnStrDate" />
+          <ScalarProperty Name="ProdOrder_Route" ColumnName="ProdOrder_Route" />
+          <ScalarProperty Name="ProdOrder_Status" ColumnName="ProdOrder_Status" />
+          <ScalarProperty Name="ProdOrderNr" ColumnName="ProdOrderNr" />
+          <ScalarProperty Name="SO_Reference_B" ColumnName="SO_Reference_B" />
+          <ScalarProperty Name="SO_Reference_A" ColumnName="SO_Reference_A" />
+          <ScalarProperty Name="SO_GPS_Quote" ColumnName="SO_GPS_Quote" />
+          <ScalarProperty Name="SO_PLS_Name" ColumnName="SO_PLS_Name" />
+          <ScalarProperty Name="SO_PM_Name" ColumnName="SO_PM_Name" />
+          <ScalarProperty Name="SO_CustomerPO_Date" ColumnName="SO_CustomerPO_Date" />
+          <ScalarProperty Name="SO_CustomerPO" ColumnName="SO_CustomerPO" />
+          <ScalarProperty Name="SO_Currency" ColumnName="SO_Currency" />
+          <ScalarProperty Name="SO_Ln_OpenAmount" ColumnName="SO_Ln_OpenAmount" />
+          <ScalarProperty Name="SO_Price" ColumnName="SO_Price" />
+          <ScalarProperty Name="SO_Unit" ColumnName="SO_Unit" />
+          <ScalarProperty Name="SO_QtyOpen" ColumnName="SO_QtyOpen" />
+          <ScalarProperty Name="SO_QtyDlv" ColumnName="SO_QtyDlv" />
+          <ScalarProperty Name="SO_QtyOrd" ColumnName="SO_QtyOrd" />
+          <ScalarProperty Name="SO_Ln_ExpRevDate" ColumnName="SO_Ln_ExpRevDate" />
+          <ScalarProperty Name="SO_Ln_ExpShpDate" ColumnName="SO_Ln_ExpShpDate" />
+          <ScalarProperty Name="SO_Ln_OrigExpShpDate" ColumnName="SO_Ln_OrigExpShpDate" />
+          <ScalarProperty Name="SO_Ln_PlnRecDate" ColumnName="SO_Ln_PlnRecDate" />
+          <ScalarProperty Name="SO_Ln_PlnDlvDate" ColumnName="SO_Ln_PlnDlvDate" />
+          <ScalarProperty Name="SO_Date" ColumnName="SO_Date" />
+          <ScalarProperty Name="Item_PumpType" ColumnName="Item_PumpType" />
+          <ScalarProperty Name="Item_PumpLine" ColumnName="Item_PumpLine" />
+          <ScalarProperty Name="Item_Description" ColumnName="Item_Description" />
+          <ScalarProperty Name="SO_Item" ColumnName="SO_Item" />
+          <ScalarProperty Name="SO_Project" ColumnName="SO_Project" />
+          <ScalarProperty Name="SO_CustomerName" ColumnName="SO_CustomerName" />
+          <ScalarProperty Name="SO_CustomerCode" ColumnName="SO_CustomerCode" />
+          <ScalarProperty Name="SO_Sq" ColumnName="SO_Sq" />
+          <ScalarProperty Name="SO_Ln" ColumnName="SO_Ln" />
+          <ScalarProperty Name="SO_Nr" ColumnName="SO_Nr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ViewGetSalesOrderReadyToShip">
       <EntityTypeMapping TypeName="APQP_betaModel.ViewGetSalesOrderReadyToShip">
         <MappingFragment StoreEntitySet="ViewGetSalesOrderReadyToShip">
+          <ScalarProperty Name="HasChangedPRD" ColumnName="HasChangedPRD" />
           <ScalarProperty Name="SO_Ln_PlnRecDate" ColumnName="SO_Ln_PlnRecDate" />
           <ScalarProperty Name="BaanCompany" ColumnName="BaanCompany" />
           <ScalarProperty Name="projplan" ColumnName="projplan" />

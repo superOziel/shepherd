@@ -26,7 +26,7 @@ namespace Shepherd.Models
         public string Item_PumpType { get; set; }
         public Nullable<System.DateTime> SO_Date { get; set; }
         public Nullable<System.DateTime> SO_Ln_PlnDlvDate { get; set; }
-        public Nullable<System.DateTime> SO_Ln_PlnRecDate { get; set; }
+        public System.DateTime SO_Ln_PlnRecDate { get; set; }
         public Nullable<System.DateTime> SO_Ln_OrigExpShpDate { get; set; }
         public Nullable<System.DateTime> SO_Ln_ExpShpDate { get; set; }
         public Nullable<System.DateTime> SO_Ln_ExpRevDate { get; set; }
@@ -60,5 +60,6 @@ namespace Shepherd.Models
         public string FirstInProcessOperation { get; set; }
         public System.DateTime MinStartDate { get; set; }
         public System.DateTime MaxDelivDate { get; set; }
+        public Nullable<bool> HasChangedPRD { get; set; }
     }
 }

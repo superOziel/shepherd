@@ -1,66 +1,182 @@
-﻿<span class="title">@ViewBag.titulo  Develop  ,</span>
+﻿
 
-<div class="card card-header-ruh">
-  <div class="card-body">
-      <div class="row">
-          <div class="col-sm-12">
-              <div class="col-sm-10">
-                  <div style="display: flex;width: 25%">
-                      <div style="width:15%" >
-                          <span><b>Job: </b></span>
+<div class="container-fluid">
+    <div class="col-sm-12" >
+        <div class="header" id="card-header">   
+            <span class="title">@ViewBag.titulo</span>
+        </div>
+    </div>
 
-                      </div>
-                      <div style="width:60%">
-                          <select class="form-control backg" id="locations"   >
-                              <option value="ALL" selected="true" >ALL </option>
-                          </select>
-                      </div>
+    <div class="card card-header-ruh" >
+      <div class="card-body">
+          <div class="row">
+              @*<div class="col-sm-12">
+                  <div class="col-sm-9">
+                      <div class="flexdiv">
+                          <div style="width:15%">
+                              <span><b>Job: </b></span>
 
-                      <div style="width:60%;margin-left:10px" >
-                          <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
+                          </div>
+                          <div class="width-60">
+                              <select class="form-control backg" id="locations"   >
+                                  <option value="ALL" selected="true" >ALL </option>
+                              </select>
+                          </div>
+
+                          <div style="width:60%;margin-left:10px">
+                              <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
+                          </div>
                       </div>
+                  </div>  
+                  <div class="col-sm-3 font-large">
+                     FCST OTD: <span id="forecast_percent" class=""></span>
                   </div>
-              </div> 
-              <div class="col-sm-2 font-large">
-                 FCST OTD: <span id="forecast_percent" class="font-large"></span>
+              </div>*@
+              <div class="col-sm-12">
+                  <div class="col-sm-9">
+                      <div class="row">
+                          <div style="width: 16.66666667%">
+                              <div class="form-inline">
+                                <label for="exampleFormControlSelect1">Job:  </label>
+                                  <div style="width: 81%;margin-left: 3px">
+                                      <select class="form-control" id="locations" style="width:100%">
+                                          <option value="ALL" selected="true" >ALL </option>
+                                    </select>
+                                  </div>
+                                
+                              </div>
+                          </div>
+                          <div style="width: 16.66666667%">
+                              <input type="text" id="myInputTextField" class="form-control" placeholder="Search"/>
+                          </div>
+                      </div>
+                      @*<div class="flexdiv">
+                          <div style="width:15%" >
+                              <span><b>Job: </b></span>
+
+                          </div>
+                          <div style="width:60%">
+                              <select class="form-control backg" id="locations"   >
+                                  <option value="ALL" selected="true" >ALL </option>
+                              </select>
+                          </div>
+
+                          <div style="width:60%;margin-left:10px" >
+                              <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
+                          </div>
+                      </div>*@
+                  </div>  
+                  <div class="col-sm-3 font-large">
+                     FCST OTD: <span id="forecast_percent" class=""></span>
+                  </div>
               </div>
           </div>
       </div>
-  </div>
+    </div>
+
+    <div class="d-flex justify-content-center" id="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div id="content-table" class="content table-bordered table-sh">
+        <div class="table-header">
+            <table id="table_id_" class="table display headers-sh">
+                <colgroup>
+		            <col style="width:8%">
+		            <col style="width:3%">
+		            <col style="width:4%">
+		            <col style="width:4%">
+		            <col style="width:3%">
+		            <col style="width:6%">
+		            <col style="width:12%">
+		            <col style="width:7%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:5%">
+		            <col style="width:8%">
+		            <col style="width:9%">
+		            <col style="width:3%">
+		            <col style="width:4%">
+		            <col style="width:5%">
+	            </colgroup>
+                <thead>
+                    <tr>
+                        <th id="orderbyorder">
+                            <i id="orderbyordericon" class="glyphicon glyphicon-minus align-icon pointer"></i>Assembly Production Order Number
+                        </th>
+                        <th></th>
+                        <th>Details</th>
+                        <th>Amount of pieces</th>
+                        <th></th>  
+                        <th>Project Number </th>
+                        <th>Customer Name</th>
+                        <th>Amount</th>
+                        <th>Init Date</th>
+                        <th>Planned Receipt Date</th>
+                        <th  id="orderbydate" class="down">
+                            End Date<i id="orderbyicon" class="glyphicon glyphicon-chevron-up pointer" style="left: 3px;" aria-hidden="true"></i>
+                        </th>
+                        <th>SO item</th>
+                        <th>Item description</th>
+                        <th>PLS Name</th>
+                        <th>Prod. Line</th>
+                        <th>Pump Type</th>
+                        <th>Op.  Number</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-body">
+            <table id="table_id" class="table table-bordered display" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px">
+                <thead>
+                    <tr>
+                        <th>Assembly Production Order Number</th>
+                        <th></th>
+                        <th>Details</th>
+                        <th>Amount of pieces</th>
+                        <th></th>  
+                        <th>Project Number </th>
+                        <th>Customer Name</th>
+                        <th>Amount</th>
+                        <th>Init Date</th>
+                        <th>Planned Receipt Date</th>
+                        <th>End Date</th>
+                        <th>SO item</th>
+                        <th>Item description</th>
+                        <th>PLS Name</th>
+                        <th>Prod. Line</th>
+                        <th>Pump Type</th>
+                        <th>Op.  Number</th>
+                    </tr>
+                </thead>
+                <colgroup>
+		            <col style="width:8%">
+		            <col style="width:3%">
+		            <col style="width:4%">
+		            <col style="width:4%">
+		            <col style="width:3%">
+		            <col style="width:6%">
+		            <col style="width:12%">
+		            <col style="width:7%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:5%">
+		            <col style="width:8%">
+		            <col style="width:9%">
+		            <col style="width:3%">
+		            <col style="width:4%">
+		            <col style="width:5%">
+	            </colgroup>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-    
-
-<div class="" style="background: #fcfcfc">
-    <table id="table_id" class="table table-bordered display">
-      <thead>
-        <tr>
-            <th>Assembly Production Order Number</th>
-            <th>Commitment</th>
-            <th>Details</th>
-            <th>Amount of pieces</th>
-            <th>View</th>  
-            <th>Project Number </th>
-            <th>Customer Name</th>
-            <th>Amount</th>
-            <th>Init Date</th>
-            <th>Planned Receipt Date</th>
-            <th>End Date</th>
-            <th>SO item</th>
-            <th>Item descripcion</th>
-            <th>PLS Name</th>
-            <th>Product Line</th>
-            <th>Pump Type</th>
-            <th>Operation Number</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
-  <!-- Button trigger modal -->
-@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>*@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -106,7 +222,7 @@
         var table_active = 0; // para el %
         var total_items = 0;
         $('#table_id').hide();
-
+        $("#content-table").hide();
         $.ajax({
             url: "/Report/getLocations",
             type: "GET",
@@ -121,6 +237,9 @@
         });
         getSalesOrders();
         function getSalesOrders(job) {
+            $('.spinner-border').show();
+            $("#content-table").hide();
+            table_active = 0;
             if (job == undefined)
                 job = "ALL";
             $.ajax({
@@ -136,8 +255,13 @@
                         item['start_date'] = {
                             "display": item.MinStartDateStr,
                             "timestamp": moment(item.MinStartDateStr).format("YYYY/MM/DD")
-                        }
+                        };
+                        item['end_date'] = {
+                            "display": item.MaxDelivDateStr,
+                            "timestamp": moment(item.MaxDelivDateStr).format("YYYY/MM/DD")
+                        };
                     });
+
                     table = $('#table_id').DataTable({
                         data: data,
                         columns: [
@@ -156,7 +280,13 @@
                                 }
                             },
                             { data: 'SO_Ln_PlnRecDateStr' },
-                            { data: 'MaxDelivDateStr' },
+                            { 
+                                data: 
+                                {
+                                    _: "end_date.display",
+                                    sort: "end_date.timestamp"
+                                }
+                            },
                             { data: 'SO_Item' },
                             { data: 'Item_Description' },
                             { data: 'SO_PLS_Name' },
@@ -165,38 +295,41 @@
                             { data: 'Oper_ComplTotal' }
                         ],
                         columnDefs: [
-                            { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16 ] } //This part is ok now
+                            { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16 ] } //This part is ok now
                         ],
                         createdRow: function (row, data, dataIndex) {
                             if (data.ReadyToShip) {
-                                console.log("Tiene ready compromiso ", data)
+                                //console.log("Tiene ready compromiso ", data)
                             }
 
-                            if (beforeToday(data.MinStartDateStr)) {
+                            if (data.beforeToday) {
                                 $(row).addClass('table-active');
-                                table_active += 1;
+                                table_active += 1;                                
+                            }
 
-                                if (hasNotStarted(data.Oper_ComplTotal)) {
-                                    $(row).find('td').eq(16).addClass('bg-danger');
-                                }
+                            if (hasNotStarted(data.Oper_ComplTotal)) {
+                                $(row).find('td').eq(16).addClass('bg-danger');
+                            }
 
-                                if (data.isBiggerThanPRD) {
-                                    $(row).find('td').eq(8).addClass('bg-danger');
-                                }
+                            if (data.isBetweenMaxDateAndPRD) {
+                                console.log("isBetweenMaxDateAndPRD", data);
+                                $(row).find('td').eq(10).addClass('bg-warning');
+                            }
 
-                                if (data.isBetweenMaxDateAndPRD) {
-                                    $(row).find('td').eq(8).addClass('bg-warning');
-                                }
+                            if (data.isBiggerThanPRD) {
+                                $(row).find('td').eq(10).addClass('bg-danger');
                             }
                         },                        
-                        order: [[8, "asc"]],
+                        order: [[10, "asc"]],
                         paging: false,
                         orderClasses: false, //false = remove class shorting 1
                         ordering: true,
                         searching: true,
-                        //fixedHeader: {
-                        //    header: true,
-                        //},
+                        fixedHeader: {
+                            header: true,
+                            footer: true
+                        },
+                        //pageLength: 200
                         //bLengthChange: false,
                         //Filter: false,
                         //Info: false
@@ -204,6 +337,9 @@
                     });
                     $("#table_id").show();
                     $("#table_id_wrapper").removeClass("container-fluid");
+                    $("#table_id thead").hide();
+                    $('.spinner-border').hide();
+                    $("#content-table").show();
                     getPercent();
 
                 },
@@ -213,20 +349,19 @@
         }
 
         var editIcon = function (data, type, row) {
-            console.log("Icon data: ", data, "type: ", type, "row: ", row);
+            //console.log("Icon data: ", data, "type: ", type, "row: ", row);
             if (type === 'display') {
-                if (row.ReadyToShip) {
-                    return data + '<ion-icon name="checkmark">';
+                if (row.ReadyToShip && !row.HasChangedPRD) {
+                    return data + '<span title="Commitment" class="glyphicon glyphicon-ok icon-md" aria-hidden="true"></span>';
                 } else {
-                    return data + '</ion-icon> <ion-icon name="help"></ion-icon>';
+                    return data + '<img title="Commitment" style="width:80%" contentType="image/x-icon" src="/Content/images/question.png " aria-hidden="true"></span>';
                 }
             }
             return data;
         };
 
         $("#table_id tbody").on("click", "td", function () {
-            
-            if ($(this).index() === 0) {
+            if ($(this).index() === 1) {
                 openModal($(this)[0].textContent);
                 var ajj;
                 $.map(table.rows(this).data(), function (item) {
@@ -235,7 +370,7 @@
                     var url = '/Commitment/Index?item.ProdOrderNr=' + item.ProdOrderNr + '&item.SO_Item=' + item.SO_Item + '&item.Item_Description=' + desc + '&item.SO_Project=' + item.SO_Project + '&item.MaxDelivDateStr=' + item.MaxDelivDateStr;
                     $('#modal-body').load(url);
                 });
-            } else if ($(this).index() === 2) {
+            } else if ($(this).index() === 4) {
                 $.map(table.rows(this).data(), function (item) {
                     var W = screen.width - 220;
                     var H = screen.height - 300;
@@ -320,7 +455,6 @@
             });
         }
 
-        //o$('#table_id').DataTable();
         $('#myInputTextField').keyup(function () {
             table.search($(this).val()).draw();
         })
@@ -334,5 +468,59 @@
         function getPercent() {
             $('#forecast_percent').text(((table_active * 100) / total_items).toFixed(2) + " %");
         }
+
+        window.onscroll = function () {
+            scrollFunction();
+        }
+
+        var header = document.getElementById("card-header");
+
+        var sticky = header.offsetTop;
+
+        function scrollFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+
+            }
+        }
+
+        var heigth = $( window ).height();
+        $(".content").attr('heigth', heigth)
+
+        $('#orderbydate').on('click', function () {
+            $("#orderbyordericon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            if ($(this).hasClass("up")) {
+
+                console.log("up", $(this).hasClass("up"));
+                table.order([10, 'asc']).draw();
+                $("#orderbyicon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+                $(this).addClass("down").removeClass("up");
+                return false;
+
+            } else {
+
+                console.log("down", $(this).hasClass("up"));
+                table.order([10, 'desc']).draw();
+                $("#orderbyicon").addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+                $(this).addClass("up").removeClass("down");
+                return false;
+
+            }
+        })
+
+        $("#orderbyorder").on('click', function () {
+            $("#orderbyicon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            if ($(this).hasClass("up")) {
+                table.order([0, 'asc']).draw();
+                $("#orderbyordericon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+                $(this).addClass("down").removeClass("up"); return;
+            } else {
+                table.order([0, 'desc']).draw();
+                $("#orderbyordericon").addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+                $(this).addClass("up").removeClass("down"); return;
+            }
+        })
     });
 </script>

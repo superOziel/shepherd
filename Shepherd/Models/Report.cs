@@ -21,7 +21,7 @@ namespace Shepherd.Models
 
         public string SO_Date { get; set; } //10
         public string SO_Ln_PlnDlvDate { get; set; } //11
-        public DateTime SO_Ln_PlnRecDate { get; set; } //12
+        public System.DateTime SO_Ln_PlnRecDate { get; set; } //12
         public string SO_Ln_OrigExpShpDate { get; set; } //13
         public string SO_Ln_ExpShpDate { get; set; } //14
         public string SO_Ln_ExpRevDate { get; set; } //15
@@ -30,7 +30,7 @@ namespace Shepherd.Models
         public string SO_QtyOpen { get; set; } //18
         public string SO_Unit { get; set; } //19
         public string SO_Price { get; set; } //20
-        public Decimal SO_Ln_OpenAmount { get; set; } //21
+        public Decimal? SO_Ln_OpenAmount { get; set; } //21
         public string SO_Ln_OpenAmount_Str { get; set; }
         public string SO_Currency { get; set; } //22
         public string SO_CustomerPO { get; set; } //23
@@ -70,5 +70,7 @@ namespace Shepherd.Models
         public string BaanProjectNum { get; set; }
         public string PlanName { get; set; }
         public int? projplan { get; set; }
+        public Nullable<bool> HasChangedPRD { get; set; }
+        public Boolean beforeToday { get; set; }
     }
 }

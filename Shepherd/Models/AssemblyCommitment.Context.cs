@@ -29,7 +29,7 @@ namespace Shepherd.Models
         public virtual DbSet<Locations> Locations { get; set; }
         public virtual DbSet<PlanInfo> PlanInfo { get; set; }
         public virtual DbSet<PlanInfo_Jobs> PlanInfo_Jobs { get; set; }
-        public virtual DbSet<ViewGetSalesOrderReadyToShip> ViewGetSalesOrderReadyToShip { get; set; }
         public virtual DbSet<Sales_Orders> Sales_Orders { get; set; }
+        public virtual DbSet<ViewGetSalesOrderReadyToShip> ViewGetSalesOrderReadyToShip { get; set; }
     }
 }

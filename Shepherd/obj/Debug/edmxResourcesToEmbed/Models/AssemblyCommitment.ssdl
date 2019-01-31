@@ -79,7 +79,7 @@
     <Property Name="Item_PumpType" Type="varchar" MaxLength="50" />
     <Property Name="SO_Date" Type="datetime" />
     <Property Name="SO_Ln_PlnDlvDate" Type="datetime" />
-    <Property Name="SO_Ln_PlnRecDate" Type="datetime" />
+    <Property Name="SO_Ln_PlnRecDate" Type="datetime" Nullable="false" />
     <Property Name="SO_Ln_OrigExpShpDate" Type="datetime" />
     <Property Name="SO_Ln_ExpShpDate" Type="datetime" />
     <Property Name="SO_Ln_ExpRevDate" Type="datetime" />
@@ -113,45 +113,37 @@
     <Property Name="FirstInProcessOperation" Type="varchar" MaxLength="15" />
     <Property Name="MinStartDate" Type="datetime" Nullable="false" />
     <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
+    <Property Name="HasChangedPRD" Type="bit" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewGetSalesOrderReadyToShip">
     <Key>
       <PropertyRef Name="ProdOrderNr" />
-      <PropertyRef Name="SO_QtyOpen" />
-      <PropertyRef Name="SO_Project" />
-      <PropertyRef Name="SO_CustomerName" />
-      <PropertyRef Name="SO_Ln_OpenAmount" />
       <PropertyRef Name="MinStartDate" />
       <PropertyRef Name="MaxDelivDate" />
-      <PropertyRef Name="SO_Item" />
       <PropertyRef Name="Item_Description" />
-      <PropertyRef Name="SO_PLS_Name" />
-      <PropertyRef Name="Item_PumpLine" />
-      <PropertyRef Name="Item_PumpType" />
-      <PropertyRef Name="Oper_ComplTotal" />
-      <PropertyRef Name="SO_Ln_PlnRecDate" />
     </Key>
     <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="SO_QtyOpen" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="SO_Project" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="SO_CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="SO_Ln_OpenAmount" Type="money" Nullable="false" />
+    <Property Name="SO_QtyOpen" Type="varchar" MaxLength="10" />
+    <Property Name="SO_Project" Type="varchar" MaxLength="50" />
+    <Property Name="SO_CustomerName" Type="varchar" MaxLength="60" />
+    <Property Name="SO_Ln_OpenAmount" Type="money" />
     <Property Name="MinStartDate" Type="datetime" Nullable="false" />
     <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
-    <Property Name="SO_Item" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_Item" Type="varchar" MaxLength="50" />
     <Property Name="Item_Description" Type="varchar" MaxLength="80" Nullable="false" />
-    <Property Name="SO_PLS_Name" Type="varchar" MaxLength="70" Nullable="false" />
-    <Property Name="Item_PumpLine" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Item_PumpType" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Oper_ComplTotal" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="SO_PLS_Name" Type="varchar" MaxLength="70" />
+    <Property Name="Item_PumpLine" Type="varchar" MaxLength="50" />
+    <Property Name="Item_PumpType" Type="varchar" MaxLength="50" />
+    <Property Name="Oper_ComplTotal" Type="varchar" MaxLength="15" />
     <Property Name="readytoship" Type="datetime" />
     <Property Name="BaanProjectNum" Type="varchar" MaxLength="20" />
     <Property Name="PlanName" Type="nvarchar" MaxLength="30" />
     <Property Name="projplan" Type="int" />
     <Property Name="BaanCompany" Type="varchar" MaxLength="3" />
-    <Property Name="SO_Ln_PlnRecDate" Type="datetime" Nullable="false" />
+    <Property Name="SO_Ln_PlnRecDate" Type="datetime" />
+    <Property Name="HasChangedPRD" Type="bit" />
   </EntityType>
   <EntityContainer Name="APQP_betaModelStoreContainer">
     <EntitySet Name="Assembly_Commitment" EntityType="Self.Assembly_Commitment" Schema="dbo" store:Type="Tables" />
@@ -179,7 +171,8 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     [ViewGetSalesOrderReadyToShip].[PlanName] AS [PlanName], 
     [ViewGetSalesOrderReadyToShip].[projplan] AS [projplan], 
     [ViewGetSalesOrderReadyToShip].[BaanCompany] AS [BaanCompany], 
-    [ViewGetSalesOrderReadyToShip].[SO_Ln_PlnRecDate] AS [SO_Ln_PlnRecDate]
+    [ViewGetSalesOrderReadyToShip].[SO_Ln_PlnRecDate] AS [SO_Ln_PlnRecDate], 
+    [ViewGetSalesOrderReadyToShip].[HasChangedPRD] AS [HasChangedPRD]
     FROM [dbo].[ViewGetSalesOrderReadyToShip] AS [ViewGetSalesOrderReadyToShip]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
