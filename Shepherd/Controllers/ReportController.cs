@@ -18,7 +18,6 @@ namespace Shepherd.Controllers
         // GET: /Report/
         public ActionResult Index()        
         {
-            ViewBag.titulo = "Report Shepherd";
             return View();
         }
 
