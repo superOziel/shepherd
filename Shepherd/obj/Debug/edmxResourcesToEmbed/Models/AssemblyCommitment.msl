@@ -71,6 +71,7 @@
     <EntitySetMapping Name="Sales_Orders">
       <EntityTypeMapping TypeName="APQP_betaModel.Sales_Orders">
         <MappingFragment StoreEntitySet="Sales_Orders">
+          <ScalarProperty Name="Company" ColumnName="Company" />
           <ScalarProperty Name="HasChangedPRD" ColumnName="HasChangedPRD" />
           <ScalarProperty Name="MaxDelivDate" ColumnName="MaxDelivDate" />
           <ScalarProperty Name="MinStartDate" ColumnName="MinStartDate" />

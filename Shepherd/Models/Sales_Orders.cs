@@ -34,8 +34,8 @@ namespace Shepherd.Models
         public string SO_QtyDlv { get; set; }
         public string SO_QtyOpen { get; set; }
         public string SO_Unit { get; set; }
-        public Nullable<decimal> SO_Price { get; set; }
-        public Nullable<decimal> SO_Ln_OpenAmount { get; set; }
+        public Nullable<double> SO_Price { get; set; }
+        public Nullable<double> SO_Ln_OpenAmount { get; set; }
         public string SO_Currency { get; set; }
         public string SO_CustomerPO { get; set; }
         public Nullable<System.DateTime> SO_CustomerPO_Date { get; set; }
@@ -61,5 +61,11 @@ namespace Shepherd.Models
         public System.DateTime MinStartDate { get; set; }
         public System.DateTime MaxDelivDate { get; set; }
         public Nullable<bool> HasChangedPRD { get; set; }
+        public string Company { get; set; }
+        public string SlsOff_Code { get; set; }
+        public string SlsOff_Name { get; set; }
+        public string Location { get; set; }
+    
+        public virtual Assembly_Commitment Assembly_Commitment { get; set; }
     }
 }

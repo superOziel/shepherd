@@ -2,7 +2,10 @@
 <Schema Namespace="APQP_betaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Assembly_Commitment">
     <Key>
-      <PropertyRef Name="assembly_number" />
+      <PropertyRef Name="SO_Nr" />
+      <PropertyRef Name="SO_Ln" />
+      <PropertyRef Name="SO_Sq" />
+      <PropertyRef Name="ProdOrderNr" />
     </Key>
     <Property Name="assembly_number" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="final_buffer" Type="int" Nullable="false" />
@@ -11,6 +14,10 @@
     <Property Name="bom_date" Type="datetime" />
     <Property Name="casting_date" Type="datetime" />
     <Property Name="readytoship" Type="datetime" />
+    <Property Name="SO_Nr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_Ln" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="SO_Sq" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Locations">
     <Key>
@@ -118,6 +125,9 @@
     <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
     <Property Name="HasChangedPRD" Type="bit" />
     <Property Name="Company" Type="varchar" MaxLength="10" />
+    <Property Name="SlsOff_Code" Type="varchar" MaxLength="10" />
+    <Property Name="SlsOff_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Location" Type="varchar" MaxLength="10" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -127,12 +137,15 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
       <PropertyRef Name="MinStartDate" />
       <PropertyRef Name="MaxDelivDate" />
       <PropertyRef Name="Item_Description" />
+      <PropertyRef Name="SO_Ln_PlnRecDate" />
+      <PropertyRef Name="SO_Nr" />
+      <PropertyRef Name="SO_Ln" />
+      <PropertyRef Name="SO_Sq" />
     </Key>
     <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SO_QtyOpen" Type="varchar" MaxLength="10" />
     <Property Name="SO_Project" Type="varchar" MaxLength="50" />
     <Property Name="SO_CustomerName" Type="varchar" MaxLength="60" />
-    <Property Name="SO_Ln_OpenAmount" Type="money" />
     <Property Name="MinStartDate" Type="datetime" Nullable="false" />
     <Property Name="MaxDelivDate" Type="datetime" Nullable="false" />
     <Property Name="SO_Item" Type="varchar" MaxLength="50" />
@@ -146,9 +159,34 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     <Property Name="PlanName" Type="nvarchar" MaxLength="30" />
     <Property Name="projplan" Type="int" />
     <Property Name="BaanCompany" Type="varchar" MaxLength="3" />
-    <Property Name="SO_Ln_PlnRecDate" Type="datetime" />
+    <Property Name="SO_Ln_PlnRecDate" Type="datetime" Nullable="false" />
     <Property Name="HasChangedPRD" Type="bit" />
+    <Property Name="SO_Ln_OpenAmount" Type="float" />
+    <Property Name="SlsOff_Code" Type="varchar" MaxLength="10" />
+    <Property Name="SlsOff_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Location" Type="varchar" MaxLength="10" />
+    <Property Name="SO_Nr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SO_Ln" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="SO_Sq" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Assembly_Commitment_Sales_Orders">
+    <End Role="Sales_Orders" Type="Self.Sales_Orders" Multiplicity="1" />
+    <End Role="Assembly_Commitment" Type="Self.Assembly_Commitment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Sales_Orders">
+        <PropertyRef Name="SO_Nr" />
+        <PropertyRef Name="SO_Sq" />
+        <PropertyRef Name="SO_Ln" />
+        <PropertyRef Name="ProdOrderNr" />
+      </Principal>
+      <Dependent Role="Assembly_Commitment">
+        <PropertyRef Name="SO_Nr" />
+        <PropertyRef Name="SO_Sq" />
+        <PropertyRef Name="SO_Ln" />
+        <PropertyRef Name="ProdOrderNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="APQP_betaModelStoreContainer">
     <EntitySet Name="Assembly_Commitment" EntityType="Self.Assembly_Commitment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
@@ -161,7 +199,6 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     [ViewGetSalesOrderReadyToShip].[SO_QtyOpen] AS [SO_QtyOpen], 
     [ViewGetSalesOrderReadyToShip].[SO_Project] AS [SO_Project], 
     [ViewGetSalesOrderReadyToShip].[SO_CustomerName] AS [SO_CustomerName], 
-    [ViewGetSalesOrderReadyToShip].[SO_Ln_OpenAmount] AS [SO_Ln_OpenAmount], 
     [ViewGetSalesOrderReadyToShip].[MinStartDate] AS [MinStartDate], 
     [ViewGetSalesOrderReadyToShip].[MaxDelivDate] AS [MaxDelivDate], 
     [ViewGetSalesOrderReadyToShip].[SO_Item] AS [SO_Item], 
@@ -176,8 +213,19 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     [ViewGetSalesOrderReadyToShip].[projplan] AS [projplan], 
     [ViewGetSalesOrderReadyToShip].[BaanCompany] AS [BaanCompany], 
     [ViewGetSalesOrderReadyToShip].[SO_Ln_PlnRecDate] AS [SO_Ln_PlnRecDate], 
-    [ViewGetSalesOrderReadyToShip].[HasChangedPRD] AS [HasChangedPRD]
+    [ViewGetSalesOrderReadyToShip].[HasChangedPRD] AS [HasChangedPRD], 
+    [ViewGetSalesOrderReadyToShip].[SO_Ln_OpenAmount] AS [SO_Ln_OpenAmount], 
+    [ViewGetSalesOrderReadyToShip].[SlsOff_Code] AS [SlsOff_Code], 
+    [ViewGetSalesOrderReadyToShip].[SlsOff_Name] AS [SlsOff_Name], 
+    [ViewGetSalesOrderReadyToShip].[Location] AS [Location], 
+    [ViewGetSalesOrderReadyToShip].[SO_Nr] AS [SO_Nr], 
+    [ViewGetSalesOrderReadyToShip].[SO_Ln] AS [SO_Ln], 
+    [ViewGetSalesOrderReadyToShip].[SO_Sq] AS [SO_Sq]
     FROM [dbo].[ViewGetSalesOrderReadyToShip] AS [ViewGetSalesOrderReadyToShip]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_Assembly_Commitment_Sales_Orders" Association="Self.FK_Assembly_Commitment_Sales_Orders">
+      <End Role="Sales_Orders" EntitySet="Sales_Orders" />
+      <End Role="Assembly_Commitment" EntitySet="Assembly_Commitment" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -30,7 +30,7 @@ namespace Shepherd.Models
         public string SO_QtyOpen { get; set; } //18
         public string SO_Unit { get; set; } //19
         public string SO_Price { get; set; } //20
-        public Decimal? SO_Ln_OpenAmount { get; set; } //21
+        public Nullable<double> SO_Ln_OpenAmount { get; set; } //21
         public string SO_Ln_OpenAmount_Str { get; set; }
         public string SO_Currency { get; set; } //22
         public string SO_CustomerPO { get; set; } //23
@@ -72,5 +72,6 @@ namespace Shepherd.Models
         public int? projplan { get; set; }
         public Nullable<bool> HasChangedPRD { get; set; }
         public Boolean beforeToday { get; set; }
+        public Boolean PRDIsOut { get; set; }
     }
 }

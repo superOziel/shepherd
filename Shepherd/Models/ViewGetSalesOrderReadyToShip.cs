@@ -18,7 +18,6 @@ namespace Shepherd.Models
         public string SO_QtyOpen { get; set; }
         public string SO_Project { get; set; }
         public string SO_CustomerName { get; set; }
-        public Nullable<decimal> SO_Ln_OpenAmount { get; set; }
         public System.DateTime MinStartDate { get; set; }
         public System.DateTime MaxDelivDate { get; set; }
         public string SO_Item { get; set; }
@@ -34,5 +33,12 @@ namespace Shepherd.Models
         public string BaanCompany { get; set; }
         public System.DateTime SO_Ln_PlnRecDate { get; set; }
         public Nullable<bool> HasChangedPRD { get; set; }
+        public Nullable<double> SO_Ln_OpenAmount { get; set; }
+        public string SlsOff_Code { get; set; }
+        public string SlsOff_Name { get; set; }
+        public string Location { get; set; }
+        public string SO_Nr { get; set; }
+        public string SO_Ln { get; set; }
+        public string SO_Sq { get; set; }
     }
 }

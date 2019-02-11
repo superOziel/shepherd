@@ -3,35 +3,13 @@
 <div class="container-fluid">
     <div class="col-sm-12" >
         <div class="header" id="card-header">   
-            <span class="title">@ViewBag.titulo</span>
+            <span class="title">Shepherd Report</span>
         </div>
     </div>
 
     <div class="card card-header-ruh" >
       <div class="card-body">
           <div class="row">
-              @*<div class="col-sm-12">
-                  <div class="col-sm-9">
-                      <div class="flexdiv">
-                          <div style="width:15%">
-                              <span><b>Job: </b></span>
-
-                          </div>
-                          <div class="width-60">
-                              <select class="form-control backg" id="locations"   >
-                                  <option value="ALL" selected="true" >ALL </option>
-                              </select>
-                          </div>
-
-                          <div style="width:60%;margin-left:10px">
-                              <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
-                          </div>
-                      </div>
-                  </div>  
-                  <div class="col-sm-3 font-large">
-                     FCST OTD: <span id="forecast_percent" class=""></span>
-                  </div>
-              </div>*@
               <div class="col-sm-12">
                   <div class="col-sm-9">
                       <div class="row">
@@ -40,7 +18,7 @@
                                 <label for="exampleFormControlSelect1">Job:  </label>
                                   <div style="width: 81%;margin-left: 3px">
                                       <select class="form-control" id="locations" style="width:100%">
-                                          <option value="ALL" selected="true" >ALL </option>
+                                          <option value="ALL" onselect="true" >ALL </option>
                                     </select>
                                   </div>
                                 
@@ -50,21 +28,6 @@
                               <input type="text" id="myInputTextField" class="form-control" placeholder="Search"/>
                           </div>
                       </div>
-                      @*<div class="flexdiv">
-                          <div style="width:15%" >
-                              <span><b>Job: </b></span>
-
-                          </div>
-                          <div style="width:60%">
-                              <select class="form-control backg" id="locations"   >
-                                  <option value="ALL" selected="true" >ALL </option>
-                              </select>
-                          </div>
-
-                          <div style="width:60%;margin-left:10px" >
-                              <input type="text" id="myInputTextField" class="input-sm form-control" placeholder="Search"/>
-                          </div>
-                      </div>*@
                   </div>  
                   <div class="col-sm-3 font-large">
                      FCST OTD: <span id="forecast_percent" class=""></span>
@@ -84,47 +47,47 @@
         <div class="table-header">
             <table id="table_id_" class="table display headers-sh">
                 <colgroup>
-		            <col style="width:8%">
+		            <col style="width:9%">
 		            <col style="width:3%">
 		            <col style="width:4%">
-		            <col style="width:4%">
 		            <col style="width:3%">
+		            <col style="width:4%">
 		            <col style="width:6%">
 		            <col style="width:12%">
-		            <col style="width:7%">
+		            <col style="width:7%" id="colamount">
 		            <col style="width:6%">
 		            <col style="width:6%">
 		            <col style="width:6%">
 		            <col style="width:5%">
 		            <col style="width:8%">
 		            <col style="width:9%">
-		            <col style="width:3%">
 		            <col style="width:4%">
-		            <col style="width:5%">
+		            <col style="width:4%">
+		            <col style="width:4%">
 	            </colgroup>
                 <thead>
                     <tr>
                         <th id="orderbyorder">
-                            <i id="orderbyordericon" class="glyphicon glyphicon-minus align-icon pointer"></i>Assembly Production Order Number
+                            # Order <i id="orderbyordericon" class="glyphicon glyphicon-minus pointer"></i>
                         </th>
                         <th></th>
                         <th>Details</th>
-                        <th>Amount of pieces</th>
+                        <th>U</th>
                         <th></th>  
                         <th>Project Number </th>
                         <th>Customer Name</th>
-                        <th>Amount</th>
+                        <th id="thamount">Amount</th>
                         <th>Init Date</th>
-                        <th>Planned Receipt Date</th>
+                        <th>PRD</th>
                         <th  id="orderbydate" class="down">
                             End Date<i id="orderbyicon" class="glyphicon glyphicon-chevron-up pointer" style="left: 3px;" aria-hidden="true"></i>
                         </th>
-                        <th>SO item</th>
-                        <th>Item description</th>
+                        <th>SO Item</th>
+                        <th>Item Description</th>
                         <th>PLS Name</th>
                         <th>Prod. Line</th>
                         <th>Pump Type</th>
-                        <th>Op.  Number</th>
+                        <th>Op. #</th>
                     </tr>
                 </thead>
             </table>
@@ -153,11 +116,11 @@
                     </tr>
                 </thead>
                 <colgroup>
-		            <col style="width:8%">
+		            <col style="width:9%">
 		            <col style="width:3%">
 		            <col style="width:4%">
-		            <col style="width:4%">
 		            <col style="width:3%">
+		            <col style="width:4%">
 		            <col style="width:6%">
 		            <col style="width:12%">
 		            <col style="width:7%">
@@ -167,9 +130,9 @@
 		            <col style="width:5%">
 		            <col style="width:8%">
 		            <col style="width:9%">
-		            <col style="width:3%">
 		            <col style="width:4%">
-		            <col style="width:5%">
+		            <col style="width:4%">
+		            <col style="width:4%">
 	            </colgroup>
                 <tbody></tbody>
             </table>
@@ -219,8 +182,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var assembly_order;
-        var table_active = 0; // para el %
-        var total_items = 0;
+        var table_active = 0;// para el %
+        var show_amount = false;
+        var SO_Nr, SO_Ln, SO_Sq, ProdOrderNr;
+
         $('#table_id').hide();
         $("#content-table").hide();
         $.ajax({
@@ -230,8 +195,8 @@
             success: function (response) {
                 $.each(response, function (key, value) {
                     $('#locations').append($("<option></option>")
-                        .attr('value', value.BaanCompany)
-                        .text((value.Location)));
+                        .attr('value', value.Location1)
+                        .text((value.Location1)));
                 });
             }
         });
@@ -247,9 +212,12 @@
                 type: "GET",
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    total_items = data.length;
                     $.each(data, function (index, item) {
-                        item['View'] = "View";
+                        if (item.projplan) {
+                            item['View'] = "<span>View</span>";
+                        } else {
+                            item['View'] = "";
+                        }
                         item['Details'] = '';
                         item['Commitment'] = '';
                         item['start_date'] = {
@@ -265,13 +233,13 @@
                     table = $('#table_id').DataTable({
                         data: data,
                         columns: [
-                            { data: 'ProdOrderNr' },
+                            { data: 'PlanName' },
                             { data: 'Commitment', render: editIcon },
                             { data: 'Details'},
                             { data: 'SO_QtyOpen' },
                             { data: 'View' },
                             { data: 'SO_Project' },
-                            { data: 'SO_CustomerName' },
+                            { data: 'SO_CustomerName', render: substringCustomerName },
                             { data: 'SO_Ln_OpenAmount_Str' },
                             {
                                 data: {
@@ -289,39 +257,45 @@
                             },
                             { data: 'SO_Item' },
                             { data: 'Item_Description' },
-                            { data: 'SO_PLS_Name' },
+                            { data: 'SO_PLS_Name', render: substringPLSName },
                             { data: 'Item_PumpLine' },
                             { data: 'Item_PumpType' },
                             { data: 'Oper_ComplTotal' }
                         ],
                         columnDefs: [
-                            { orderable: false, targets: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16 ] } //This part is ok now
+                            {
+                                orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16]
+                            }
                         ],
                         createdRow: function (row, data, dataIndex) {
-                            if (data.ReadyToShip) {
-                                //console.log("Tiene ready compromiso ", data)
-                            }
-
                             if (data.beforeToday) {
                                 $(row).addClass('table-active');
-                                table_active += 1;                                
-                            }
 
-                            if (hasNotStarted(data.Oper_ComplTotal)) {
-                                $(row).find('td').eq(16).addClass('bg-danger');
-                            }
+                                if (hasNotStarted(data.Oper_ComplTotal)) {
+                                    $(row).find('td').eq(16).addClass('bg-danger');
+                                }
+                            }                            
 
                             if (data.isBetweenMaxDateAndPRD) {
-                                console.log("isBetweenMaxDateAndPRD", data);
                                 $(row).find('td').eq(10).addClass('bg-warning');
                             }
 
-                            if (data.isBiggerThanPRD) {
+                            if (data.isBiggerThanPRD || data.PRDIsOut) {
                                 $(row).find('td').eq(10).addClass('bg-danger');
+                                table_active += 1;
+                            }
+
+                            if (data.SO_CustomerName.length > 15) {
+                                $(row).find('td').eq(6).attr("title", data.SO_CustomerName);
+                            }
+
+                            if (data.SO_PLS_Name.length > 10) {
+                                $(row).find('td').eq(13).attr("title", data.SO_PLS_Name);
                             }
                         },                        
                         order: [[10, "asc"]],
-                        paging: false,
+                        paging: true,
+                        pageLength: 200,
                         orderClasses: false, //false = remove class shorting 1
                         ordering: true,
                         searching: true,
@@ -329,12 +303,20 @@
                             header: true,
                             footer: true
                         },
-                        //pageLength: 200
-                        //bLengthChange: false,
-                        //Filter: false,
-                        //Info: false
-                        //paging: true
+                        dom: 'rt<"bottom"iflp<"clear">>',
+                        lengthMenu: [[10, 50, 100, 200, -1], [10, 50, 100, 200, "All"]]
                     });
+                    console.log("totales", table.data().count())
+                    if (data.length <= 10) {
+                        $("#table-body").css('overflow-y', 'auto')
+                    }
+
+                    if (!show_amount) {
+                        table.columns("7").visible(false);
+                        $("#table_id_ thead tr th:nth-child(8), #table_id_ colgroup col:nth-child(8)").hide();
+                        $("#table_id colgroup col:nth-child(8)").hide();
+                    }
+
                     $("#table_id").show();
                     $("#table_id_wrapper").removeClass("container-fluid");
                     $("#table_id thead").hide();
@@ -349,34 +331,65 @@
         }
 
         var editIcon = function (data, type, row) {
-            //console.log("Icon data: ", data, "type: ", type, "row: ", row);
             if (type === 'display') {
                 if (row.ReadyToShip && !row.HasChangedPRD) {
-                    return data + '<span title="Commitment" class="glyphicon glyphicon-ok icon-md" aria-hidden="true"></span>';
+                    return data + '<span title="View/Edit Commitment" class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
                 } else {
-                    return data + '<img title="Commitment" style="width:80%" contentType="image/x-icon" src="/Content/images/question.png " aria-hidden="true"></span>';
+                    return data + '<img title="Capture of Commitment" style="width: 15px" contentType="image/x-icon" src="/Content/images/question.png " aria-hidden="true"></span>';
                 }
             }
             return data;
         };
 
+        var substringCustomerName = function ( data, type, row ) {
+            if (data.length > 15) {
+                return data.substring(0, 15) + "...";
+            } else {
+                return data;
+            }            
+        }
+
+        var substringPLSName = function (data, type, row) {
+            if (data.length > 15) {
+                return data.substring(0, 15) + "...";
+            } else {
+                return data;
+            }
+        }
+        
         $("#table_id tbody").on("click", "td", function () {
             if ($(this).index() === 1) {
                 openModal($(this)[0].textContent);
                 var ajj;
                 $.map(table.rows(this).data(), function (item) {
                     assembly_order = item.ProdOrderNr;
-                    var desc = item.Item_Description.replace(/\s/g, '%20');
-                    var url = '/Commitment/Index?item.ProdOrderNr=' + item.ProdOrderNr + '&item.SO_Item=' + item.SO_Item + '&item.Item_Description=' + desc + '&item.SO_Project=' + item.SO_Project + '&item.MaxDelivDateStr=' + item.MaxDelivDateStr;
-                    $('#modal-body').load(url);
+                    var data = {
+                        ProdOrderNr: item.ProdOrderNr,
+                        SO_Item: item.SO_Item,
+                        Item_Description: item.Item_Description,
+                        SO_Project: item.SO_Project,
+                        MaxDelivDateStr: item.MaxDelivDateStr,
+                        SO_Nr: item.SO_Nr,
+                        SO_Ln: item.SO_Ln,
+                        SO_Sq: item.SO_Sq,
+                        //para guardar en Assembly_commitment y posteriormente quitar el hasChangerPRD
+                    }
+                    $('#modal-body').load('/Commitment/Index', data);
+                    SO_Nr = item.SO_Nr;
+                    SO_Ln = item.SO_Ln;
+                    SO_Sq = item.SO_Sq;
+                    ProdOrderNr = item.ProdOrderNr;
+
                 });
             } else if ($(this).index() === 4) {
                 $.map(table.rows(this).data(), function (item) {
-                    var W = screen.width - 220;
-                    var H = screen.height - 300;
-                    var xpos = 100;
-                    var ypos = 100;
-                    window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "popup", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
+                    if (item.projplan && item.BaanCompany) {
+                        var W = screen.width - 220;
+                        var H = screen.height - 300;
+                        var xpos = 100;
+                        var ypos = 100;
+                        window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "popup", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
+                    }
                 });
             }
         });
@@ -384,7 +397,7 @@
         function openModal(OrderNumber) {
             $('#exampleModalLabel').text('Capture of commitment');
             $("#exampleModal").modal({
-                //backdrop: "static"
+                backdrop: "static"
             });
         }
 
@@ -420,7 +433,11 @@
                 machining_days: $("#machining_days").val(),
                 bom_date: $('#bomdate').data('date'),
                 casting_date: $('#castingdate').data('date'),
-                readytoship: $('#readytoship')[0].innerHTML
+                readytoship: $('#readytoship')[0].innerHTML,
+                SO_Nr: SO_Nr,
+                SO_Ln: SO_Ln,
+                SO_Sq: SO_Sq,
+                ProdOrderNr: assembly_order,
             };
 
             $.ajax({
@@ -428,8 +445,6 @@
                 url: '/Commitment/SaveCommitment',
                 data: assemblyObj,
                 success: function (data) {
-                    //$('#exampleModal').modal().hide();
-                    
                     if (data) {
                         $("#comitment_saved").text('saved');
                     } else {
@@ -443,6 +458,9 @@
                     setTimeout(function () {
                         $("#confirmModal #closeConfirm").click();
                     }, 2000);
+
+                    table.destroy();
+                    getSalesOrders($("#locations").val());
                 },
                 dataType: 'json',
 
@@ -451,8 +469,8 @@
 
         function openConfirmModal() {
             $("#confirmModal").modal({
-                
             });
+            table.reload();
         }
 
         $('#myInputTextField').keyup(function () {
@@ -466,42 +484,19 @@
         });
 
         function getPercent() {
-            $('#forecast_percent').text(((table_active * 100) / total_items).toFixed(2) + " %");
+            console.log("Ordenes no en tiempo: ", table_active);
+            $('#forecast_percent').text(table_active > 0 ? ((table.data().count() - table_active) * 100 / table.data().count()).toFixed(2) + " %" : 0 + " %");
         }
-
-        window.onscroll = function () {
-            scrollFunction();
-        }
-
-        var header = document.getElementById("card-header");
-
-        var sticky = header.offsetTop;
-
-        function scrollFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
-
-            }
-        }
-
-        var heigth = $( window ).height();
-        $(".content").attr('heigth', heigth)
 
         $('#orderbydate').on('click', function () {
             $("#orderbyordericon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             if ($(this).hasClass("up")) {
-
-                console.log("up", $(this).hasClass("up"));
                 table.order([10, 'asc']).draw();
                 $("#orderbyicon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
                 $(this).addClass("down").removeClass("up");
                 return false;
 
             } else {
-
-                console.log("down", $(this).hasClass("up"));
                 table.order([10, 'desc']).draw();
                 $("#orderbyicon").addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
                 $(this).addClass("up").removeClass("down");

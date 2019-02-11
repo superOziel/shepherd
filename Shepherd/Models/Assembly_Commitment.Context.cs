@@ -25,11 +25,11 @@ namespace Shepherd.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Assembly_Commitment> Assembly_Commitment { get; set; }
-        public virtual DbSet<Locations> Locations { get; set; }
-        public virtual DbSet<PlanInfo> PlanInfo { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<PlanInfo> PlanInfoes { get; set; }
         public virtual DbSet<PlanInfo_Jobs> PlanInfo_Jobs { get; set; }
+        public virtual DbSet<ViewGetSalesOrderReadyToShip> ViewGetSalesOrderReadyToShips { get; set; }
+        public virtual DbSet<Assembly_Commitment> Assembly_Commitment { get; set; }
         public virtual DbSet<Sales_Orders> Sales_Orders { get; set; }
-        public virtual DbSet<ViewGetSalesOrderReadyToShip> ViewGetSalesOrderReadyToShip { get; set; }
     }
 }

@@ -1,33 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="APQP_betaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="APQP_betaEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Assembly_Commitment" EntityType="APQP_betaModel.Assembly_Commitment" />
-    <EntitySet Name="Locations" EntityType="APQP_betaModel.Locations" />
-    <EntitySet Name="PlanInfo" EntityType="APQP_betaModel.PlanInfo" />
-    <EntitySet Name="PlanInfo_Jobs" EntityType="APQP_betaModel.PlanInfo_Jobs" />
-    <EntitySet Name="Sales_Orders" EntityType="APQP_betaModel.Sales_Orders" />
-    <EntitySet Name="ViewGetSalesOrderReadyToShip" EntityType="APQP_betaModel.ViewGetSalesOrderReadyToShip" />
-  </EntityContainer>
-  <EntityType Name="Assembly_Commitment">
-    <Key>
-      <PropertyRef Name="assembly_number" />
-    </Key>
-    <Property Name="assembly_number" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="final_buffer" Type="Int32" Nullable="false" />
-    <Property Name="assembly_days" Type="Int32" Nullable="false" />
-    <Property Name="machining_days" Type="Int32" Nullable="false" />
-    <Property Name="bom_date" Type="DateTime" Precision="3" />
-    <Property Name="casting_date" Type="DateTime" Precision="3" />
-    <Property Name="readytoship" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="Locations">
+  <EntityType Name="Location">
     <Key>
       <PropertyRef Name="LocationId" />
     </Key>
     <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Location" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="ADGroup_Family" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="AD_Country" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Location1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ADGroup_Family" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AD_Country" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="BaanCompany" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="PlanInfo">
@@ -35,7 +15,7 @@
       <PropertyRef Name="PlanId" />
     </Key>
     <Property Name="PlanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PlanName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Locked" Type="Boolean" />
     <Property Name="LockedBy" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="LockingModule" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -59,7 +39,7 @@
       <PropertyRef Name="PlanId" />
     </Key>
     <Property Name="PlanId" Type="Int32" Nullable="false" />
-    <Property Name="BaanProjectNum" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="BaanProjectNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ClassId" Type="Int32" Nullable="false" />
     <Property Name="JobOwnerLocation" Type="Int32" Nullable="false" />
     <Property Name="RemoteLocation" Type="Int32" />
@@ -70,6 +50,76 @@
     <Property Name="Def_resp_ProfileId" Type="Int32" />
     <Property Name="ProjectType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Creator" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="APQP_betaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Locations" EntityType="Self.Location" />
+    <EntitySet Name="PlanInfoes" EntityType="Self.PlanInfo" />
+    <EntitySet Name="PlanInfo_Jobs" EntityType="Self.PlanInfo_Jobs" />
+    <EntitySet Name="ViewGetSalesOrderReadyToShips" EntityType="APQP_betaModel.ViewGetSalesOrderReadyToShip" />
+    <EntitySet Name="Assembly_Commitment" EntityType="APQP_betaModel.Assembly_Commitment" />
+    <EntitySet Name="Sales_Orders" EntityType="APQP_betaModel.Sales_Orders" />
+    <AssociationSet Name="FK_Assembly_Commitment_Sales_Orders" Association="APQP_betaModel.FK_Assembly_Commitment_Sales_Orders">
+      <End Role="Sales_Orders" EntitySet="Sales_Orders" />
+      <End Role="Assembly_Commitment" EntitySet="Assembly_Commitment" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ViewGetSalesOrderReadyToShip">
+    <Key>
+      <PropertyRef Name="ProdOrderNr" />
+      <PropertyRef Name="MinStartDate" />
+      <PropertyRef Name="MaxDelivDate" />
+      <PropertyRef Name="Item_Description" />
+      <PropertyRef Name="SO_Ln_PlnRecDate" />
+      <PropertyRef Name="SO_Nr" />
+      <PropertyRef Name="SO_Ln" />
+      <PropertyRef Name="SO_Sq" />
+    </Key>
+    <Property Name="ProdOrderNr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SO_QtyOpen" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Project" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SO_CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="MinStartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MaxDelivDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SO_Item" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Item_Description" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="SO_PLS_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="Item_PumpLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Item_PumpType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Oper_ComplTotal" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="readytoship" Type="DateTime" Precision="3" />
+    <Property Name="BaanProjectNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="projplan" Type="Int32" />
+    <Property Name="BaanCompany" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Ln_PlnRecDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="HasChangedPRD" Type="Boolean" />
+    <Property Name="SO_Ln_OpenAmount" Type="Double" />
+    <Property Name="SlsOff_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SlsOff_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Nr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Ln" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Sq" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Assembly_Commitment">
+    <Key>
+      <PropertyRef Name="SO_Nr" />
+      <PropertyRef Name="SO_Ln" />
+      <PropertyRef Name="SO_Sq" />
+      <PropertyRef Name="ProdOrderNr" />
+    </Key>
+    <Property Name="assembly_number" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="final_buffer" Type="Int32" Nullable="false" />
+    <Property Name="assembly_days" Type="Int32" Nullable="false" />
+    <Property Name="machining_days" Type="Int32" Nullable="false" />
+    <Property Name="bom_date" Type="DateTime" Precision="3" />
+    <Property Name="casting_date" Type="DateTime" Precision="3" />
+    <Property Name="readytoship" Type="DateTime" Precision="3" />
+    <Property Name="SO_Nr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Ln" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SO_Sq" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ProdOrderNr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Sales_Orders" Relationship="APQP_betaModel.FK_Assembly_Commitment_Sales_Orders" FromRole="Assembly_Commitment" ToRole="Sales_Orders" />
   </EntityType>
   <EntityType Name="Sales_Orders">
     <Key>
@@ -126,33 +176,27 @@
     <Property Name="MaxDelivDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="HasChangedPRD" Type="Boolean" />
     <Property Name="Company" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SlsOff_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SlsOff_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Assembly_Commitment" Relationship="APQP_betaModel.FK_Assembly_Commitment_Sales_Orders" FromRole="Sales_Orders" ToRole="Assembly_Commitment" />
   </EntityType>
-  <EntityType Name="ViewGetSalesOrderReadyToShip">
-    <Key>
-      <PropertyRef Name="ProdOrderNr" />
-      <PropertyRef Name="MinStartDate" />
-      <PropertyRef Name="MaxDelivDate" />
-      <PropertyRef Name="Item_Description" />
-    </Key>
-    <Property Name="ProdOrderNr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SO_QtyOpen" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="SO_Project" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SO_CustomerName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-    <Property Name="SO_Ln_OpenAmount" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="MinStartDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="MaxDelivDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="SO_Item" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Item_Description" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-    <Property Name="SO_PLS_Name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-    <Property Name="Item_PumpLine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Item_PumpType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Oper_ComplTotal" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-    <Property Name="readytoship" Type="DateTime" Precision="3" />
-    <Property Name="BaanProjectNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="PlanName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="projplan" Type="Int32" />
-    <Property Name="BaanCompany" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="SO_Ln_PlnRecDate" Type="DateTime" Precision="3" />
-    <Property Name="HasChangedPRD" Type="Boolean" />
-  </EntityType>
+  <Association Name="FK_Assembly_Commitment_Sales_Orders">
+    <End Type="APQP_betaModel.Sales_Orders" Role="Sales_Orders" Multiplicity="1" />
+    <End Type="APQP_betaModel.Assembly_Commitment" Role="Assembly_Commitment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Sales_Orders">
+        <PropertyRef Name="SO_Nr" />
+        <PropertyRef Name="SO_Sq" />
+        <PropertyRef Name="SO_Ln" />
+        <PropertyRef Name="ProdOrderNr" />
+      </Principal>
+      <Dependent Role="Assembly_Commitment">
+        <PropertyRef Name="SO_Nr" />
+        <PropertyRef Name="SO_Sq" />
+        <PropertyRef Name="SO_Ln" />
+        <PropertyRef Name="ProdOrderNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

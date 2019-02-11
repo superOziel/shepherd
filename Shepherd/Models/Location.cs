@@ -12,10 +12,10 @@ namespace Shepherd.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Locations
+    public partial class Location
     {
         public int LocationId { get; set; }
-        public string Location { get; set; }
+        public string Location1 { get; set; }
         public string ADGroup_Family { get; set; }
         public string AD_Country { get; set; }
         public string BaanCompany { get; set; }

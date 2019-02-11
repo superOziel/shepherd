@@ -25,11 +25,11 @@ namespace Shepherd.Services
             List<Report> info = new List<Report>();
             if (job == "ALL" )
             {
-                salesOrderes = db.ViewGetSalesOrderReadyToShip.ToList();
+                salesOrderes = db.ViewGetSalesOrderReadyToShips.ToList();
             }
             else
             {
-                salesOrderes = db.ViewGetSalesOrderReadyToShip.Where(so => so.BaanCompany == job).ToList();
+                salesOrderes = db.ViewGetSalesOrderReadyToShips.Where(so => so.Location == job).ToList();
             }
             foreach (ViewGetSalesOrderReadyToShip reader in salesOrderes)
             {
@@ -69,68 +69,28 @@ namespace Shepherd.Services
                 report.projplan = reader.projplan;
                 report.HasChangedPRD = reader.HasChangedPRD;
                 report.beforeToday = beforeToday(report.MaxDelivDate);
+                report.PRDIsOut = PRDIsOut(report.SO_Ln_PlnRecDate);
+
+                report.SO_Ln = reader.SO_Ln;
+                report.SO_Nr = reader.SO_Nr;
+                report.SO_Sq = reader.SO_Sq;
 
                 info.Add(report);
             }
 
             return info;
-        }        
+        }
 
-        //public List<Report> getSalesOrders() 
-        //{
-        //    string queryString = "exec [dbo].[ocgTimPlan_SalesOrders_Backlog_RPSA]";
-        //    string connectionString = "Server=tulbaansql;Initial Catalog=baanlivedb;User ID=xlsmty;Password=read";
-        //    DataSet tabla = new DataSet();
-        //    List<Report> info = new List<Report>();
-
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-        //        SqlCommand command = new SqlCommand(queryString, connection);
-        //        //command.Parameters.AddWithValue("@tPatSName", "Your-Parm-Value");
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-        //        Report rp;
-
-        //        while (reader.Read())
-        //        {   
-        //            rp = new Report();
-        //            rp.ProdOrderNr = reader.GetValue(30).ToString();
-        //            rp.SO_QtyOpen = reader.GetValue(18).ToString();
-        //            rp.SO_Project = reader.GetValue(5).ToString();
-        //            rp.SO_CustomerName = reader.GetValue(4).ToString();
-        //            rp.SO_Ln_OpenAmount = reader.GetDecimal(21);
-        //            rp.SO_Ln_OpenAmount_Str = string.Format("{0:C}", rp.SO_Ln_OpenAmount);
-        //            rp.SO_Ln_PlnRecDate = reader.GetDateTime(12);
-        //            rp.SO_Ln_PlnRecDateStr = rp.SO_Ln_PlnRecDate.ToString("MM/dd/yyyy");
-        //            if (reader.GetDateTime(44).Year == 1900)
-        //            {
-        //                rp.MinStartDate = rp.SO_Ln_PlnRecDate.AddDays(-21);
-        //                rp.MaxDelivDate = rp.SO_Ln_PlnRecDate.AddDays(-15);
-        //            }
-        //            else
-        //            {
-        //                rp.MinStartDate = reader.GetDateTime(44);
-        //                rp.MaxDelivDate = reader.GetDateTime(45);
-        //            }
-        //            rp.MinStartDateStr = rp.MinStartDate.ToString("MM/dd/yyyy");
-        //            rp.MaxDelivDateStr = rp.MaxDelivDate.ToString("MM/dd/yyyy");
-        //            rp.SO_Item = reader.GetValue(6).ToString();
-        //            rp.Item_Description = reader.GetValue(7).ToString();
-        //            rp.SO_PLS_Name = reader.GetValue(26).ToString();
-        //            rp.Item_PumpLine = reader.GetValue(8).ToString();
-        //            rp.Item_PumpType = reader.GetValue(9).ToString();
-        //            rp.Oper_ComplTotal = reader.GetValue(40).ToString();
-
-        //            var ready = db.Assembly_Commitment.Where(c => c.assembly_number == rp.ProdOrderNr).FirstOrDefault();
-        //            rp.ReadyToShip = ready != null ? ready.readytoship : null;
-        //            rp.isBetweenMaxDateAndPRD = isBetweenMaxDateAndPRD(rp.MaxDelivDate, rp.ReadyToShip);
-        //            rp.isBiggerThanPRD = compareMaxDateAndPRD(rp.MaxDelivDate, rp.SO_Ln_PlnRecDate);
-        //            info.Add(rp);
-        //        }              
-        //    }
-
-        //    return info;
-        //}
+        public Boolean PRDIsOut(DateTime PRD)
+        {
+            if (PRD < DateTime.Now)
+            {
+                return true;
+            } else
+	        {
+                return false;
+	        }
+        }
 
         public Boolean beforeToday(DateTime MaxDelivDateStr) 
         {

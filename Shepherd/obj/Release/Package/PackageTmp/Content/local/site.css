@@ -56,6 +56,10 @@
     text-align: left;
 }
 
+.vertical-align-center {
+    vertical-align: sub;
+}
+    
 .bold {
     font-weight: bold;
 }
@@ -129,7 +133,16 @@
     padding: 5px 7px 4px 7px!important;
 }
 
+#table_id_ thead tr th:nth-child(4) {
+        text-align: center;
+}
+
 /*Table body*/
+#table_id tbody tr td:nth-child(4),
+#table_id tbody tr td:nth-child(2)  {
+    text-align: center;
+}
+
 #table_id tbody tr td:nth-child(2) {
     cursor: pointer;
 }
@@ -161,8 +174,7 @@ table#table_id tabody tr.even {
     background-color: none!important;
 }
 
-.dataTables_filter,
-.dataTables_info {
+.dataTables_filter {
   display: none;
 }
 
@@ -174,10 +186,6 @@ table#table_id tabody tr.even {
 
 
 /*Clases para que embone header fixed*/
-
-/*#table_id tbody tr td {
-    width: 10px;
-}*/
 
 #table_id {
     margin-top: 0px !important;
@@ -194,7 +202,8 @@ table#table_id tabody tr.even {
 }
 
 .table-body {
-    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
     width: 100%;
     height: 574px;
 }
@@ -220,10 +229,6 @@ table#table_id tabody tr.even {
     left: 3px;
 }
 
-.icon-md {
-    font-size: 20px;
-}
-
 .bg-red {
     color: #dc3545;
 }
@@ -237,17 +242,20 @@ table#table_id tabody tr.even {
     cursor: pointer;
 }
 
-:-ms-input-placeholder.form-control { /* IE 10+ */
-    top: 0;
+#table_id_length {
+    margin-left: 10px;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: pink;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: pink;
+.paginate_button {
+    padding-left: 0px!important;
+    padding-right: 0px!important;
 }
 
-:-moz-placeholder { /* Firefox 18- */
-  color: pink;
+.paginate_button:hover {
+    background: none!important;
+    border: none!important;   
+}
+
+.height-sm {
+    height: 25px!important;
 }

@@ -74,10 +74,10 @@
             <div class="col-sm-5"> &nbsp;</div>
             <div class="col-sm-3 text-align-center"> <label id="manufacturing"></label>&nbsp;</div>
 
-            <div class="col-sm-4 bold text-align-right">Machining: </div>
-            <div class="col-sm-3 text-align-center"> <label id="machiningstart"></label>&nbsp;</div>
-            <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="machining_days" placeholder="Days" disabled>&nbsp;</div>
-            <div class="col-sm-3 text-align-center"> <label id="machiningend"></label>&nbsp;</div>
+            <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Machining:</label>&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="machiningstart" class="vertical-align-center"></label>&nbsp;</div>
+            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="machining_days" placeholder="Days" disabled>&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="machiningend" class="vertical-align-center"></label>&nbsp;</div>
 
         </li>
         <li class="list-group-item" style="background-color:#b3c3d0">
@@ -86,23 +86,22 @@
             <div class="col-sm-3 text-align-center"> <label id="componentdate"></label>&nbsp;</div>
            
             <div class="col-sm-12 no-padding-sides" >
-                <div class="col-sm-4 bold text-align-right">Assembly: </div>
-                <div class="col-sm-3 text-align-center"> <label id="assemblydayscalculated"></label>&nbsp;</div>
-                <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="assembly_days" placeholder="Days" disabled>&nbsp;</div>
-                <div class="col-sm-3 text-align-center"> <label id="assemblystart"></label>&nbsp;</div>
+                <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Assembly:</label>&nbsp;</div>
+                <div class="col-sm-3 text-align-center"> <label id="assemblydayscalculated" class="vertical-align-center"></label>&nbsp;</div>
+                <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="assembly_days" placeholder="Days" disabled>&nbsp;</div>
+                <div class="col-sm-3 text-align-center"> <label id="assemblystart" class="vertical-align-center"></label>&nbsp;</div>
             </div>
             
             <div style="background-color: blue">
-                <div class="col-sm-4 bold text-align-right">Ready to ship: </div>
+                <div class="col-sm-4 bold text-align-right"> <span class="vertical-align-center">Ready to ship: </span></div>
                 <div class="col-sm-5"> &nbsp;</div>
                 <div class="col-sm-3 text-align-center"> <label id="readytoship"></label>&nbsp;</div>
             </div>
             
-
-            <div class="col-sm-4 bold text-align-right">Buffer: </div>
-            <div class="col-sm-3 text-align-center"> <label id="finalbuffercalculated"></label>&nbsp;</div>
-            <div class="col-sm-2 input-group-sm" style="height:24px"> <input type="text" class="form-control" id="final_buffer" placeholder="Days" >&nbsp;</div>
-            <div class="col-sm-3 text-align-center"> <label>@ViewBag.MaxDelivDateStr</label>&nbsp;</div>
+            <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Buffer:</label>&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label id="finalbuffercalculated" class="vertical-align-center"></label>&nbsp;</div>
+            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="final_buffer" placeholder="Days" >&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label class="vertical-align-center">@ViewBag.MaxDelivDateStr</label>&nbsp;</div>
 
 
         </li>
@@ -168,25 +167,41 @@
             calculateMachiningStart();
         });
         assembly_order = '@ViewBag.Assembly';
+        var SO_Nr = '@ViewBag.SO_Nr';
+        var SO_Ln = '@ViewBag.SO_Ln';
+        var SO_Sq = '@ViewBag.SO_Sq';
+        var data = {
+            ProdOrderNr: assembly_order,
+            SO_Nr: SO_Nr,
+            SO_Ln: SO_Ln,
+            SO_Sq: SO_Sq,
+        }
+        console.log("data?", data);
         getCommitment();
 
         function getCommitment() {
             $.ajax({
                 type: 'GET',
-                url: '/Commitment/GetCommitment?assembly_number=' + assembly_order,
+                data: data,
+                //?assembly_number=' + assembly_order
+                url: '/Commitment/GetCommitment',
                 contentType: 'application/json; charset=utf-8',
                 success: function (commitment) {
-                    $("#final_buffer").val(commitment.final_buffer);
-                    $("#assembly_days").val(commitment.assembly_days);
-                    $("#machining_days").val(commitment.machining_days);
-                    $('#bomdate').data({ date: moment(commitment.bom_date).format('MM/DD/YYYY') });
-                    $('#castingdate').data({ date: moment(commitment.casting_date).format('MM/DD/YYYY') });
-                    $('#bomdatevalue').val(moment(commitment.bom_date).format('MM/DD/YYYY'));
-                    $('#castingdateval').val(moment(commitment.casting_date).format('MM/DD/YYYY'));
+                    if (commitment) {
+                        console.log("tiene commitment: ", commitment);
+                        $("#final_buffer").val(commitment.final_buffer);
+                        $("#assembly_days").val(commitment.assembly_days);
+                        $("#machining_days").val(commitment.machining_days);
+                        $('#bomdate').data({ date: moment(commitment.bom_date).format('MM/DD/YYYY') });
+                        $('#castingdate').data({ date: moment(commitment.casting_date).format('MM/DD/YYYY') });
+                        $('#bomdatevalue').val(moment(commitment.bom_date).format('MM/DD/YYYY'));
+                        $('#castingdateval').val(moment(commitment.casting_date).format('MM/DD/YYYY'));
 
-                    calculateFinalBuffer();
-                    calculateAssemblyDays();
-                    calculateMachiningStart();
+                        calculateFinalBuffer();
+                        calculateAssemblyDays();
+                        calculateMachiningStart();
+                    }
+                    
                 }
             });
         }

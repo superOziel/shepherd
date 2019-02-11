@@ -21,5 +21,11 @@ namespace Shepherd.Models
         public Nullable<System.DateTime> bom_date { get; set; }
         public Nullable<System.DateTime> casting_date { get; set; }
         public Nullable<System.DateTime> readytoship { get; set; }
+        public string SO_Nr { get; set; }
+        public string SO_Ln { get; set; }
+        public string SO_Sq { get; set; }
+        public string ProdOrderNr { get; set; }
+    
+        public virtual Sales_Orders Sales_Orders { get; set; }
     }
 }

@@ -23,12 +23,14 @@ namespace Shepherd.Controllers
 
         public ActionResult getSalesOrders(string job = null) 
         {
-            return Json(reportService.getSalesOrderes(job), JsonRequestBehavior.AllowGet);
+            var JsonResult = Json(reportService.getSalesOrderes(job), JsonRequestBehavior.AllowGet);
+            JsonResult.MaxJsonLength = int.MaxValue;
+            return JsonResult;
         }
 
-        public ActionResult getLocations() 
+        public ActionResult getLocations()
         {
-            return Json(db.Locations.ToList() , JsonRequestBehavior.AllowGet);
+            return Json(db.Locations.ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

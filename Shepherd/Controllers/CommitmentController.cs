@@ -19,20 +19,21 @@ namespace Shepherd.Controllers
             ViewBag.Item_Description = item.Item_Description;
             ViewBag.SO_Project = item.SO_Project;
             ViewBag.MaxDelivDateStr = item.MaxDelivDateStr;
+            ViewBag.SO_Nr = item.SO_Nr;
+            ViewBag.SO_Ln = item.SO_Ln;
+            ViewBag.SO_Sq = item.SO_Sq;
 
-            return View();
-        }
-
-        public ActionResult OpenModal(Report item) 
-        {
             return View();
         }
 
         [HttpGet]
-        public ActionResult GetCommitment(string assembly_number) {
+        public ActionResult GetCommitment(Report item) {
             try
             {
-                return Json(db.Assembly_Commitment.Where(c => c.assembly_number == assembly_number).FirstOrDefault(), JsonRequestBehavior.AllowGet);
+                db.Configuration.ProxyCreationEnabled = false;
+                var commitment = db.Assembly_Commitment.Where(s => s.SO_Nr == item.SO_Nr && s.SO_Ln == item.SO_Ln && 
+                                                       s.SO_Sq == item.SO_Sq && s.ProdOrderNr == item.ProdOrderNr ).FirstOrDefault();
+                return Json(commitment, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -45,7 +46,7 @@ namespace Shepherd.Controllers
         {
             try
             {
-                return Json(db.ViewGetSalesOrderReadyToShip.Where(v => v.ProdOrderNr == assembly_number).FirstOrDefault(), JsonRequestBehavior.AllowGet);
+                return Json(db.ViewGetSalesOrderReadyToShips.Where(v => v.ProdOrderNr == assembly_number).FirstOrDefault(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -58,22 +59,26 @@ namespace Shepherd.Controllers
         public ActionResult SaveCommitment(Assembly_Commitment asco) 
         {
             Assembly_Commitment acomm = new Assembly_Commitment();
+            Sales_Orders so = new Sales_Orders();
+            Boolean post = false;
             try
             {
-                var commitment = db.Assembly_Commitment.Where(c => c.assembly_number == asco.assembly_number).FirstOrDefault();
-                Boolean post = false;
-
+                var commitment = db.Assembly_Commitment.Where(s => s.SO_Nr == asco.SO_Nr && s.SO_Ln == asco.SO_Ln &&
+                                                              s.SO_Sq == asco.SO_Sq && s.ProdOrderNr == asco.ProdOrderNr).FirstOrDefault();
                 if (commitment != null)
                 {
-                    //var comit = db.Assembly_Commitment.First<Assembly_Commitment>();
                     commitment.final_buffer = asco.final_buffer;
                     commitment.assembly_days = asco.assembly_days;
                     commitment.machining_days = asco.machining_days;
                     commitment.bom_date = asco.bom_date;
                     commitment.casting_date = asco.casting_date;
                     commitment.readytoship = asco.readytoship;
-                } 
-                else 
+                    commitment.SO_Nr = asco.SO_Nr;
+                    commitment.SO_Sq = asco.SO_Sq;
+                    commitment.SO_Ln = asco.SO_Ln;
+                    commitment.ProdOrderNr = asco.ProdOrderNr;
+                }
+                else
                 {
                     acomm.assembly_number = asco.assembly_number;
                     acomm.final_buffer = asco.final_buffer;
@@ -82,8 +87,20 @@ namespace Shepherd.Controllers
                     acomm.bom_date = asco.bom_date;
                     acomm.casting_date = asco.casting_date;
                     acomm.readytoship = asco.readytoship;
-                    post = true;
+                    acomm.SO_Nr = asco.SO_Nr;
+                    acomm.SO_Sq = asco.SO_Sq;
+                    acomm.SO_Ln = asco.SO_Ln;
+                    acomm.ProdOrderNr = asco.ProdOrderNr;
                     db.Assembly_Commitment.Add(acomm);
+                    post = true;
+                }
+
+                var sale_order = db.Sales_Orders.Where(s => s.SO_Nr == asco.SO_Nr && s.SO_Ln == asco.SO_Ln &&
+                                                               s.SO_Sq == asco.SO_Sq && s.ProdOrderNr == asco.ProdOrderNr).FirstOrDefault();
+
+                if (sale_order.HasChangedPRD == true)
+                {
+                    sale_order.HasChangedPRD = false;
                 }
 
                 db.SaveChanges();

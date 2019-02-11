@@ -139,39 +139,39 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssemblyCommitment.Context.cs">
+    <Compile Include="Models\Assembly_Commitment.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyCommitment.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AssemblyCommitment.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AssemblyCommitment.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssemblyCommitment.edmx</DependentUpon>
+      <DependentUpon>Assembly_Commitment.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Assembly_Commitment.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Locations.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+    <Compile Include="Models\Assembly_Commitment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assembly_Commitment.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Assembly_Commitment1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Location.cs">
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlanInfo.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PlanInfo_Jobs.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Sales_Orders.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewGetSalesOrderReadyToShip.cs">
-      <DependentUpon>AssemblyCommitment.tt</DependentUpon>
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ReportService.cs" />
@@ -195,15 +195,15 @@
     <Content Include="Content\local\bootstrap.min.css" />
     <Content Include="Content\local\site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Models\AssemblyCommitment.Context.tt">
+    <Content Include="Models\Assembly_Commitment.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AssemblyCommitment.edmx</DependentUpon>
-      <LastGenOutput>AssemblyCommitment.Context.cs</LastGenOutput>
+      <DependentUpon>Assembly_Commitment.edmx</DependentUpon>
+      <LastGenOutput>Assembly_Commitment.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\AssemblyCommitment.tt">
+    <Content Include="Models\Assembly_Commitment.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AssemblyCommitment.edmx</DependentUpon>
-      <LastGenOutput>AssemblyCommitment.cs</LastGenOutput>
+      <DependentUpon>Assembly_Commitment.edmx</DependentUpon>
+      <LastGenOutput>Assembly_Commitment1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -306,12 +306,12 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
-    <EntityDeploy Include="Models\AssemblyCommitment.edmx">
+    <EntityDeploy Include="Models\Assembly_Commitment.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AssemblyCommitment.Designer.cs</LastGenOutput>
+      <LastGenOutput>Assembly_Commitment.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\AssemblyCommitment.edmx.diagram">
-      <DependentUpon>AssemblyCommitment.edmx</DependentUpon>
+    <Content Include="Models\Assembly_Commitment.edmx.diagram">
+      <DependentUpon>Assembly_Commitment.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Shepherd_compiled.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
