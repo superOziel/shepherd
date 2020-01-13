@@ -1,0 +1,2541 @@
+﻿@{
+    ViewBag.Title = "Open Orders";
+    ViewBag.View = "View";
+}
+<div class="container-fluid">
+        <div class="header" id="mainHeader"> 
+            <span class="title col-sm-12" id="titletwo"></span>           
+        </div>
+        <div>
+            <div class="col-sm-6">
+                <span class="title" id="title"></span>
+            </div>
+            <div class="col-sm-6 text-align-right">   
+                <span class="subtitle pointer underline" id="view">@ViewBag.View</span>
+            </div>
+        </div>
+    <div class="col-sm-12 margin-top-10 container-fluid">
+    
+        <div id="exTab2">
+            <ul class="nav nav-tabs">
+			    <li ><a  href="#1" data-toggle="tab">Draw</a></li>
+			    <li class="active"><a href="#2" data-toggle="tab">Graph</a></li>
+		    </ul>
+
+		    <div class="tab-content ">
+			    <div class="tab-pane  margin-top-10" id="1">
+                    <div>
+                        <div class="col-sm-3 no-padding-sides">
+                            <div class="margin-top-50"><i class="material-icons bg-grey vertical-align-middle md-18">&#xe061;</i> <b class="vertical-align-center">Not in use, for this order</b> </div>
+                            <div> <i class="material-icons bg-green vertical-align-middle md-18"> &#xe061; </i>  <b class="vertical-align-center"><i>On Time</i>: Required finish date is on plan</b> </div>
+                            <div> <i class="material-icons bg-yellow vertical-align-middle md-18"> &#xe061; </i> <b class="vertical-align-center"><i>Warning</i>: Impact expected in the next 7 days</b> </div>
+                            <div> <i class="material-icons bg-red vertical-align-middle md-18"> &#xe061; </i>    <b class="vertical-align-center"><i>Delay</i>: Required finish date is out of plan</b> </div>
+                            <div> <i class="material-icons bg-blue vertical-align-middle md-18"> &#xe061; </i>   <b class="vertical-align-center"><i>Finished</i>: Task done or not required for this orden</b></div>
+                        </div>
+
+                        @*//DIBUJO!*@
+                        <div id="draw" class="no-padding-sides">
+                            <svg class="border-container" height="400" width="100%">
+                                <g transform="translate(0,0)">
+                                    <svg width="400" height="400" class="border-container">
+                                        @*Kick Off*@
+                                        <circle cx="50" cy="120" r="40" stroke="black" fill="#5e686b" id="kickoffCirle"><title class="komtitle"> </title></circle>
+                                        <text   x="50"  y="120" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" class="pointer underline"><title class="komtitle"></title> Kick Off</text>
+                                        <line   x1="90" y1="120" x2="120" y2="120" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97);stroke-width:2" ></line>
+                                        <polygon points="120,115 120,125 130,120" stroke="rgb(87, 95, 97)" fill="rgb(87, 95, 97)"></polygon>
+
+                                        @*Eng.*@
+                                        <circle cx="170" cy="120" r="40" stroke="black" fill="#5e686b" id="engCircle" class="pointer"> <title class="bomtitle">BOM </title></circle>
+                                        <text x="170" y="120" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" class="pointer underline"><title class="bomtitle">BOM </title>Eng.</text>
+                                        <line x1="240" y1="120" x2="210" y2="120" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97);stroke-width:2"  ></line>
+                                        <polygon points="240,115 240,125 250,120"  stroke="rgb(87, 95, 97)" fill="rgb(87, 95, 97)"></polygon>
+
+                                        @*MRP*@
+                                        <rect x="250" y="80" width="100" rx="20" ry="20" height="80" style="fill:#5e686b;stroke: black;" id="mrpCircle" class="pointer"> <title class="cprtitle"></title></rect>
+                                        <text x="300" y="120" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="mrpText" class="pointer underline"><title class="cprtitle"></title>MRP</text>
+
+                                        @*MRP - Boy Outs*@
+                                        <polyline points="300,80, 300, 50, 360, 50" style="fill:none;stroke:black;stroke-width:2" id="mrpline"><title class="prbtitle"></title></polyline>
+                        
+                                        <polygon points="360,55 360,45 370,50" id="mrplinethree"><title class="prbtitle"></title></polygon>
+                                        <polyline points="300,160, 300, 290" style="fill:none;stroke:black;stroke-width:2" id="daalineseven" > <title class="daatitle"></title></polyline>
+                    
+                                        @*Eng.-Casting*@
+                                        <polyline points="170, 160, 170, 230" style="fill:none;stroke:black;stroke-width:2" id="prcline"> <title class="prctitle"></title></polyline>
+                                        <polygon points="165,225 175,225 170,235" id="prcpoligon" ><title class="prctitle"></title></polygon>
+
+                                        @*MRP to Fabrications*@
+                                        <polyline points="300, 190, 360, 190" style="fill:none;stroke:black;stroke-width:2" id="daaline"><title class="daatitle"></title></polyline>
+                                        <polygon points="360,195 360,185 370,190" id="daalinesix"><title class="daatitle"></title></polygon>
+
+                                        <polyline points="300, 290, 360, 290" style="fill:none;stroke:black;stroke-width:2"  id="daalinetwo"><title class="daatitle"></title></polyline>
+                                        <polygon points="360,295 360,285 370,290" id="daalinefour" ><title class="daatitle"></title></polygon>
+
+                                        <polyline points="300, 290, 280, 290" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2" ></polyline>
+                                        <polygon points="280,295 280,285 270,290" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)"></polygon>
+
+                                        <g transform="translate(70,240)"> 
+                                            <svg width="50%" height="115" class="border-container inline-block">
+                                                @*//MARGEN DEL SVG*@
+                                                <rect id="plate1" x="0" y="0" ry="15" rx="15" width="100%" height="115" fill="transparent" fill-opacity="1" stroke-width="1" stroke="black"></rect>
+                                                @*CASTING*@
+                                                <text x="95" y="10" text-anchor="middle" stroke="black" dy=".3em" fill="black" font-size="15">Casting</text>
+                                                @*Purchase*@
+                                                <circle cx="50" cy="60" r="40" stroke="black" fill="#5e686b" id="purchasePoc" class="pointer"> <title class="poctitle"></title></circle>
+                                                <text x="50" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="purchasePocText" class="pointer underline"><title class="poctitle"></title>Purchase</text>
+
+                                                @*Production*@
+                                                <circle cx="140" cy="60" r="40" stroke="#5e686b" fill="#5e686b" id="productionGcc" class="pointer"> <title class="gcctitle"></title></circle>
+                                                <text x="140" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="productionGccText" class="pointer underline"><title class="gcctitle"></title>Production</text>
+
+                                                @*Casting - Machining*@
+                                                @*<polyline points="370, 50, 390, 50" style="fill:none;stroke:black;stroke-width:2"/>*@
+                                            </svg>
+                                            </g>
+                        
+                                        @*MRP To Machining 3*@
+                                        <polyline points="270,300, 360,300" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2" ></polyline>
+                                        <polygon points="360,305 360,295 370,300" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)" ></polygon>
+                                    </svg>
+                                </g>
+
+                                <g transform="translate(370,10)">
+                                    <g transform="translate(0,5)">
+                                            <svg width="190" height="105" class="border-container" >
+                                            @*//MARGEN DEL SVG*@
+                                            <rect x="0" y="0" ry="15" rx="15" width="190" height="105" fill="transparent" fill-opacity="1" stroke-width="1" stroke="black"></rect>
+                                            @*PROCUREMENT*@
+                                            <text x="95" y="10" text-anchor="middle" stroke="black"  dy=".3em" fill="black" font-size="15">Procurement</text>
+
+                                            @*MRP - BoyOuts*@
+                                            <circle cx="50" cy="60" r="40" stroke="black" fill="#5e686b" id="buyOutsCircle" class="pointer"><title>Main Buyouts</title></circle>
+                                            <text x="50" y="60" text-anchor="middle" stroke="white"  dy=".3em" fill="white" font-size="15" id="buyOutsText" class="pointer underline"><title>Main Buyouts</title>Buyouts</text>
+                                            <circle cx="140" cy="60" r="40" stroke="black" fill="#5e686b" id="restPosByo" class="pointer" > <title class="byotitle"></title></circle>
+                                            <text x="140" y="60" text-anchor="middle" stroke="white"  dy=".3em" fill="white" font-size="15" id="restPosText" class="pointer underline" ><title class="byotitle">BYO</title>Rest P.O.’s</text>
+                                        </svg>
+                                    </g>
+
+                                    <g transform="translate(0,120)">
+                                        <svg width="190" height="105" class="border-container">
+                                            @*//MARGEN DEL SVG*@
+                                            <rect x="0" y="0" ry="15" rx="15" width="190" height="105" fill="transparent" fill-opacity="1" stroke-width="1" stroke="black"></rect>
+                                            @*Fabrications*@
+                                            <text x="95" y="10" text-anchor="middle" stroke="black" dy=".3em" fill="black" font-size="15">Fabrications</text>
+                                            <circle cx="50" cy="60" r="40" stroke="black" fill="#5e686b" id="purchasePof" class="pointer" ><title class="poftitle"></title></circle>
+                                            <text x="50" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="purchasePofText" class="pointer underline"><title class="poftitle"></title>Purchase</text>
+                                            <circle cx="140" cy="60" r="40" stroke="black" fill="#5e686b" id="productionPof" class="pointer"> <title class="gfftitle"></title></circle>
+                                            <text x="140" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="productionPofText" class="pointer underline"><title class="gfftitle"></title>Production</text>
+                                        </svg>
+                                    </g>
+
+                                    <g transform="translate(0,235)">
+                                        <svg width="190" height="105" class="border-container margin-top-10">
+                                            @*//MARGEN DEL SVG*@
+                                            <rect x="0" y="0" ry="15" rx="15" width="190" height="105" fill="transparent" fill-opacity="1" stroke-width="1" stroke="black"></rect>
+                                            @*MACHINING*@
+                                            <text x="95" y="10" text-anchor="middle" stroke="black" dy=".3em" fill="black" font-size="15" >Machining</text>
+                                            <circle cx="50" cy="60" r="40" stroke="black" fill="#5e686b" id="purchasePom" class="pointer"> <title class="pomtitle"></title></circle>
+                                            <text x="50" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="purchasePomText" class="pointer underline"><title class="pomtitle"></title>Purchase</text>
+                                            <circle cx="140" cy="60" r="40" stroke="black" fill="#5e686b" id="productionGmm" class="pointer"> <title class="gmmtitle"></title></circle>
+                                            <text x="140" y="60" text-anchor="middle" stroke="white" dy=".3em" fill="white" font-size="15" id="productionGmmText" class="pointer underline"><title class="gmmtitle"></title>Production</text>
+                                        </svg>
+                                    </g>
+                                </g>
+
+                                <g transform="translate(560,10)">
+                                    @*Procurement to Assembly*@
+                                    <polyline points="0, 80, 100, 170" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2"></polyline>
+                                    <polygon points="95,160 90,169 100,170" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)"></polygon>
+
+                                    @*Fabrications to Assembly*@
+                                    <polyline points="0, 190, 100, 190" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2"></polyline>
+                                    <polygon points="90,185 90,195 100,190" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)" ></polygon>
+
+                                    @*Machining to Assembly*@
+                                    <polyline points="0, 300, 100, 210" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2"></polyline>
+                                    <polygon points="95,221 90,212 100,210" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)" ></polygon>
+
+                                    @*Assembly*@
+                                    <circle cx="140" cy="190" r="40" stroke="black" fill="green" id="assemblyCircle" class="pointer"></circle>
+                                    <text x="140" y="190" text-anchor="middle" stroke="white"  dy=".3em" fill="white" font-size="15" id="assemblyText" class="pointer underline">Assembly</text>
+
+                                    @*Assembly to Shipping*@
+                                    <polyline points="180, 190, 210, 190" style="fill:none;stroke:rgb(87, 95, 97);stroke-width:2"></polyline>
+                                    <polygon points="210,185 210,195 220,190" style="stroke:rgb(87, 95, 97);fill:rgb(87, 95, 97)" ></polygon>
+
+                                    @*Shipping*@
+                                    <circle cx="260" cy="190" r="40" stroke="black" fill="green" id="shippingCircle"></circle>
+                                    <text x="260" y="190" text-anchor="middle" stroke="white"  dy=".3em" fill="white" font-size="15">Shipping</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                        
+			    </div>
+
+			    <div class="tab-pane active margin-top-10" id="2">
+                    <div id="containerG" style="width:100%; height:400px;"></div>
+			    </div>
+		    </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 margin-top-10" >
+        <div class="header" id="card-header">   
+            <span class="title">@ViewBag.Title</span>
+        </div>
+
+        <div class="d-flex justify-content-center margin-top-10" id="loading">
+            <div class="spinner-border" role="status" id="spinner">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="accordion">
+        @*Assemblys id = assemblysTable*@
+        <div class="card">
+            <div class="card-header" id="assemblyHeader">
+              <h5 class="mb-0 like-button">
+                  <b>Assembly</b>
+                  <span class="glyphicon glyphicon-arrow-up float-right" ></span>
+                  <span id="assemblyCommitment" class="float-right"></span>
+              </h5>
+            </div>
+            <div id="collapseZero" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body ">
+                <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="assemblysTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="assemblysTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+        @*MRP mrpTable*@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="mrpHeader">
+                <h5 class="mb-0 like-button">
+                    <b>MRP</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                </h5>
+            </div>
+            <div class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                        <table class="table display headers-sh table_header_all table-sm">
+                            <colgroup>
+		                        <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                        </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Late</th>
+                                    <th>Order</th>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Line</th>
+                                    <th>Qty</th>
+                                    <th>Requested Delivery Date</th>
+                                    <th>Planned Delivery Date</th>
+                                    <th>Confirm Delivery Date</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        </div>
+                        <div id="mrpTableBody" class="table-body remove-container-fluid small-table-body">
+                        <table id="mrpTable" class="table table-bordered table-ruhr display table-sm">
+                            <thead class="no-display">
+                            </thead>
+                            <colgroup>
+		                        <col style="width:5%" />
+		                        <col style="width:8%" />
+		                        <col style="width:10%" />
+		                        <col style="width:12%" />
+		                        <col style="width:8%" />
+		                        <col style="width:5%" />
+		                        <col style="width:5%" />
+		                        <col style="width:10%" />
+		                        <col style="width:10%" />
+		                        <col style="width:10%" />
+	                        </colgroup>
+                            <tbody></tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Buyouts id = boyoutsTable*@ 
+        <div class="card margin-top-10">
+            <div class="card-header" id="buyOutsHeader">
+                <h5 class="mb-0 like-button">
+                    <b>Buyouts</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right" ></span>
+                    <span class="buyoutsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body ">
+                <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="boyoutsTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="boyoutsTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+        @*Remaining Parts*@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="restPosHeader" >
+                <h5 class="mb-0 like-button">
+                    <b>Remaining Parts</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right" ></span>
+                    <span class="buyoutsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseRemainingParts" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="remainingPartsTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="remainingPartsTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>       
+                </div>
+            </div>
+        </div>
+
+        @*Fabrications fabricationsTable *@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="productionPofHeader" >
+                <h5 class="mb-0 like-button">
+                    <b>Fabrications</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="fabricationsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseFabrications" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="fabricationsTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="fabricationsTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Fabrications PlacedPOs fabricationsPlacedTable*@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="purchasePofHeader">
+                <h5 class="mb-0 like-button">
+                    <b>Fabs Placed POs</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="fabricationsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseFabs" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                  <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                       <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="fabricationsPlacedTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="fabricationsPlacedTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+        
+        @*Machinings machiningTable*@ 
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="productionGmmHeader" >
+                <h5 class="mb-0 like-button">
+                    <b>Machining</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="machiningsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseMachinings" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                  <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="machiningTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="machiningTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+              </div>
+            </div>
+      </div>
+
+        @*MachsPlacedPOs machiningPlacedTable*@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="purchasePomHeader">
+                <h5 class="mb-0 like-button">
+                    <b>Mach Placed POs</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="machiningsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseMachsPlaced" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                      <div class="content table-bordered table-sh">
+                            <div class="table-header">
+                                <table class="table display headers-sh table_header_all table-sm">
+                                    <colgroup>
+		                                <col style="width:5%" />
+		                                <col style="width:8%" />
+		                                <col style="width:10%" />
+		                                <col style="width:12%" />
+		                                <col style="width:8%" />
+		                                <col style="width:5%" />
+		                                <col style="width:5%" />
+		                                <col style="width:10%" />
+		                                <col style="width:10%" />
+		                                <col style="width:10%" />
+	                                </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Late</th>
+                                            <th>Order</th>
+                                            <th>Item</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                            <th>Line</th>
+                                            <th>Qty</th>
+                                            <th>Requested Delivery Date</th>
+                                            <th>Planned Delivery Date</th>
+                                            <th>Confirm Delivery Date</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="machiningPlacedTableBody" class="table-body remove-container-fluid">
+                                <table id="machiningPlacedTable" class="table table-bordered table-ruhr display table-sm">
+                                    <thead class="no-display">
+                                    </thead>
+                                    <colgroup>
+		                                <col style="width:5%" />
+		                                <col style="width:8%" />
+		                                <col style="width:10%" />
+		                                <col style="width:12%" />
+		                                <col style="width:8%" />
+		                                <col style="width:5%" />
+		                                <col style="width:5%" />
+		                                <col style="width:10%" />
+		                                <col style="width:10%" />
+		                                <col style="width:10%" />
+	                                </colgroup>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+        @*Castings id = castingsTable*@
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="productionGccHeader">
+                <h5 class="mb-0 like-button">
+                    <b>Castings</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="castingsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseCastings" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+                                    <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="castingsTableBody" class="table-body remove-container-fluid small-table-body">
+                            <table id="castingsTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                  </div>              
+              </div>
+           </div>
+        </div>
+
+        @*CastingsPlacedPOs castingPlacedTable*@ 
+        <div class="card" style="margin-top:10px">
+            <div class="card-header" id="purchasePocHeader">
+                <h5 class="mb-0 like-button">
+                    <b>Castings Placed POs</b>
+                    <span class="glyphicon glyphicon-arrow-up float-right"></span>
+                    <span class="castingsCommitment float-right"></span>
+                </h5>
+            </div>
+            <div id="collapseCastingsPlaced" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="content table-bordered table-sh">
+                        <div class="table-header">
+                            <table class="table display headers-sh table_header_all table-sm">
+                                <colgroup>
+		                            <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Late</th>
+                                        <th>Order</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Line</th>
+                                        <th>Qty</th>
+                                        <th>Requested Delivery Date</th>
+                                        <th>Planned Delivery Date</th>
+                                        <th>Confirm Delivery Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="castingPlacedTableBody" class="table-body remove-container-fluid ">
+                            <table id="castingPlacedTable" class="table table-bordered table-ruhr display table-sm">
+                                <thead class="no-display">
+                                </thead>
+                                <colgroup>
+                                    <col style="width:5%" />
+		                            <col style="width:8%" />
+		                            <col style="width:10%" />
+		                            <col style="width:12%" />
+		                            <col style="width:8%" />
+		                            <col style="width:5%" />
+		                            <col style="width:5%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+		                            <col style="width:10%" />
+	                            </colgroup>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+              </div>
+            </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-1200" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel"></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+          <div class="d-flex justify-content-center margin-top-10" id="loadingModal">
+              <div class="spinner-border" role="status" id="spinnerModal">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </div>
+
+          <h2 id="error"> </h2>
+
+          <div class="content table-bordered table-sh" id="constraintsTable">
+            <div class="table-header">
+                <table class="table display headers-sh table_header_all">
+                    <colgroup>
+		                <col style="width:6%" />
+		                <col style="width:8.3%" />
+		                <col style="width:6%" />
+		                <col style="width:8.3%" />
+		                <col style="width:10%" />
+		                <col style="width:8.3%" />
+		                <col style="width:10%" />
+		                <col style="width:8.3%" />
+                        @*<col style="width:8.3%" />*@
+                        <col style="width:8.3%" />
+                        <col style="width:8%" />
+                        <col style="width:8%" />
+	                </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Op.</th>
+                            <th>Additional Delay - Hours</th>   
+                            <th>Real Delay</th>                                 
+                            <th>Machine</th>
+                            <th>Task Description</th>
+                            <th>Constraint Type</th>
+                            <th>Resource Name</th>
+                            <th>Component Description</th>
+                            @*<th>Confirmed Delivery</th>*@
+                            <th>Area</th>
+                            <th>Planned End</th>
+                            <th>Calculated End</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="boyoutsTableConstraint" class="table-body remove-container-fluid small-table-body">
+                <table id="boyoutsTableCo" class="table table-bordered table-ruhr display">
+                    <thead class="no-display"></thead>
+                    <colgroup>
+		                <col style="width:6%" />
+		                <col style="width:8.3%" />
+		                <col style="width:6%" />
+		                <col style="width:8.3%" />
+		                <col style="width:10%" />
+		                <col style="width:8.3%" />
+		                <col style="width:10%" />
+		                <col style="width:8.3%" />
+                        <col style="width:8.3%" />
+                        @*<col style="width:8.3%" />*@
+                        <col style="width:8%" />
+                        <col style="width:8%" />
+	                </colgroup>
+                    <tbody></tbody>
+                </table>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closemodal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="buysModal" tabindex="-1" role="dialog" aria-labelledby="buysModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-1200" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="buyordertitle"></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="buysModal-body">
+          <span class="font-md noinformation">No Order Information</span>
+          <div class="yesinformation">
+              <div class="col-sm-5 ">
+                  <label class="font-md">Buyer: </label>
+                  <label id="buyername" class="font-md"></label>
+              </div>
+
+              <div class="col-sm-6 "> 
+                  <label class="font-md">Supplier Name: </label>
+                  <label id="bpname" class="font-md"></label>
+              </div>
+
+              <div class="col-sm-5 ">
+                  <label class="font-md">Order Date: </label>
+                  <label id="orderdate" class="font-md"></label>
+              </div>
+
+              <div class="col-sm-6 "> 
+                  <label class="font-md">Last Update: </label>
+                  <label id="lastconfirmation" class="font-md"></label>
+              </div>
+
+              <div class="col-sm-5" id="havesuppliers">
+                  <label class="font-md">Other Suppliers: </label>
+                  <ul id="othersuppliers" > </ul>
+              </div>
+
+              <div class="col-sm-6"> 
+                  <label class="font-md">Confirmation Date</label>
+                  <label id="confirmationdate" class="font-md"></label>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        getSaleOrder();
+        getTasksCategories();
+
+        if ($(document).width() >=  1620 ) {
+            $("#draw").addClass("col-sm-7");
+        } else {
+            $("#draw").addClass("col-sm-9");
+        }
+
+        $('#spinner').show();
+        $("#accordion").hide();
+
+        var assemblydayscalculated;
+        var assembly_days;
+        var final_buffer;
+        var machining_date;
+        var machining_end;
+        var castingrelease;
+        var fabrications_date;
+        var boyouts_remainingparts;
+        var has_commitment = false;
+        var item_description = String;
+        var assemblys = [];
+        var boyouts = [];
+        var castings = [];
+        var fabrications = [];
+        var machinings = [];
+        var remainingParts = [];
+        var fabPlacedPos = [];
+        var castingsPlacedPos = [];
+        var machPlacedPos = [];
+        var mrparray = [];
+
+        var machiningsGlobal = [];
+        var fabricationsGlobal = [];
+        var foundryGlobal = [];
+        var procurementGlobal = [];
+
+        var boyoutsComplete = false;
+        var byoComplete = false;
+        var pofCompleted = false;
+        var gffCompleted = false;
+        var pomCompleted = false;
+        var gmmCompleted = false;
+        var pocCompleted = false;
+        var gccCompleted = false;
+
+        var boyoutsClass;
+        var byoClass;
+        var pofClass;
+        var gffClass;
+        var pomClass;
+        var gmmClass;
+        var pocClass;
+        var gccClass;
+
+        var tplanTask = [];
+        var peorFecha;
+
+        saleOrder = [];
+        var assemblyClass;
+        var bomcien = false;
+        var bomexist = false;
+
+        var nocpr = true;
+        var mrpCircle;
+        var final_buffer_date;
+        var tasksCategories = [];
+
+        var buyoutsexist = false;
+        var rempartsexist = false;
+        var pofexist = false;
+        var gffexist = false;
+        var pomexist = false;
+        var gmmexist = false;
+        var pocexist = false;
+        var gccexist = false;
+        var cprcompleted = false;
+        var table_options = {
+            dom: 'rt<"bottom"iflp<"clear">>',
+            responsive: true,
+            fixedHeader: {
+                header: false,
+                footer: false
+            },
+            ordering: false,
+            orderClasses: false
+        };
+
+        var columns = [
+            { data: 'Bullet' },
+            { data: 'OrderWrhs' },
+            { data: 'Item' },
+            { data: 'Description' },
+            { data: 'Status' },
+            { data: 'Line' },
+            { data: 'Qty' },
+            { data: 'RequestDeliveryDate' },
+            { data: 'PlannedDeliveryDate' },
+            {
+                data: {
+                    _: "date.display",
+                    sort: "date.timestamp"
+                }
+            },
+        ];
+        var planname;
+        var projplan;
+        var baanCompany;
+        var orderSO_Ln;
+        var orderSO_Sq;
+
+        var buyoutsdetailexist = false;
+        var remainingpartsdetails = false;
+        var pofDetails = false;
+        var machPlacedExist = false;
+        var machiningsExist = false;
+        var castingsPlacedExist = false;
+        var castingsdetail = false;
+        var fabricationsdetails = false;
+
+        var assembly_end;
+        var foundry;
+
+        function getSaleOrder() {
+            var data = {
+                ProdOrderNr: '@ViewBag.ProdOrderNr',
+            };
+
+            $.ajax({
+                url: "/Commitment/getSaleOrder",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (i) {
+                    final_buffer_date = i.SO_Ln_PlnRecDate;
+                    var ass_end = i.assembly_end != null ? moment(i.assembly_end).format("MM/DD/YYYY") : moment(i.ProdOrder_ConfDate).format("MM/DD/YYYY");
+                    i.end_date = {
+                        display: ass_end
+                    }
+
+                    saleOrder = i;
+                    $("#titletwo").text(i.PlanName + " : " + i.SO_CustomerName)
+                    $("#title").text(i.ProdOrderNr + " : " + i.Item_Description);
+                    assemblys.push({
+                        Bullet: "*",
+                        OrderWrhs: i.ProdOrderNr,
+                        Item: i.SO_Item,
+                        Description: i.Item_Description,
+                        Status: i.ProdOrder_Status,
+                        Line: "0",
+                        Qty: i.Qty,
+                        ReceiptDate: moment(i.ProdOrder_ConfDate).format("MM/DD/YYYY"),
+                        ReceiptDateFormat: moment(i.ProdOrder_ConfDate).format("MM/DD/YYYY"),
+                        PlannedDeliveryDate: moment(i.ProdOrder_PlnDlvDate).format("MM/DD/YYYY"),
+                        RequestDeliveryDate: moment(i.ProdOrder_ReqDlvDate).format("MM/DD/YYYY"),
+                        date: {
+                            display: moment(i.ProdOrder_ConfDate).isSameOrBefore(moment("01/01/1980")) === true ? "" : moment(i.ProdOrder_ConfDate).format("MM/DD/YYYY"),
+                            timestamp: moment(i.ProdOrder_ConfDate).format("YYYY/MM/DD")
+                        }
+                    });
+
+                    orderSO_Ln = i.SO_Ln;
+                    orderSO_Sq = i.SO_Sq;
+                    projplan = i.projplan;
+                    baanCompany = i.BaanCompany;
+                    planName = i.PlanName;
+                    sendMail(i.PlanName);
+                    getTasks();
+                }
+            })
+        }
+
+        function sendMail(project) {
+            var data = {
+                project: project,
+                user: '@ViewBag.User'
+            };
+
+            $.ajax({
+                url: "/Detail/SendMail",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    console.log("response", response);
+                }
+            })
+        }
+        
+        function getTasksCategories() {
+            $.ajax({
+                url: "/Detail/GetTasksCategories",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    _.find(response, function (o) {
+                        if (o.CatId == 'KOM') {
+                            $(".komtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'BOM') {
+                            $(".bomtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'CPR') {
+                            $(".cprtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'PRB') {
+                            $(".prbtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'DAA') {
+                            $(".daatitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'PRC') {
+                            $(".prctitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'POC') {
+                            $(".poctitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'GCC') {
+                            $(".gcctitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'BYO') {
+                            $(".byotitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'POF') {
+                            $(".poftitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'GFF') {
+                            $(".gfftitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'POM') {
+                            $(".pomtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+                        if (o.CatId == 'GMM') {
+                            $(".gmmtitle").html(o.CatName + ' (' + o.CatId + ')');
+                        }
+
+
+                    });
+                }, error: function (err) {
+                }
+            })
+        }
+       
+        function getTasks() {
+            var data = {
+                projplan: '@ViewBag.Projplan'
+            };
+            $.ajax({
+                url: "/Detail/GetTasks",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    $.each(response, function (item, x) {
+                        tplanTask = response;
+                        if (x.CatId == 'CPR' && x.tCompletion == 100) {
+                            cprcompleted = true;
+                        }
+
+                        if (x.CatId == "KOM" || x.CatId == 'MKm') {
+                            //Kick OFF CIRCLE
+                            var koclass = x.tCompletion == 100 ? "blue" : reviewDate(x.tEnd_Actual, x.tEnd_back);
+                            $("#kickoffCirle").addClass(koclass);
+                        }
+                        
+                        if (x.CatId == "PRB") {
+                            //linea de mrp a procurement
+                            var mrpline = x.tCompletion == 100 ? "blue" : reviewDate(x.tEnd_Actual, x.tEnd_back);
+                            $("#mrpline").css("stroke", mrpline);
+                            $("#mrplinethree").css("stroke", mrpline).css("fill", mrpline);
+                        }
+
+                        if (x.CatId == "DAA") {
+                            //linea de mrp a fabrications y machinig
+                            var daaline = x.tCompletion == 100 ? "blue" : reviewDate(x, "tEnd_Actual");
+                            $("#daaline").css("stroke", daaline);
+                            $("#daalinetwo").css("stroke", daaline);
+                            $("#daalinefour").css("stroke", daaline).css("fill", daaline);
+                            $("#daalinesix").css("stroke", daaline).css("fill", daaline);
+                            $("#daalineseven").css("stroke", daaline).css("fill", daaline);
+                        }
+
+                        if (x.CatId == "PRC") {
+                            //PRC linea de mrp a casting
+                            var prcline = x.tCompletion == 100 ? "blue" : reviewTwoDate(x.tEnd_Actual, x.tEnd_back);
+                            $("#prcline").css("stroke", prcline).css("fill", prcline);
+                            $("#prcpoligon").css("stroke", prcline).css("fill", prcline);
+                        }
+
+                        if (x.CatId == 'BOM') {
+                            if (x.tCompletion == 100) {
+                                bomcien = true;
+                            }
+                            bomexist = true;
+                        }
+                    });
+
+                    _.find(response, function (o) {
+                        if (o.CatId == 'BMO' || o.CatId == 'BMS' || o.CatId == 'BSS' || o.CatId == 'BYC' || o.CatId == 'BOF') {
+                            buyoutsexist = true;
+                        } 
+
+                        if (o.CatId == 'BYO') {
+                            rempartsexist = true;
+                        } 
+
+                        if (o.CatId == 'POF') {
+                            pofexist = true;
+                        } 
+
+                        if (o.CatId == 'GFF') {
+                            gffexist = true;
+                        } 
+
+                        if (o.CatId == 'POM') {
+                            pomexist = true;
+                        } 
+
+                        if (o.CatId == 'GMM') {
+                            gmmexist = true;
+                        }
+
+                        if (o.CatId == 'POC') {
+                            pocexist = true;
+                        }
+
+                        if (o.CatId == 'GCC') {
+                            gccexist = true;
+                        }
+
+                    });
+
+                    getDetailInformation();
+                }
+            })
+        }        
+
+
+        function getDetailInformation() {
+            loading = true;
+            var data = {
+                OrderType: '@ViewBag.OrderType',
+                BaanCompany: '@ViewBag.BaanCompany',
+                ProdOrderNr: '@ViewBag.ProdOrderNr',
+                SO_Ln: orderSO_Ln,
+                SO_Sq: orderSO_Sq,
+            };
+            $.ajax({
+                url: "/Detail/DetailInformation",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    var hasRedBoyuts = false, hasRedCastings = false, hasRedFabrications = false, hasRedMachinings = false, hasRedremainingParts = false, hasRedfabPlacedPos = false, hasRedcastingsPlacedPos = false, hasRedmachPlacedPos = false;
+                    $.each(response, function (index, value) {
+                        value["ReceiptDateFormat"] = moment(value.ReceiptDate).format("MM/DD/YYYY");
+                        
+                        if (value.OrderType == "Production Order" && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && (
+                            value.ItemGroup == '3101' || value.ItemGroup == '3102' || value.ItemGroup == '3103' || value.ItemGroup == '3104' || value.ItemGroup == '3105' || value.ItemGroup == '3110' || value.ItemGroup == '3190' || value.ItemGroup == '3201' ||
+                            value.ItemGroup == '3202' || value.ItemGroup == '3203' || value.ItemGroup == '3204' || value.ItemGroup == '3205' || value.ItemGroup == '3210' || value.ItemGroup == '3290' || value.ItemGroup == '5101' || value.ItemGroup == '5201' || value.ItemGroup == '5301' || value.ItemGroup == '5302')) {
+                            value['date'] = {
+                                "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                            };
+                            assemblys.push(value);
+
+                            buyoutsdetailexist = true;
+                        }
+                        
+                        if (value.OrderType != "Production Order" && (value.CatID == 'BMo' || value.CatID == 'BMO' || value.CatID == 'BMS' || value.CatID == 'BSS' || value.CatID == 'BYC' || value.CatID == 'BSI') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedBoyuts) {
+                                var byclass = reviewDate(value, "ReceiptDateFormat");
+                                if (byclass == 'red') {
+                                    hasRedBoyuts = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value)) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                boyouts.push(value);
+                                remainingpartsdetails = true;
+                            }
+                        } else if ((value.CatID == 'GCC') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedCastings) {
+                                var cclass = reviewDate(value, "ReceiptDateFormat");
+                                if (cclass == 'red') {
+                                    hasRedCastings = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != "" && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value)) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                castings.push(value);
+                                castingsdetail = true;
+                            }
+                        } else if ((value.CatID == 'GFF') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedFabrications) {
+                                var fclass = reviewDate(value, "ReceiptDateFormat");
+                                if (fclass == 'red') {
+                                    hasRedFabrications = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value)) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                fabrications.push(value);
+                                fabricationsdetails = true;
+                            }
+                        } else if ((value.CatID == 'GMM') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedMachinings) {
+                                var mclass = reviewDate(value, "ReceiptDateFormat");
+                                if (mclass == 'red') {
+                                    hasRedMachinings = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value) && value.OrderWrhs.indexOf('1022', 0, 4) != 0) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                machinings.push(value);
+                                machiningsExist = true;
+                            }
+                        } else if ((value.CatID == 'BYO') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedremainingParts) {
+                                var rpclass = reviewDate(value, "ReceiptDateFormat");
+                                if (rpclass == 'red') {
+                                    hasRedremainingParts = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value) && value.OrderWrhs.indexOf('1022', 0, 4) != 0) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                remainingParts.push(value);
+                            }
+                        } else if ((value.CatID == 'POF') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedfabPlacedPos) {
+                                var fpclass = reviewDate(value, "ReceiptDateFormat");
+                                if (fpclass == 'red') {
+                                    hasRedfabPlacedPos = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value)) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                fabPlacedPos.push(value);
+                                pofDetails = true;
+                            }
+                        } else if ((value.CatID == 'POC') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedcastingsPlacedPos) {
+                                var cpclass = reviewDate(value, "ReceiptDateFormat");
+                                if (cpclass == 'red') {
+                                    hasRedcastingsPlacedPos = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && value.Status != '' && value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer' && !isAssembly(value)) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                                castingsPlacedPos.push(value);
+                                castingsPlacedExist = true;
+                            }
+                        } else if ((value.CatID == 'POM') && (value.Status != "MRP" && value.Status != "Firm_Planned" && value.Status != "Planned")) {
+                            if (!hasRedmachPlacedPos) {
+                                var rppclass = reviewDate(value, "ReceiptDateFormat");
+                                if (rppclass == 'red') {
+                                    hasRedmachPlacedPos = true;
+                                }
+                            }
+                            if (value.Status != "Stock" && !isAssembly(value)) {
+                                if (value.Status != '') {
+                                    value['date'] = {
+                                        "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                        "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                    };
+                                    machPlacedPos.push(value);
+                                    machPlacedExist = true;
+                                }
+                            }
+                        }
+
+                        if ((value.Status == "MRP" || value.Status == "Firm_Planned"|| value.Status == "Planned") && !cprcompleted &&  value.OrderType != 'Whs Transf' && value.OrderType != 'Dist Transfer') {
+                            //Estas son las de CPR
+                            if (!value.date) {
+                                value['date'] = {
+                                    "display": moment(value.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980")) === true ? "" : value.ReceiptDateFormat,
+                                    "timestamp": moment(value.ReceiptDateFormat).format("YYYY/MM/DD")
+                                };
+                            }
+                            mrparray.push(value);
+                        }
+
+                    });
+
+                    if (mrparray.length == 0) {
+                        nocpr = true;
+                    } else {
+                        nocpr = false;
+                    }
+
+
+                    //Brown Tasks: 
+                    //VERDE:On Time: Fecha es después de hoy
+                    //AMARILLO: About Impact buffer
+                    //ROJO: Fecha final es antes de hoy
+                    //Azul: finalizado
+                    //console.log("assemblys tablaaa", assemblys)
+                    //console.log("boyouts", boyouts);
+                    //console.log("castings", castings);
+                    //console.log("fabrications", fabrications);
+                    //console.log("machinings", machinings);
+                    //console.log("MRP", mrparray)
+                    //console.log("remainingParts", remainingParts);
+                    //console.log("fabPlacedPos", fabPlacedPos);
+                    //console.log("castingsPlacedPos", castingsPlacedPos);
+                    //console.log("machPlacedPos", machPlacedPos);
+
+                    //Se declaran las tablas.
+                    //Mostrar tabla cuando hay informacion?
+                    assemblys.length > 10 ? $("#assemblysTableBody").addClass('small-table-body') : $("#assemblysTableBody").addClass('auto-height')
+                    boyouts.length > 10 ? $("#boyoutsTableBody").addClass('small-table-body') : $("#boyoutsTableBody").addClass('auto-height')
+                    castings.length > 10 ? $("#castingsTableBody").addClass('small-table-body') : $("#castingsTableBody").addClass('auto-height')
+                    fabrications.length > 10 ? $("#fabricationsTableBody").addClass('small-table-body') : $("#fabricationsTableBody").addClass('auto-height')
+                    machinings.length > 10 ? $("#machiningTableBody").addClass('small-table-body') : $("#machiningTableBody").addClass('auto-height')
+                    mrparray.length > 10 ? $("#mrpTableBody").addClass('small-table-body') : $("#mrpTableBody").addClass('auto-height')
+                    remainingParts.length > 10 ? $("#remainingPartsTableBody").addClass('small-table-body') : $("#remainingPartsTableBody").addClass('auto-height')
+                    fabPlacedPos.length > 10 ? $("#fabricationsPlacedTableBody").addClass('small-table-body') : $("#fabricationsPlacedTableBody").addClass('auto-height')
+                    castingsPlacedPos.length > 10 ? $("#castingPlacedTableBody").addClass('small-table-body') : $("#castingPlacedTableBody").addClass('auto-height')
+                    machPlacedPos.length > 10 ? $("#machiningPlacedTableBody").addClass('small-table-body') : $("#machiningPlacedTableBody").addClass('auto-height')
+
+                    //ToDo: quitar este mugrero, hacer el card open by default, hacerlo en el html
+                    $("#collapseOneButton").click();
+                    $("#collapseCastingsButton").click();
+                    $("#collapseFabricationsButton").click();
+                    $("#collapseMachiningsButton").click();
+                    $("#collapseRemainingPartsButton").click();
+                    $("#collapseFabsButton").click();
+                    $("#collapseCastingsPlacedButton").click();
+                    $("#collapseMachsPlacedButton").click();
+
+                    $('#spinner').hide();
+                    $("#accordion").show();
+                    getCommitment();
+                }
+            });
+                
+        }
+
+        function getCommitment() {
+            var data = {
+                ProdOrderNr: '@ViewBag.ProdOrderNr'
+            };
+            $.ajax({
+                url: "/Commitment/GetCommitment",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (response) {
+                        has_commitment = true;
+                        //Es ready to  ship? o es end date?
+                        var shippingClass = reviewDate(response, 'readytoship');
+                        $("#shippingCircle").addClass(shippingClass);
+
+                        //Cosas que se necesitan para los calculos
+                        assembly_days = response.assembly_days;
+                        final_buffer_days = response.final_buffer;
+                        machining_days = response.machining_days;
+                        castingrelease = moment(response.casting_date).format("MM/DD/YYYY");
+                        bomdate = moment(response.bom_date).format("MM/DD/YYYY");
+
+                        getCommitmentCalculation(assembly_days, final_buffer_days, machining_days, castingrelease, bomdate);
+                    }
+                },
+                error: function (err) {
+                    //Cosas que se necesitan para los calculos
+                    assembly_days = 7;
+                    final_buffer_days = saleOrder.DaysBuffer;// 0;
+                    machining_days = 28;
+
+                    getCommitmentCalculation(assembly_days, final_buffer_days, machining_days, null, null);
+                    
+                }
+            })
+        }
+
+        function getCommitmentCalculation(assembly_days, final_buffer_days, machining_days, castingrelease, bomdate) {
+            final_buffer = moment(final_buffer_date).format("MM/DD/YYYY");
+
+            var buffer_start = moment(final_buffer).subtract(parseInt(final_buffer_days), 'days').format('MM/DD/YYYY');
+
+
+            var readytoShip = moment(buffer_start).add(1, 'days').format('MM/DD/YYYY')
+            readytoShip = checkDomingo(readytoShip);
+
+            assembly_end = moment(readytoShip).subtract(1, 'days').format('MM/DD/YYYY');
+            assembly_end = checkDomingo(assembly_end);
+
+            var assembly_start = moment(assembly_end).subtract(assembly_days, 'days').format('MM/DD/YYYY');
+            assembly_start = checkDomingo(assembly_start)
+
+            var components = moment(assembly_start).subtract(1, 'days').format('MM/DD/YYYY');
+            components = checkDomingo(components)
+
+            machining_end = moment(assembly_start).subtract(1, 'days').format('MM/DD/YYYY');
+            machining_end = checkDomingo(machining_end)
+
+            var machining_start = moment(machining_end).subtract(machining_days, 'days').format('MM/DD/YYYY');
+            machining_start = checkDomingo(machining_start);
+
+            var releasetomanufacturing = moment(machining_start).subtract(1, 'days').format('MM/DD/YYYY');
+            releasetomanufacturing = checkDomingo(releasetomanufacturing);
+
+            foundry = moment(machining_start).subtract(2, 'days').format('MM/DD/YYYY');
+            foundry = checkDomingo(foundry)
+
+            fabrications_date = moment(machining_end).subtract(1, 'days').format('MM/DD/YYYY');
+            fabrications_date = checkDomingo(fabrications_date);
+
+            boyouts_remainingparts = moment(machining_end).subtract(1, 'days').format('MM/DD/YYYY');
+            boyouts_remainingparts = checkDomingo(boyouts_remainingparts);
+
+            $("#assemblyCommitment").html('<b>Commitment date: ' + assembly_end + '</b>');
+            $(".buyoutsCommitment").html('<b>Commitment date: ' + boyouts_remainingparts + '</b>');
+            $(".fabricationsCommitment").html('<b>Commitment date: ' + fabrications_date + '</b>');
+            $(".machiningsCommitment").html('<b>Commitment date: ' + machining_end + '</b>');
+            $(".castingsCommitment").html('<b>Commitment date: ' + foundry + '</b>');
+
+            ///Semaforeo del Circulo Assembly
+            //Agregar a las funciones de reviewDate una sin el amarillo
+            if (moment(assembly_end).isSameOrBefore(moment()) ) {
+                assemblyClass = "red";
+            } else {
+                assemblyClass = "green";
+            }
+
+            if (assemblys.length == 0) {
+                assemblyClass = reviewCPRBOM() ? "blue" : "green";
+            } else {
+                assemblyClass = paintSegmentsTwo(assembly_end, assemblys, 'buyout')
+            }
+
+            $("#assemblyCircle").addClass(assemblyClass);
+
+            //Semáforos vs Compromisos!
+            //Obtener BOM Y CPR para semaforeo de segmentos.            
+            _.find(tplanTask, function (o) {
+                if (o.CatId == 'BOM') {
+                    //PRC linea de mrp a casting
+                    var engclass = o.tCompletion == 100 ? "blue" : reviewTwoDate(o.tEnd_Actual, bomdate ? bomdate : o.tEnd_back);//bomdate o tEnd_Backward
+                    $("#engCircle").addClass(engclass);
+                }
+            });
+
+            _.find(tplanTask, function (o) {
+                if (o.CatId == 'CPR') {
+                    if (o.tCompletion == 100) {
+                        mrpCircle = 'blue';
+                        $("#mrpCircle").addClass(mrpCircle);
+                        return;
+                    }
+
+                    if ((bomcien || !bomexist) && nocpr) {
+                        mrpCircle = 'blue';
+                    } else {
+                        mrpCircle = reviewTwoDate(o.tEnd_Actual, o.tEnd_back);
+                    }
+                    $("#mrpCircle").addClass(mrpCircle);
+                }
+
+                //Procurement-Buyouts
+                if (o.CatId == 'BMo' || o.CatId == 'BMO' || o.CatId == 'BMS' || o.CatId == 'BSS' || o.CatId == 'BYC' || o.CatId == 'BOF' || o.CatId == 'BSI') {
+                    var buyoutclass;
+                    if (boyouts.length == 0) {
+                        buyoutclass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        buyoutclass = paintSegmentsTwo(boyouts_remainingparts, boyouts, 'buyout')
+                    }
+                }
+
+                $("#buyOutsCircle").addClass(buyoutclass);
+
+                //Procurement-RestPO's
+                if (o.CatId == 'BYO') {
+                    if (remainingParts.length == 0) {
+                        byoClass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        byoClass = paintSegmentsTwo(boyouts_remainingparts, remainingParts, 'byo')
+                    }
+
+                    $("#restPosByo").addClass(byoClass);
+                }
+                //Fabrications-purchase
+                if (o.CatId == 'POF') {
+                    var pofclass;
+                    if (fabPlacedPos.length == 0) {
+                        pofclass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        pofclass = paintSegmentsTwo(fabrications_date, fabPlacedPos, 'pof');
+                    }
+                    $("#purchasePof").addClass(pofclass);
+                }
+                //Fabrications-production
+                if (o.CatId == 'GFF') {
+                    if (fabrications.length == 0) {
+                        gffClass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        gffClass = paintSegmentsTwo(fabrications_date, fabrications, 'gff')
+                    }
+                    $("#productionPof").addClass(gffClass);
+                }
+
+                //Machining-purchase
+                if (o.CatId == 'POM') {
+                    var pomclass;
+                    if (machPlacedPos.length == 0) {
+                        pomclass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        pomclass = paintSegmentsTwo(machining_end, machPlacedPos, 'pom');
+                    }
+                    $("#purchasePom").addClass(pomclass);
+                }
+                //Machining-production
+                if (o.CatId == 'GMM') {
+                    if (machinings.length == 0) {
+                        gmmClass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        gmmClass = paintSegmentsTwo(machining_end, machinings, 'gmm');
+                    }
+                    $("#productionGmm").addClass(gmmClass);
+                }
+                //Castings-Purchase
+                if (o.CatId == 'POC') {
+                    var pocclass;
+                    if (castingsPlacedPos.length == 0) {
+                        pocclass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        pocclass = paintSegmentsTwo(foundry, castingsPlacedPos, 'poc');
+                    }
+                    $("#purchasePoc").addClass(pocclass);
+                }
+                //Castings-Production
+                if (o.CatId == 'GCC') {
+                    var gccClass;
+                    if (castings.length == 0) {
+                        gccClass = reviewCPRBOM() ? "blue" : "green";
+                    } else {
+                        gccClass = paintSegmentsTwo(foundry, castings, 'gcc');
+                    }
+                    $("#productionGcc").addClass(gccClass);
+                }
+            });
+
+            if (!buyoutsexist && buyoutsdetailexist) {
+                var buyoutclass = paintSegmentsTwo(boyouts_remainingparts, boyouts, 'buyout');
+                $("#buyOutsCircle").addClass(buyoutclass);
+            }
+
+            if (!rempartsexist && remainingpartsdetails) {
+                var byoClass = paintSegmentsTwo(boyouts_remainingparts, remainingParts, 'byo')
+            
+                $("#restPosByo").addClass(byoClass);
+            }
+
+            if (!pofexist && pofDetails) {
+                var pofclass = paintSegmentsTwo(fabrications_date, fabPlacedPos, 'pof');
+
+                $("#purchasePof").addClass(pofclass);
+            }
+
+            if (!gffexist && fabricationsdetails) {
+                var gffClass = paintSegmentsTwo(fabrications_date, fabrications, 'gff')
+                $("#productionPof").addClass(gffClass);
+            }
+
+            if (!pomexist && machPlacedExist) {
+                var pomclass = paintSegmentsTwo(machining_end, machPlacedPos, 'pom');
+                $("#purchasePom").addClass(pomclass);
+            }
+
+            if (!gmmexist && machiningsExist) {
+                var gmmClass = paintSegmentsTwo(machining_end, machinings, 'gmm');
+                $("#productionGmm").addClass(gmmClass);
+            }
+
+            if (!pocexist && castingsPlacedExist) {
+                var pocclass = paintSegmentsTwo(foundry, castingsPlacedPos, 'poc');
+                $("#purchasePoc").addClass(pocclass);
+            }
+
+            if (!gccexist && castingsdetail) {
+                var gccClass = paintSegmentsTwo(foundry, castings, 'gcc');
+                $("#productionGcc").addClass(gccClass);
+            }
+
+            //Tamblas de PRODUCCION
+            $('#assemblysTable').DataTable({
+                data: assemblys,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                orderClasses: false,
+                pageLength: 150,
+                order: [[7, "desc"]],
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(assembly_end).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {// && has_commitment
+                        $(row).find('td').eq(0).text("*").addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        $(row).find('td').eq(0).text("");
+                        data["constraint"] = false;
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#remainingPartsTable').DataTable({
+                data: remainingParts,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(boyouts_remainingparts).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {// && has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        $(row).find('td').eq(0).text("");
+                        data["constraint"] = false;
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#fabricationsTable').DataTable({
+                data: fabrications,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(fabrications_date).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {// && has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        data["constraint"] = false;
+                        $(row).find('td').eq(0).text("");
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#machiningTable').DataTable({
+                data: machinings,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(machining_end).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {//&& has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        $(row).find('td').eq(0).text("");
+                        data["constraint"] = false;
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $("#castingsTable").DataTable({
+                data: castings,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(foundry).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {//gccClass == 'yellow' || gccClass == 'red') {// && has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        data["constraint"] = false;
+                        $(row).find('td').eq(0).text("");
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            //TABLAS DE COMPRAAAAAAAAAAAAAAAAAAAAAAAAAAAAS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            $('#mrpTable').DataTable({
+                data: mrparray,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (data.SelCode != 'COM') {
+                        $(row).find('td').eq(0).text("Eng").addClass('bullet-red text-center');
+                        data["constraint"] = true;
+                    } else {
+                        $(row).find('td').eq(0).text("");
+                        data["constraint"] = false;
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#boyoutsTable').DataTable({
+                data: boyouts,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                orderClasses: false,
+                pageLength: 150,
+                order: [[7, "desc"]],
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(boyouts_remainingparts).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {// && has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        data["constraint"] = false;
+                        $(row).find('td').eq(0).html('');
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $("#fabricationsPlacedTable").DataTable({
+                data: fabPlacedPos,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(fabrications_date).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {// && has_commitment
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        data["constraint"] = false;
+                        $(row).find('td').eq(0).text("");
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#castingPlacedTable').DataTable({
+                data: castingsPlacedPos,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(foundry).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        data["constraint"] = false;
+                        $(row).find('td').eq(0).text("");
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+
+            $('#machiningPlacedTable').DataTable({
+                data: machPlacedPos,
+                columns: columns,
+                dom: 'rt<"bottom"iflp<"clear">>',
+                responsive: true,
+                fixedHeader: {
+                    header: false,
+                    footer: false
+                },
+                ordering: true,
+                order: [[7, "desc"]],
+                orderClasses: false,
+                pageLength: 150,
+                createdRow: function (row, data, dataIndex) {
+                    if (moment(machining_end).isSameOrBefore(moment(data.ReceiptDateFormat)) || moment(data.ReceiptDateFormat).isSameOrBefore(moment("01/01/1980"))) {
+                        $(row).find('td').eq(0).addClass('bullet-red bullet text-center');
+                        data["constraint"] = true;
+                    } else {
+                        $(row).find('td').eq(0).text("");
+                        data["constraint"] = false;
+                    }
+                },
+                info: false,
+                paging: false,
+            });
+        }
+
+        function reviewCPRBOM() {
+            if (nocpr && (bomcien || !bomexist)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function paintSegmentsTwo(date, array, segment) {
+            if (array.length > 0 ) {
+                var compromiso = moment(date);
+                var orden_date = moment(array[0].ReceiptDateFormat);
+                var today = moment();
+
+                if (compromiso.isSameOrBefore(today) && orden_date.isSameOrBefore(compromiso)) {
+                    //console.log("ROJO (1)");
+                    return "red";
+                } else if (compromiso.isSameOrBefore(orden_date) && orden_date.isSameOrBefore(today)) {
+                    //console.log("ROJO (2)");
+                    return "red";
+                } else if (today.isSameOrBefore(orden_date) && orden_date.isSameOrBefore(compromiso)) {
+                    //console.log("Verde (3)");
+                    return "green";
+                } else if (today.isSameOrBefore(compromiso) && compromiso.isSameOrBefore(orden_date)) {
+                    //console.log("ROJO (4)");
+                    return "red";
+                } else if (orden_date.isSameOrBefore(today) && today.isSameOrBefore(compromiso)) {
+                    //console.log("Verde (5)");
+                    return "green";
+                } else if (compromiso.isSameOrBefore(today) && today.isSameOrBefore(orden_date)) {
+                    //console.log("ROJO (6)");
+                    return "red";
+                } else {
+                    //console.log("VERDE (DEFAULT)");
+                    return "green";
+                }
+            } else {
+                return "green";
+            }
+        }
+
+        function paintSegments(date, array, circlename, circlenameCH) {
+            var setClass;
+            if (array.length == 0) {
+                if ((bomcien || !bomexist) && nocpr) {
+                    setClass = "blue";
+                    $(circlename).addClass(setClass);
+                    $(circlenameCH).addClass(setClass);
+                    return setClass;
+                } else {
+                    setClass = "green";
+                    $(circlename).addClass(setClass);
+                    $(circlenameCH).addClass(setClass);
+                    return setClass;
+                }
+            } else {
+                setClass = reviewTwoDate(array[0].ReceiptDateFormat, date);
+                $(circlename).addClass(setClass);
+                $(circlenameCH).addClass(setClass);
+                return setClass;
+            }
+        }
+
+        //Revisar fechas para semaforeo de Dibujo y Botones
+        var today = moment();
+        var sevendays = moment(today).add(7, 'days');
+        function reviewDate(item, property) {
+            if (moment(item[property]).isAfter(moment()) && moment(item[property]).isBetween(sevendays, today)) {
+                return "yellow";
+            } else if (moment(item[property]).isAfter(moment())) {
+                return "green";
+            } else if (moment(item[property]).isSameOrBefore(moment()) && item.Status != "Stock") {
+                return "red";
+            } else if (item.Status == "Stock") {
+                return "blue";
+            }
+        }
+
+        function reviewTwoDate(fechaARevisar, fechaCompromiso) {
+            var fechaRevisar = moment(fechaARevisar);
+            var fechaCompromiso = moment(fechaCompromiso);
+            var sevenDaysCompromiso = moment(fechaCompromiso).add(7, 'days');
+
+            if (fechaRevisar.isAfter(fechaCompromiso) && moment(fechaRevisar).isBetween(sevendays, sevenDaysCompromiso)) {
+                return "yellow";
+            } else if (fechaRevisar.isAfter(fechaCompromiso)) {
+                return "red";
+            } else if (moment(fechaRevisar).isSameOrBefore(fechaCompromiso)) {
+                return "green";
+            } 
+        }
+
+        //Remove container-fluid
+        $("#assemblysTable_wrapper").removeClass("container-fluid");
+        $("#boyoutsTable_wrapper").removeClass("container-fluid");
+        $("#castingsTable_wrapper").removeClass("container-fluid");
+        $("#fabricationsTable_wrapper").removeClass("container-fluid");
+        $("#machiningTable_wrapper").removeClass("container-fluid");
+        $("#remainingPartsTable_wrapper").removeClass("container-fluid");
+        $("#fabricationsPlacedTable_wrapper").removeClass("container-fluid");
+        $("#castingPlacedTable_wrapper").removeClass("container-fluid");
+        $("#machiningPlacedTable_wrapper").removeClass("container-fluid");
+
+        //Obtener constraint de Tablas de Compras
+        $("#boyoutsTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#boyoutsTable').DataTable().rows(this).data()[0].constraint) {
+                getBuyConstraint($('#boyoutsTable').DataTable().rows(this).data()[0].OrderWrhs, $('#boyoutsTable').DataTable().rows(this).data()[0].Line, $('#boyoutsTable').DataTable().rows(this).data()[0].ReceiptDateFormat);
+            }
+        });
+
+        $("#fabricationsPlacedTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#fabricationsPlacedTable').DataTable().rows(this).data()[0].constraint) {
+                getBuyConstraint($('#fabricationsPlacedTable').DataTable().rows(this).data()[0].OrderWrhs, $('#fabricationsPlacedTable').DataTable().rows(this).data()[0].Line, $('#fabricationsPlacedTable').DataTable().rows(this).data()[0].ReceiptDateFormat);
+            }
+        });
+
+        $("#castingPlacedTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#castingPlacedTable').DataTable().rows(this).data()[0].constraint) {
+                getBuyConstraint($('#castingPlacedTable').DataTable().rows(this).data()[0].OrderWrhs, $('#castingPlacedTable').DataTable().rows(this).data()[0].Line, $('#castingPlacedTable').DataTable().rows(this).data()[0].ReceiptDateFormat);
+            }
+        });
+
+        $("#machiningPlacedTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#machiningPlacedTable').DataTable().rows(this).data()[0].constraint) {
+                getBuyConstraint($('#machiningPlacedTable').DataTable().rows(this).data()[0].OrderWrhs, $('#machiningPlacedTable').DataTable().rows(this).data()[0].Line, $('#machiningPlacedTable').DataTable().rows(this).data()[0].ReceiptDateFormat);
+            }
+        });
+
+        $("#remainingPartsTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#remainingPartsTable').DataTable().rows(this).data()[0].constraint) {
+                getBuyConstraint($('#remainingPartsTable').DataTable().rows(this).data()[0].OrderWrhs, $('#remainingPartsTable').DataTable().rows(this).data()[0].Line, $('#remainingPartsTable').DataTable().rows(this).data()[0].ReceiptDateFormat);
+            }
+        });
+
+        //Obtener constraint dependiendo de la tabla
+        $("#assemblysTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#assemblysTable').DataTable().rows(this).data()[0].constraint) {
+                getConstraint($('#assemblysTable').DataTable().rows(this).data()[0].OrderWrhs);
+            }
+        });
+
+        $("#castingsTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#castingsTable').DataTable().rows(this).data()[0].constraint) {
+                getConstraint($('#castingsTable').DataTable().rows(this).data()[0].OrderWrhs);
+            }
+        });
+
+        $("#fabricationsTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#fabricationsTable').DataTable().rows(this).data()[0].constraint) {
+                getConstraint($('#fabricationsTable').DataTable().rows(this).data()[0].OrderWrhs);
+            }
+        });
+
+        $("#machiningTable tbody").on('click', 'td', function (item) {
+            if ($(this).index() === 0 && $('#machiningTable').DataTable().rows(this).data()[0].constraint) {
+                getConstraint($('#machiningTable').DataTable().rows(this).data()[0].OrderWrhs);
+            }
+        });
+        
+        $("#view").on('click', function (item) {
+            window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + projplan + "&planName=" + planName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + baanCompany, "_blank", "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1100,height=750");
+        });
+        
+        function getConstraint(order) {
+            $("#spinnerModal").show();
+            $("#constraintsTable").hide();
+            $('#exampleModalLabel').hide();
+
+            $("#exampleModal").modal({
+                backdrop: "static"
+            });
+
+            var data = {
+                order: order,
+                location: '@ViewBag.Location'
+            };
+            var constraints = [];
+            $.ajax({
+                url: "/Detail/GetConstraint",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    $("#error").hide();
+
+                    if ($.fn.dataTable.isDataTable('#boyoutsTableCo')) {
+                        tableCo.destroy();
+                    }
+
+                    if ($.fn.dataTable.isDataTable('#buyTableCo')) {
+                        tableCo.destroy();
+                    }
+                    if (response.length > 0) {
+                        item_description = response[0].mfgItemDescription;
+                        draw = response[0].OperationCode;
+                        $('#exampleModalLabel').text('Constraints ' + order + ": " + item_description + " - " + draw).html('<div>Constraints ' + order + ": " + item_description + " - " + draw + '<i id="change_draw" class="bg-red">Engineering Change</i></div>');
+                        $("#change_draw").addClass(response[0].OperationCode.indexOf("JCN") > 0 ? 'show' : 'hide');
+                    }
+
+                    $.each(response, function (index, item) {
+                        item["calculated_end"] = moment(item.SchEnd).format("MM/DD/YYYY");
+                        item["plann_end"] = moment(item.PlannedEnd).format("MM/DD/YYYY");
+                    });
+                    tableCo = $("#boyoutsTableCo").DataTable({
+                        data: response,
+                        columns: [
+                            { data: 'Operation' },
+                            { data: 'addtnlDelay' },
+                            { data: 'RealDelay' },
+                            { data: 'Machine' },
+                            { data: 'TaskDescription' },
+                            { data: 'ConstraintType' },
+                            { data: 'resourceName' },
+                            { data: 'ComponentDescription' },
+                            { data: 'Area' },
+                            { data: 'plann_end' },
+                            { data: 'calculated_end' }
+
+                        ],
+                        dom: 'rt<"bottom"iflp<"clear">>',
+                        responsive: true,
+                        fixedHeader: {
+                            header: false,
+                            footer: false
+                        },
+                        ordering: true,
+                        orderClasses: false,
+                        pageLength: 150,
+                        order: [[0, "asc"]],
+                        info: false,
+                        paging: false,
+                    });
+                    $('#exampleModalLabel').show();
+                    $("#constraintsTable").show();
+                    $("#spinnerModal").hide();
+                }, error: function () {
+                    $("#error").show();
+                    $("#spinnerModal").hide();
+                    $("#error").text('Building information. Please try again in a few minutes.');
+                }
+            });
+        }
+        var items = [];
+        function getBuyConstraint(order, line, ReceiptDate) {
+            $("#havesuppliers").hide();
+
+            $("#buysModal").modal({
+                backdrop: "static"
+            });
+
+            var data = {
+                order: order,
+                line: line,
+                location: baanCompany,
+
+            };
+            $.ajax({
+                url: "/Detail/GetBuyConstraint",
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    ///////////////////Falta agregar ID a la tabla 
+                    items.length = 0;
+                    $("#othersuppliers").empty();
+                    var buyconstraints = [];
+
+                    if ($.fn.dataTable.isDataTable('#buyTableCo')) {
+                        tableCo.destroy();
+                    }
+
+                    if ($.fn.dataTable.isDataTable('#boyoutsTableCo')) {
+                        tableCo.destroy();
+                    }
+
+                    if (response.length != 0) {
+                        $(".yesinformation").show();
+                        $(".noinformation").text('');
+                        $(".noinformation").hide();
+                        $("#buyordertitle").text("Buy order: " + response[0].Order_Nr);
+                        $("#buyername").text(response[0].Buyer_Name);
+                        $("#bpname").text(response[0].BP_Name);
+                        $("#orderdate").text(moment(response[0].Order_Date).format("MM/DD/YYYY"));
+                        $("#lastconfirmation").text(moment(response[0].LastConfirmationDate_Update).format("MM/DD/YYYY"));
+                        $("#confirmationdate").text(ReceiptDate);
+
+
+                        buyconstraints.push({
+                            Other_Supplier_Name: response[0].BP_Name,
+                            Order_Nr: response[0].Order_Nr,
+                            Order_Date: response[0].Order_Date,
+                            LastConfirmationDate_Update: response[0].LastConfirmationDate_Update,
+                            Buyer_Name: response[0].Buyer_Name
+                        });
+
+                        if (response.length > 1) {
+                            $("#havesuppliers").show();
+
+                            $.each(response, function (index, item) {
+
+                                items.push('<li>' + item.Other_Supplier_Name + '</li>');
+
+
+                                item["Order_Date"] = '';
+                                item["LastConfirmationDate_Update"] = '';
+                                item["Buyer_Name"] = '';
+                                item["Order_Nr"] = '';
+                                buyconstraints.push(item);
+                            });
+
+                            $('#othersuppliers').append(items.join(''));
+                        }
+
+                        tableCo = $("#buyTableCo").DataTable({
+                            data: buyconstraints,
+                            columns: [
+                                { data: 'Order_Nr'},
+                                { data: 'Other_Supplier_Name' },
+                                { data: 'Buyer_Name'},
+                                { data: 'Order_Date' },
+                                { data: 'LastConfirmationDate_Update' }
+
+                            ],
+                            dom: 'rt<"bottom"iflp<"clear">>',
+                            responsive: true,
+                            fixedHeader: {
+                                header: false,
+                                footer: false
+                            },
+                            ordering: true,
+                            orderClasses: false,
+                            pageLength: 150,
+                            order: [[0, "desc"]],
+                            info: false,
+                            paging: false,
+                        });
+                    } else {
+                        $(".noinformation").text("No Information");
+                        $(".noinformation").show();
+                        $(".yesinformation").hide();
+                        $("#buyordertitle").text('');
+                    }
+                }
+            })
+        }
+
+        //Revisa si un dia es Domingo.
+        function checkDomingo(date) {
+            var start = moment(date);
+
+            if (start.isoWeekday() === 7) {
+                return start.subtract(1, 'days').format('MM/DD/YYYY');
+            } else {
+                return date;
+            }
+        }
+
+        function animateScroll(id) {
+            $('html, body').animate({
+                scrollTop: $(id).offset().top
+            }, 2000);
+
+            return false;
+        }
+
+        function checkDomingo(date) {
+            var start = moment(date);
+
+            if (start.isoWeekday() === 7) {
+                return start.subtract(1, 'days').format('MM/DD/YYYY');
+            } else {
+                return date;
+            }
+        }
+
+        function isAssembly(value) {
+            if (value.ItemGroup == '3101' || value.ItemGroup == '3102' || value.ItemGroup == '3103' || value.ItemGroup == '3104' || value.ItemGroup == '3105' || value.ItemGroup == '3110' || value.ItemGroup == '3190' || value.ItemGroup == '3201' ||
+                            value.ItemGroup == '3202' || value.ItemGroup == '3203' || value.ItemGroup == '3204' || value.ItemGroup == '3205' || value.ItemGroup == '3210' || value.ItemGroup == '3290' || value.ItemGroup == '5101' || value.ItemGroup == '5201' || value.ItemGroup == '5301' || value.ItemGroup == '5302') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //Scroll cuando das click al dibujo.
+        $('#mrpCircle,#mrpText').click(function () {
+            animateScroll('#mrpHeader');
+        });
+
+        $('#assemblyCircle,#assemblyText').click(function () {
+            animateScroll('#assemblyHeader');
+        });
+
+        $('#buyOutsCircle,#buyOutsText').click(function () {
+            animateScroll('#buyOutsHeader');
+        });
+
+        $('#restPosByo,#restPosText').click(function () {
+            animateScroll('#restPosHeader');
+        });
+
+        $('#productionPof,#productionPofText').click(function () {
+            animateScroll('#productionPofHeader');
+        });
+
+        $('#purchasePof,#purchasePofText').click(function () {
+            animateScroll('#purchasePofHeader');
+        });
+
+        $('#productionGmm,#productionGmmText').click(function () {
+            animateScroll('#productionGmmHeader');
+        });
+
+        $('#purchasePom,#purchasePomText').click(function () {
+            animateScroll('#purchasePomHeader');
+        });
+
+        $('#purchasePoc,#purchasePocText').click(function () {
+            animateScroll('#purchasePocHeader');
+        });
+
+        $('#productionGcc,#productionGccText').click(function () {
+            animateScroll('#productionGccHeader');
+        });
+
+        $('.glyphicon-arrow-up').click(function () {
+            animateScroll("#mainHeader");
+        });
+
+        $("#arrup").click(function () {
+            animateScroll("#mainHeader");
+        });
+
+        var myChart = Highcharts.chart('containerG', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                categories: [''],
+                labels: {
+                    enabled: false,//default is true
+                    y: 20, rotation: -45, align: 'right'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                labels: {
+                    enabled: false
+                }
+            },
+            series: [{
+                //name: 'Jane',
+                data: [1, 0, 4, 5, 9, 2]
+            }, {
+                //name: 'John',
+                data: [5, 7, 3, 9, 1, 4]
+            }]
+        });
+
+    });
+</script>

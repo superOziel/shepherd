@@ -59,6 +59,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -134,7 +135,11 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\CommitmentController.cs" />
+    <Compile Include="Controllers\DetailController.cs" />
+    <Compile Include="Controllers\DirectoryEntry.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModalPermissionsController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,9 +162,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Buy.cs" />
+    <Compile Include="Models\Constraints.cs" />
+    <Compile Include="Models\Detail.cs" />
+    <Compile Include="Models\Errors.cs" />
     <Compile Include="Models\Location.cs">
       <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Locations.cs" />
     <Compile Include="Models\PlanInfo.cs">
       <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
@@ -170,11 +180,25 @@
     <Compile Include="Models\Sales_Orders.cs">
       <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Shepherd_permissions.cs">
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Task.cs">
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaskCategory.cs">
+      <DependentUpon>Assembly_Commitment.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewGetSalesOrderReadyToShip.cs">
       <DependentUpon>Assembly_Commitment.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CommitmentService.cs" />
+    <Compile Include="Services\DetailService.cs" />
+    <Compile Include="Services\PermissionsService.cs" />
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\RPSAService.cs" />
+    <Compile Include="Services\TulSqlService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -182,12 +206,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-datetimepicker4.17.47.min.css" />
+    <Content Include="Content\bootstrap-datetimepicker4.17.47.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap3.3.7.min.js" />
+    <Content Include="Content\datatables\1.10.19.datatables.css" />
+    <Content Include="Content\datatables\1.10.19.datatables.js" />
+    <Content Include="Content\datatables\1.10.19.datatables.min.css" />
+    <Content Include="Content\datatables\fixedheader.3.1.2.min.css" />
+    <Content Include="Content\datatables\jquery.1.10.15.datatables.bootstrap4.min.js" />
+    <Content Include="Content\datatables\jquery.1.10.15.datatables.min.js" />
+    <Content Include="Content\datatables\responsive.2.1.1.bootstrap.min.css" />
+    <Content Include="Content\datatables\responsive.2.2.1.datatables.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\iconfinder-icon.svg" />
     <Content Include="Content\images\question.png" />
@@ -211,6 +246,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\core.js" />
+    <Content Include="Scripts\core.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
@@ -320,6 +357,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -354,6 +393,11 @@
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Views\Commitment\Index.cshtml" />
+    <Content Include="Views\Permissions\Index.cshtml" />
+    <Content Include="Views\ModalPermissions\ModalPermissions.cshtml" />
+    <Content Include="Views\ModalPermissions\Index.cshtml" />
+    <Content Include="Views\Report\ModalErrors.cshtml" />
+    <Content Include="Views\Detail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

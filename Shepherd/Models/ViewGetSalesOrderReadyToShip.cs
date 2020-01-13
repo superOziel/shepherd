@@ -16,6 +16,8 @@ namespace Shepherd.Models
     {
         public string ProdOrderNr { get; set; }
         public string SO_QtyOpen { get; set; }
+        public string ProdOrder_QtyOrd { get; set; }
+        public string OrderType { get; set; }
         public string SO_Project { get; set; }
         public string SO_CustomerName { get; set; }
         public System.DateTime MinStartDate { get; set; }
@@ -29,7 +31,6 @@ namespace Shepherd.Models
         public Nullable<System.DateTime> readytoship { get; set; }
         public string BaanProjectNum { get; set; }
         public string PlanName { get; set; }
-        public Nullable<int> projplan { get; set; }
         public string BaanCompany { get; set; }
         public System.DateTime SO_Ln_PlnRecDate { get; set; }
         public Nullable<bool> HasChangedPRD { get; set; }
@@ -40,5 +41,15 @@ namespace Shepherd.Models
         public string SO_Nr { get; set; }
         public string SO_Ln { get; set; }
         public string SO_Sq { get; set; }
+        public string Expr1 { get; set; }
+        public string ProdOrder_Status { get; set; }
+        public Nullable<int> projplan { get; set; }
+        public Nullable<System.DateTime> assembly_start { get; set; }
+        public Nullable<System.DateTime> assembly_end { get; set; }
+        public Nullable<int> DaysBuffer { get; set; }
+        public string Qty { get; set; }
+        public Nullable<System.DateTime> ProdOrder_PlnDlvDate { get; set; }
+        public Nullable<System.DateTime> ProdOrder_ReqDlvDate { get; set; }
+        public Nullable<System.DateTime> ProdOrder_ConfDate { get; set; }
     }
 }

@@ -18,6 +18,10 @@
     <Property Name="SO_Ln" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SO_Sq" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="maxdelivdate" Type="datetime" />
+    <Property Name="assembly_start" Type="datetime" />
+    <Property Name="assembly_end" Type="datetime" />
+    <Property Name="active" Type="bit" />
   </EntityType>
   <EntityType Name="Locations">
     <Key>
@@ -128,6 +132,69 @@
     <Property Name="SlsOff_Code" Type="varchar" MaxLength="10" />
     <Property Name="SlsOff_Name" Type="varchar" MaxLength="50" />
     <Property Name="Location" Type="varchar" MaxLength="10" />
+    <Property Name="OrderType" Type="varchar" MaxLength="10" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="DaysBuffer" Type="int" />
+    <Property Name="ProdOrder_ReqDlvDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Shepherd_permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="aliasname" Type="varchar" MaxLength="50" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="active" Type="bit" />
+    <Property Name="location" Type="varchar" MaxLength="50" />
+    <Property Name="baancompany" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TaskCategories">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PlanId" Type="int" Nullable="false" />
+    <Property Name="tNumber" Type="int" Nullable="false" />
+    <Property Name="tName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="tStart" Type="datetime" />
+    <Property Name="tEnd" Type="datetime" />
+    <Property Name="tStart_Actual" Type="datetime" />
+    <Property Name="tEnd_Actual" Type="datetime" />
+    <Property Name="tStart_Cust" Type="datetime" />
+    <Property Name="tEnd_Cust" Type="datetime" />
+    <Property Name="tLink" Type="nvarchar" MaxLength="100" />
+    <Property Name="tMilestone" Type="bit" />
+    <Property Name="tResponsible" Type="nvarchar" MaxLength="100" />
+    <Property Name="RespId" Type="int" />
+    <Property Name="tCompletion" Type="int" />
+    <Property Name="tGroup" Type="bit" />
+    <Property Name="tParent" Type="int" />
+    <Property Name="tOpen" Type="bit" />
+    <Property Name="tDependency" Type="nvarchar" MaxLength="100" />
+    <Property Name="tCaption" Type="nvarchar" MaxLength="50" />
+    <Property Name="TrackerId" Type="int" />
+    <Property Name="AlertId" Type="int" />
+    <Property Name="SubscriptionId" Type="int" />
+    <Property Name="Publish" Type="bit" />
+    <Property Name="Scheduling" Type="char" MaxLength="1" />
+    <Property Name="DurationDriven" Type="bit" />
+    <Property Name="BLineId" Type="int" />
+    <Property Name="CatId" Type="nvarchar" MaxLength="3" />
+    <Property Name="LinkId" Type="int" />
+    <Property Name="P_NoteId" Type="bigint" />
+    <Property Name="showReport" Type="bit" />
+    <Property Name="integrate" Type="bit" />
+    <Property Name="tStart_back" Type="datetime" />
+    <Property Name="tEnd_back" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -144,6 +211,8 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     </Key>
     <Property Name="ProdOrderNr" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SO_QtyOpen" Type="varchar" MaxLength="10" />
+    <Property Name="ProdOrder_QtyOrd" Type="varchar" MaxLength="15" />
+    <Property Name="OrderType" Type="varchar" MaxLength="10" />
     <Property Name="SO_Project" Type="varchar" MaxLength="50" />
     <Property Name="SO_CustomerName" Type="varchar" MaxLength="60" />
     <Property Name="MinStartDate" Type="datetime" Nullable="false" />
@@ -156,9 +225,8 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     <Property Name="Oper_ComplTotal" Type="varchar" MaxLength="15" />
     <Property Name="readytoship" Type="datetime" />
     <Property Name="BaanProjectNum" Type="varchar" MaxLength="20" />
-    <Property Name="PlanName" Type="nvarchar" MaxLength="30" />
-    <Property Name="projplan" Type="int" />
-    <Property Name="BaanCompany" Type="varchar" MaxLength="3" />
+    <Property Name="PlanName" Type="nvarchar" MaxLength="64" />
+    <Property Name="BaanCompany" Type="varchar" MaxLength="10" />
     <Property Name="SO_Ln_PlnRecDate" Type="datetime" Nullable="false" />
     <Property Name="HasChangedPRD" Type="bit" />
     <Property Name="SO_Ln_OpenAmount" Type="float" />
@@ -168,35 +236,32 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     <Property Name="SO_Nr" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SO_Ln" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="SO_Sq" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Expr1" Type="varchar" MaxLength="10" />
+    <Property Name="ProdOrder_Status" Type="varchar" MaxLength="25" />
+    <Property Name="projplan" Type="int" />
+    <Property Name="assembly_start" Type="datetime" />
+    <Property Name="assembly_end" Type="datetime" />
+    <Property Name="DaysBuffer" Type="int" />
+    <Property Name="Qty" Type="varchar" MaxLength="15" />
+    <Property Name="ProdOrder_PlnDlvDate" Type="datetime" />
+    <Property Name="ProdOrder_ReqDlvDate" Type="datetime" />
+    <Property Name="ProdOrder_ConfDate" Type="datetime" />
   </EntityType>
-  <Association Name="FK_Assembly_Commitment_Sales_Orders">
-    <End Role="Sales_Orders" Type="Self.Sales_Orders" Multiplicity="1" />
-    <End Role="Assembly_Commitment" Type="Self.Assembly_Commitment" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Sales_Orders">
-        <PropertyRef Name="SO_Nr" />
-        <PropertyRef Name="SO_Sq" />
-        <PropertyRef Name="SO_Ln" />
-        <PropertyRef Name="ProdOrderNr" />
-      </Principal>
-      <Dependent Role="Assembly_Commitment">
-        <PropertyRef Name="SO_Nr" />
-        <PropertyRef Name="SO_Sq" />
-        <PropertyRef Name="SO_Ln" />
-        <PropertyRef Name="ProdOrderNr" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="APQP_betaModelStoreContainer">
     <EntitySet Name="Assembly_Commitment" EntityType="Self.Assembly_Commitment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanInfo" EntityType="Self.PlanInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PlanInfo_Jobs" EntityType="Self.PlanInfo_Jobs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sales_Orders" EntityType="Self.Sales_Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shepherd_permissions" EntityType="Self.Shepherd_permissions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaskCategories" EntityType="Self.TaskCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ViewGetSalesOrderReadyToShip" EntityType="Self.ViewGetSalesOrderReadyToShip" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewGetSalesOrderReadyToShip].[ProdOrderNr] AS [ProdOrderNr], 
     [ViewGetSalesOrderReadyToShip].[SO_QtyOpen] AS [SO_QtyOpen], 
+    [ViewGetSalesOrderReadyToShip].[ProdOrder_QtyOrd] AS [ProdOrder_QtyOrd], 
+    [ViewGetSalesOrderReadyToShip].[OrderType] AS [OrderType], 
     [ViewGetSalesOrderReadyToShip].[SO_Project] AS [SO_Project], 
     [ViewGetSalesOrderReadyToShip].[SO_CustomerName] AS [SO_CustomerName], 
     [ViewGetSalesOrderReadyToShip].[MinStartDate] AS [MinStartDate], 
@@ -210,7 +275,6 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     [ViewGetSalesOrderReadyToShip].[readytoship] AS [readytoship], 
     [ViewGetSalesOrderReadyToShip].[BaanProjectNum] AS [BaanProjectNum], 
     [ViewGetSalesOrderReadyToShip].[PlanName] AS [PlanName], 
-    [ViewGetSalesOrderReadyToShip].[projplan] AS [projplan], 
     [ViewGetSalesOrderReadyToShip].[BaanCompany] AS [BaanCompany], 
     [ViewGetSalesOrderReadyToShip].[SO_Ln_PlnRecDate] AS [SO_Ln_PlnRecDate], 
     [ViewGetSalesOrderReadyToShip].[HasChangedPRD] AS [HasChangedPRD], 
@@ -220,12 +284,18 @@ warning 6002: The table/view 'APQP_beta.dbo.ViewGetSalesOrderReadyToShip' does n
     [ViewGetSalesOrderReadyToShip].[Location] AS [Location], 
     [ViewGetSalesOrderReadyToShip].[SO_Nr] AS [SO_Nr], 
     [ViewGetSalesOrderReadyToShip].[SO_Ln] AS [SO_Ln], 
-    [ViewGetSalesOrderReadyToShip].[SO_Sq] AS [SO_Sq]
+    [ViewGetSalesOrderReadyToShip].[SO_Sq] AS [SO_Sq], 
+    [ViewGetSalesOrderReadyToShip].[Expr1] AS [Expr1], 
+    [ViewGetSalesOrderReadyToShip].[ProdOrder_Status] AS [ProdOrder_Status], 
+    [ViewGetSalesOrderReadyToShip].[projplan] AS [projplan], 
+    [ViewGetSalesOrderReadyToShip].[assembly_start] AS [assembly_start], 
+    [ViewGetSalesOrderReadyToShip].[assembly_end] AS [assembly_end], 
+    [ViewGetSalesOrderReadyToShip].[DaysBuffer] AS [DaysBuffer], 
+    [ViewGetSalesOrderReadyToShip].[Qty] AS [Qty], 
+    [ViewGetSalesOrderReadyToShip].[ProdOrder_PlnDlvDate] AS [ProdOrder_PlnDlvDate], 
+    [ViewGetSalesOrderReadyToShip].[ProdOrder_ReqDlvDate] AS [ProdOrder_ReqDlvDate], 
+    [ViewGetSalesOrderReadyToShip].[ProdOrder_ConfDate] AS [ProdOrder_ConfDate]
     FROM [dbo].[ViewGetSalesOrderReadyToShip] AS [ViewGetSalesOrderReadyToShip]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK_Assembly_Commitment_Sales_Orders" Association="Self.FK_Assembly_Commitment_Sales_Orders">
-      <End Role="Sales_Orders" EntitySet="Sales_Orders" />
-      <End Role="Assembly_Commitment" EntitySet="Assembly_Commitment" />
-    </AssociationSet>
   </EntityContainer>
 </Schema>

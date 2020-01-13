@@ -14,11 +14,9 @@ namespace Shepherd.Models
         public string SO_CustomerName { get; set; } //4
         public string SO_Project { get; set; } //5
         public string SO_Item { get; set; } //6
-
         public string Item_Description { get; set; } //7
         public string Item_PumpLine { get; set; } //8
         public string Item_PumpType { get; set; } //9
-
         public string SO_Date { get; set; } //10
         public string SO_Ln_PlnDlvDate { get; set; } //11
         public System.DateTime SO_Ln_PlnRecDate { get; set; } //12
@@ -40,18 +38,16 @@ namespace Shepherd.Models
         public string SO_GPS_Quote { get; set; } //27
         public string SO_Reference_A { get; set; } //28
         public string SO_Reference_B { get; set; } //29
-
         public string ProdOrderNr { get; set; } //30
         public string ProdOrder_Status { get; set; } //31
         public string ProdOrder_Route { get; set; } //32
         public string ProdOrder_PlnStrDate { get; set; } //33
-        public string ProdOrder_PlnDlvDate { get; set; } //34
+        public DateTime ProdOrder_PlnDlvDate { get; set; } //34
         public string ProdOrder_ConfDate { get; set; } //35
         public string ProdOrder_QtyOrd { get; set; } //36
         public string ProdOrder_QtyDlv { get; set; } //37
         public string ProdOrder_QtyRjc { get; set; } //38
         public string ProdOrder_QtyBal { get; set; } //39
-
         public string Oper_ComplTotal { get; set; } //40
         public string FirstInProcessOperationMachine { get; set; } //41
         public string FirstInProcessOperationMachineName { get; set; } //42
@@ -61,7 +57,6 @@ namespace Shepherd.Models
         public DateTime MaxDelivDate { get; set; } //45
         public string MaxDelivDateStr { get; set; } //46
         public string SO_Ln_PlnRecDateStr { get; set; } //47
-
         public Boolean PRDDate { get; set; }//48
         public Boolean isBiggerThanPRD { get; set; }//49
         public Nullable<System.DateTime> ReadyToShip { get; set; }//50
@@ -73,5 +68,19 @@ namespace Shepherd.Models
         public Nullable<bool> HasChangedPRD { get; set; }
         public Boolean beforeToday { get; set; }
         public Boolean PRDIsOut { get; set; }
+        public string OrderType { get; set; }
+        public string Location { get; set; }
+        public string Class { get; set; }
+        public Nullable<System.DateTime> assembly_start { get; set; }
+        public Nullable<System.DateTime> assembly_end { get; set; }
+        public string assembly_startstr { get; set; }
+        public string assembly_endstr { get; set; }
+        public string assembly_days { get; set; }
+        public string HasPls { get; set; }
+        public bool permission_user { get; set; }
+        public int DaysBuffer { get; set; }
+        public string ProdOrder_PlnDlvDateStr { get; set; }
+        public string username { get; set; }
+        public Nullable<System.DateTime> ProdOrder_ReqDlvDate { get; set; }
     }
 }

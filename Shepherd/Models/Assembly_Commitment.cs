@@ -25,7 +25,9 @@ namespace Shepherd.Models
         public string SO_Ln { get; set; }
         public string SO_Sq { get; set; }
         public string ProdOrderNr { get; set; }
-    
-        public virtual Sales_Orders Sales_Orders { get; set; }
+        public Nullable<System.DateTime> maxdelivdate { get; set; }
+        public Nullable<System.DateTime> assembly_start { get; set; }
+        public Nullable<System.DateTime> assembly_end { get; set; }
+        public Nullable<bool> active { get; set; }
     }
 }

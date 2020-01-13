@@ -67,6 +67,6 @@ C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.Razor.xml
 C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.xml
 C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Deployment.xml
 C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\bin\System.Web.WebPages.Razor.xml
-C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.csprojResolveAssemblyReference.cache
 C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.dll
 C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.pdb
+C:\Users\oiguzman\Documents\ShepherSourceTree\Shepherd\obj\Debug\Shepherd.csprojResolveAssemblyReference.cache

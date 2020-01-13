@@ -65,7 +65,9 @@ namespace Shepherd.Models
         public string SlsOff_Code { get; set; }
         public string SlsOff_Name { get; set; }
         public string Location { get; set; }
-    
-        public virtual Assembly_Commitment Assembly_Commitment { get; set; }
+        public string OrderType { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<int> DaysBuffer { get; set; }
+        public Nullable<System.DateTime> ProdOrder_ReqDlvDate { get; set; }
     }
 }

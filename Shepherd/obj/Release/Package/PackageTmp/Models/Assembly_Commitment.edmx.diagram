@@ -4,14 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d1bd9261f3724844bd89cf40397303ff" Name="Diagram1">
+      <Diagram DiagramId="325abd2bc6e6458792d9474acce0be9d" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="APQP_betaModel.Assembly_Commitment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APQP_betaModel.Location" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APQP_betaModel.PlanInfo" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="APQP_betaModel.PlanInfo_Jobs" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="APQP_betaModel.ViewGetSalesOrderReadyToShip" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="APQP_betaModel.Assembly_Commitment" Width="1.5" PointX="7.625" PointY="12.25" />
-        <EntityTypeShape EntityType="APQP_betaModel.Sales_Orders" Width="1.5" PointX="5.375" PointY="8.375" />
-        <AssociationConnector Association="APQP_betaModel.FK_Assembly_Commitment_Sales_Orders" />
+        <EntityTypeShape EntityType="APQP_betaModel.Sales_Orders" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APQP_betaModel.Shepherd_permissions" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APQP_betaModel.TaskCategory" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APQP_betaModel.Task" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="APQP_betaModel.ViewGetSalesOrderReadyToShip" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

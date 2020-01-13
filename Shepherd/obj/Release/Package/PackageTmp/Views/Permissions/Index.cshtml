@@ -1,0 +1,353 @@
+﻿<div class="container-fluid">
+    <div class="col-sm-12" >
+        <div class="header" id="card-header">   
+            <span class="title">@ViewBag.Title</span>
+        </div>
+    </div>
+
+    <div class="card card-header-ruh" >
+      <div class="card-body">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="col-sm-11">
+                      <input type="text" id="myInputTextField" class="form-control col-sm-2 " placeholder="Search"/>
+                  </div>  
+                  <div class="col-sm-1">
+                     <button class="btn btn-info" id="adduser">Add User</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div id="content-table" class="content table-bordered table-sh">
+        <div class="table-header">
+            <table id="permissions_header" class="table display headers-sh">
+                <colgroup>
+		            <col style="width:14.2%">
+		            <col style="width:14.2%">
+		            <col style="width:14.2%">
+		            <col style="width:14.2%">
+                    <col style="width:14.2%">
+                    <col style="width:14.2%">
+                    <col style="width:14.2%">
+	            </colgroup>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Location</th>
+                        <th>Email</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-body">
+            <table id="permissions_body" class="table table-bordered display" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px; margin-top: 0 !important;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Location</th>
+                        <th>Email</th>
+                        <th ></th>
+                        <th></th>
+                    </tr>
+                </thead>
+		            <colgroup>
+		                <col style="width:14.2%">
+		                <col style="width:14.2%">
+		                <col style="width:14.2%">
+                        <col style="width:14.2%">
+		                <col style="width:14.2%">
+                        <col style="width:14.2%">
+                        <col style="width:14.2%">
+	                </colgroup>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title"><div>User Information</div></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+          <form id="userinfo">
+
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <label for="exampleFormControlInput1">Username</label>
+                      <input type="email" class="form-control"  placeholder="REDNA\username" id="username">
+                  </div>
+              </div>
+
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Name</label>
+                      <input type="text" name="name" class="form-control" placeholder="Name" id="name" />
+                  </div>
+              </div>
+
+              <div class="col-sm-6"> 
+                   <div class="form-group">
+                      <label for="exampleFormControlSelect1">Last Name</label>
+                      <input type="text" name="lastname" class="form-control" placeholder="Last Name"  id="lastname" />
+                  </div>
+              </div>
+
+              <div class="col-sm-6"> 
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">Email</label>
+                      <input type="text" name="email" class="form-control" placeholder="example@mail.com" id="email" />
+                  </div>
+              </div>
+
+              <div class="col-sm-6"> 
+                  <div class="form-group">
+                      <label>Location</label>
+                      <select class="form-control" id="locations">
+                          <option value="" selected="true" disabled="disabled" >SELECT </option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="col-sm-6">
+                  @*<div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="activecheck">
+                      <label class="form-check-label" style="margin-left:15px" for="activecheck">
+                        Actve user
+                      </label>
+                  </div>*@
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title text-align-left">Notice</h4>
+            <button type="button" class="close hide" id="closeConfirm" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-align-center" >
+            <h5>Are you sure you want to remove this user?</h5>
+            <input type="hidden" name="name" value=" " id="userid" />
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeConfirm">Close</button>
+            <button type="button" class="btn btn-primary" id="remove_user" >Ok</button>
+        </div>          
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var location;
+        var baancompany;
+        var locations;
+        $("#permissions_body thead").hide();
+
+        getLocations();
+
+        function getPermissions() {
+            $.ajax({
+                url: "/Permissions/GetPermissions",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $.each(data, function (index, item) {
+                        item['Icon'] = '';
+                        item['Delete'] = ''
+                    });
+                    console.log(data);
+
+                    table = $('#permissions_body').DataTable({
+                        data: data,
+                        columns: [
+                            { data: 'name' },
+                            { data: 'lastname' },
+                            { data: 'aliasname' },
+                            { data: 'location'},
+                            { data: 'email' },
+                            { data: 'Icon', render: renderEditIcon, },
+                            { data: 'Delete', render: renderDelete }
+                        ],
+                        createdRow: function (row, data, dataIndex) {
+
+                            if (!data.active) {
+                                $(row).addClass('table-active');
+                            }
+                        },
+                        paging: true,
+                        pageLength: 200,
+                        orderClasses: false, //false = remove class shorting 1
+                        ordering: true,
+                        searching: true,
+                        fixedHeader: {
+                            header: true,
+                            footer: true
+                        },
+                        dom: 'rt<"bottom"iflp<"clear">>',
+                        //lengthMenu: [[10, 50, 100, 200, -1], [10, 50, 100, 200, "All"]],
+                        responsive: true
+                    });
+
+
+                    $("#permissions_body thead").hide();
+                    $("#permissions_body_wrapper").removeClass("container-fluid");
+                }
+            });
+        }
+
+        function getLocations() {
+            $.ajax({
+                url: "/Report/getLocations",
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    locations = response;
+                    getPermissions();
+                    $.each(response, function (key, value) {
+                        
+                        $('#locations').append($("<option></option>")
+                            .attr('value', value.Location1)
+                            .attr('attr2', value.BaanCompany)
+                            .text((value.Location1)));
+                    });
+                }
+            });
+        }
+
+        var renderEditIcon = function (data, type, row) {
+            return data + ' <i class="glyphicon glyphicon glyphicon-pencil"/>';
+        }
+
+        var renderDelete = function (data, type, row) {
+            console.log('data', data, 'type', type, 'row', row);
+
+            if (row.active) {
+                return data + ' <i class="glyphicon glyphicon glyphicon-remove"/>';
+            } else {
+                return data
+            }
+        }
+
+
+        $("#adduser").on('click', function () {
+            $("#userinfo")[0].reset();
+            $("#addModal").modal({
+                backdrop: "static"
+            });
+        });
+
+        $("#save").on('click', function () {
+            var data = {
+                aliasname: $("#username").val(),
+                name: $("#name").val(),
+                lastname: $("#lastname").val(),
+                email: $("#email").val(),
+                userid: $("#userid").val(),
+                active: true,// $("#activecheck").prop("checked"),
+                location: location,
+                baancompany: baancompany
+            }
+            console.log("info a enviar", data);
+            $.ajax({
+                type: 'POST',
+                url: '/Permissions/Create',
+                data: data,
+                success: function (data) {
+                    console.log("add user", data);
+                    $("#addModal #close").click();
+                    table.destroy();
+                    getPermissions();
+                },
+                dataType: 'json',
+            });
+        });
+
+        $("#remove_user").on('click', function (data) {
+            var data = {
+                userid: $("#userid").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: '/Permissions/Delete',
+                data: data,
+                success: function (data) {
+                    $("#confirmModal #closeConfirm").click();
+                    table.destroy();
+                    getPermissions();
+                },
+                dataType: 'json',
+            });
+        });
+
+        $("#permissions_body tbody").on("click", "td i", function () {
+            console.log("td", $(this).parent().index() );
+            if ($(this).parent().index() === 5) {
+                console.log("data?", table.rows(this).data());
+                $.map(table.rows($(this).parent()).data(), function (item) {
+                    console.log("item", item);
+                    $("#addModal").modal({
+                        backdrop: "static"
+                    });
+
+                    console.log("active?", item.active);
+                    $("#username").val(item.aliasname);
+                    $("#name").val(item.name);
+                    $("#lastname").val(item.lastname);
+                    $("#email").val(item.email);
+                    $("#userid").val(item.id);
+                    $("#activecheck").prop('checked', item.active);
+
+                    _.find(locations, function (o) {
+                        if (o.Location1 == item.location) {
+                            $("#locations").val(o.Location1)
+                        }
+                    });
+
+                });
+            } else if ($(this).parent().index() === 6) {
+                $.map(table.rows($(this).parent()).data(), function (item) {
+                    console.log("item", item);
+                    $("#userid").val(item.id);
+                    $("#confirmModal").modal({
+                        backdrop: "static"
+                    });
+                });
+            }
+        });
+
+        $('#myInputTextField').keyup(function () {
+            table.search($(this).val()).draw();
+        });
+        
+        $("#locations").change(function () {
+            location = $('option:selected', this).val();
+            baancompany = $('option:selected', this).attr('attr2');
+        });
+    });
+</script>

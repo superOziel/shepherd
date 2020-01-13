@@ -1,5 +1,6 @@
-﻿
-
+﻿@{
+    ViewBag.View = "View B.";
+}
 <div class="container-fluid">
     <div class="col-sm-12" >
         <div class="header" id="card-header">   
@@ -13,25 +14,61 @@
               <div class="col-sm-12">
                   <div class="col-sm-9">
                       <div class="row">
-                          <div style="width: 16.66666667%">
+                          <div class="col-sm-2">
                               <div class="form-inline">
-                                <label for="exampleFormControlSelect1">Job:  </label>
-                                  <div style="width: 81%;margin-left: 3px">
-                                      <select class="form-control" id="locations" style="width:100%">
-                                          <option value="ALL" onselect="true" >ALL </option>
+                                  <div class="col-sm-3 no-padding-sides">
+                                      <label for="exampleFormControlSelect1">Job:  </label>
+                                  </div>
+                                  <div class="col-sm-9 no-padding-sides">
+                                      <select class="form-control width-100" id="locations">
+                                          <option value="" selected="true" disabled="disabled" >SELECT </option>
+                                          <option value="ALL" attr2="ALL" >ALL </option>
                                     </select>
                                   </div>
-                                
                               </div>
                           </div>
-                          <div style="width: 16.66666667%">
-                              <input type="text" id="myInputTextField" class="form-control" placeholder="Search"/>
+                          <div class="col-sm-2 ">
+                              <button class="btn btn-info md-12 width-100 no-padding-sides" id="multiplestartoperation" >Multiple starts</button>
+                          </div>
+                          <div class="col-sm-2 ">
+                              <button class="btn btn-info md-12 width-100 no-padding-sides" id="timelessoperations">Missing Op. Time</button>
                           </div>
                       </div>
-                  </div>  
-                  <div class="col-sm-3 font-large">
-                     FCST OTD: <span id="forecast_percent" class=""></span>
+                      <div class="row margin-top-10 ">
+                          <div class="col-sm-2">
+                              <input type="text" id="myInputTextField" class="form-control" placeholder="Search"/>
+                          </div>
+                          <div class="col-sm-2 ">
+                              <button class="btn btn-info md-12 width-100 no-padding-sides" id="operationlessorders">Missing Operation</button>                             
+                          </div>
+                          <div class="col-sm-2 ">
+                              <button class="btn btn-info md-12 width-100 no-padding-sides" id="schedulerscrambledsequences">Sequences Mismatch</button> 
+                          </div>
+                          <div class="col-sm-2">
+                              <select class="form-control width-100" id="planners">
+                                  
+                              </select>
+                          </div>
+                      </div>
                   </div>
+
+                  <div class="col-sm-3 ">
+                      <div class="row" style="height:34px">
+                          <span class="font-large camouflage">FCST OTD: </span><span id="forecast_percent" class="font-large camouflage" ></span>
+                      </div>
+                      <div class="row margin-top-10">
+                          <div class="checkbox font-md">
+                              <label>
+                                <input type="checkbox" id="includemrp">
+                                Include MRP's and SO
+                              </label>
+                          </div>
+                          <div class="margin-left-10"> 
+                            <button class="btn btn-info" id="search" >Search</button>
+                          </div>
+                      </div>
+                  </div>
+                  
               </div>
           </div>
       </div>
@@ -45,91 +82,74 @@
 
     <div id="content-table" class="content table-bordered table-sh">
         <div class="table-header">
-            <table id="table_id_" class="table display headers-sh">
+            <table id="table_id_" class="table display headers-sh table-sm">
                 <colgroup>
-		            <col style="width:9%">
+		             <col style="width:8%">
 		            <col style="width:3%">
 		            <col style="width:4%">
 		            <col style="width:3%">
-		            <col style="width:4%">
-		            <col style="width:6%">
-		            <col style="width:10%">
-		            <col style="width:7%" id="colamount">
-		            <col style="width:6%">
-		            <col style="width:6%">
-		            <col style="width:6%">
 		            <col style="width:5%">
 		            <col style="width:11%">
-		            <col style="width:8%">
+                    <col style="width:8%">
+		            <col style="width:10%">
+		            <col style="width:7%" id="colamount">
+		            <col style="width:4%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:11%">
+		            <col style="width:7%">
 		            <col style="width:4%">
 		            <col style="width:4%">
 		            <col style="width:4%">
 	            </colgroup>
                 <thead>
                     <tr>
-                        <th id="orderbyorder">
-                            # Order <i id="orderbyordericon" class="glyphicon glyphicon-minus pointer"></i>
+                        <th class="align-middle" id="orderbyorder">
+                            <span class="text-normal"># Order</span> <i id="orderbyordericon" class="glyphicon glyphicon-minus pointer"></i>
                         </th>
                         <th></th>
-                        <th>Details</th>
-                        <th>U</th>
-                        <th></th>  
-                        <th>Project Number </th>
-                        <th>Customer Name</th>
-                        <th id="thamount">Amount</th>
-                        <th>Init Date</th>
-                        <th>PRD</th>
-                        <th  id="orderbydate" class="down">
-                            End Date<i id="orderbyicon" class="glyphicon glyphicon-chevron-up pointer" style="left: 3px;" aria-hidden="true"></i>
+                        <th class="align-middle"><span class="text-normal">Details</span></th>
+                        <th class="text-center align-middle"><span class="text-normal">Qty</span></th>
+                        <th class="align-middle"></th>  
+                        <th class="align-middle"><span class="text-normal">Project Number</span></th>
+                        <th class="text-center align-middle"><span class="text-normal">Status</span></th>
+                        <th class="align-middle"><span class="text-normal">Customer Name</span></th>
+                        <th id="thamount" class="text-center align-middle"><span class="text-normal">Amount</span></th>
+                        <th class="text-center align-middle"><span class="text-normal">Assy Days</span></th>
+                        
+                        <th  id="orderbydate" class="down align-middle">
+                            <span class="text-normal">Sch Date</span><i id="orderbyicon" class="glyphicon glyphicon-chevron-up pointer" style="left: 3px;" aria-hidden="true"></i>
                         </th>
-                        <th>SO Item</th>
-                        <th>Item Description</th>
-                        <th>PLS Name</th>
-                        <th>Prod. Line</th>
-                        <th>Pump Type</th>
-                        <th>Op. #</th>
+                        <th class="align-middle" id="orderbyprd"><span class="text-normal">PRD</span> <i id="orderbyprdicon" class="glyphicon glyphicon-minus pointer"></i></th>
+                        <th class="align-middle"><span class="text-normal">SO Item</span></th>
+                        <th class="align-middle"><span class="text-normal">Item Description</span></th>
+                        <th class="align-middle"><span class="text-normal">Planner</span></th>
+                        <th class="align-middle"><span class="text-normal">Prod. Line</span></th>
+                        <th class="align-middle"><span class="text-normal">Pump Type</span></th>
+                        <th class="align-middle"><span class="text-normal">Op. #</span></th>
                     </tr>
                 </thead>
             </table>
         </div>
         <div class="table-body">
-            <table id="table_id" class="table table-bordered display" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px">
-                <thead>
-                    <tr>
-                        <th>Assembly Production Order Number</th>
-                        <th></th>
-                        <th>Details</th>
-                        <th>Amount of pieces</th>
-                        <th></th>  
-                        <th>Project Number </th>
-                        <th>Customer Name</th>
-                        <th>Amount</th>
-                        <th>Init Date</th>
-                        <th>Planned Receipt Date</th>
-                        <th>End Date</th>
-                        <th>SO item</th>
-                        <th>Item description</th>
-                        <th>PLS Name</th>
-                        <th>Prod. Line</th>
-                        <th>Pump Type</th>
-                        <th>Op.  Number</th>
-                    </tr>
-                </thead>
+            <table id="table_id" class="table table-bordered display table-sm" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px">
                 <colgroup>
-		            <col style="width:9%">
+		            <col style="width:8%">
 		            <col style="width:3%">
 		            <col style="width:4%">
 		            <col style="width:3%">
-		            <col style="width:4%">
-		            <col style="width:6%">
-		            <col style="width:10%">
-		            <col style="width:7%">
-		            <col style="width:6%">
-		            <col style="width:6%">
-		            <col style="width:6%">
 		            <col style="width:5%">
 		            <col style="width:11%">
-		            <col style="width:8%">
+                    <col style="width:8%">
+		            <col style="width:10%">
+		            <col style="width:7%">
+		            <col style="width:4%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:6%">
+		            <col style="width:11%">
+		            <col style="width:7%">
 		            <col style="width:4%">
 		            <col style="width:4%">
 		            <col style="width:4%">
@@ -155,8 +175,9 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Exit</button>
+        <button type="button" class="btn btn-light " id="reset">Reset </button>
+        <button type="button" class="btn btn-primary" id="save" >Save changes</button>
       </div>
     </div>
   </div>
@@ -179,144 +200,343 @@
   </div>
 </div>
 
+@*MODAL MISSING OPERATIONS TIME*@
+<div class="modal fade" id="modalOpTime" tabindex="-1" role="dialog" aria-labelledby="modalOpTimeLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalOpTimeLabel"></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-op-time">
+          <div id="content-table-op-time" class="content table-bordered table-sh">
+            <div class="table-header">
+                <table id="op-time_header" class="table display headers-sh">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Operation</th>
+                            <th>Task Description</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-body">
+                <table id="op-time-body" class="table table-bordered display" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px; margin-top: 0 !important;">
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modalOpTimeclose" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals Errors -->
+<div class="modal fade" id="modalErrors" tabindex="-1" role="dialog" aria-labelledby="modalErrorsLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalErrorsLabel"></h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-errors-body">
+          <div id="content-table-errors" class="content table-bordered table-sh">
+            <div class="table-header">
+                <table id="permissions_header" class="table display headers-sh">
+                    <thead>
+                        <tr id="genericheaders">
+                            <th class="company">Company</th>
+                            <th>Order</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr id="schedulerheaders">
+                            <th>Type</th>
+                            <th>Operation Order</th>
+                            <th>Operation Production</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr id="timelessheaders">
+                            <th>Order</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Operation</th>
+                            <th class="task_description">Task DESCRIPTION</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-body">
+                <table id="permissions_body" class="table table-bordered display" style="width: 100%;table-layout: fixed;overflow: hidden;empty-cells: show;border-top-width: 0px;margin-right: 17px; margin-top: 0 !important;">
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="modalErrorsclose" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
+        //LET THE HUNGER GAMES BEGIN..
+
         var assembly_order;
         var table_active = 0;// para el %
-        var show_amount = false;
+        var show_amount = true;//Esconder la cantidad
+        var hideLineInformation = true;//Esconder las ultimas dos columnas
         var SO_Nr, SO_Ln, SO_Sq, ProdOrderNr;
+        var table;
+        var locations;
+        var locationSelected;
+        var BaanCompany = "ALL";
+        var BaanCompanyId;
+        var locationId;
+        var tableErrors;
+        var includemrp = false;
+        var tableOpTime;
+        var user = '@ViewBag.User';
+        var aliasname = "REDNA\\" + user;
+        var permissions = [];
+        var planner;
+        var plannerEmpty = false;
+        var multipleStartOperationsInfo;
+        var informationGeneric;
+        var operationLessOrdersData;
+        var schedulerScrambledSequences;
+        var timeLessOperations;
+        var permission_user = false;
+        var today = moment();
+        var sevendays = moment(today).add(7, 'days');
+        var active_commitment = true;
 
         $('#table_id').hide();
         $("#content-table").hide();
+
         $.ajax({
             url: "/Report/getLocations",
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 $.each(response, function (key, value) {
+                    locations = response;
                     $('#locations').append($("<option></option>")
                         .attr('value', value.Location1)
+                        .attr('attr2', value.BaanCompany)
+                        .attr('locationId', value.Location1)
                         .text((value.Location1)));
                 });
             }
         });
+
+        $.ajax({
+            url: "/Permissions/GetPermission",
+            data: { aliasname: aliasname },
+            type: "GET",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                permissions = response;
+            }
+        });
+
         getSalesOrders();
-        function getSalesOrders(job) {
+        getInfoButtons();
+        getPlanners();
+
+        function getSalesOrders() {
+            //Agrego esto porque cuando se cierra el modal, me borra el html de la tabla body.
+            if (table) {
+                table.destroy();
+            }
             $('.spinner-border').show();
             $("#content-table").hide();
             table_active = 0;
-            if (job == undefined)
-                job = "ALL";
+            includemrp = $('#includemrp').is(":checked");
+
+            if (BaanCompanyId == undefined) {
+                disabledButtons();
+            }
+            else {
+                enabledButtons();
+            }
+
+            var dat = {
+                job: BaanCompanyId,
+                mrp: includemrp,
+                planner: planner,
+                plannerEmpty: plannerEmpty,
+                locationId: locationId
+            }
             $.ajax({
-                url: "/Report/getSalesOrders?job=" + job,
+                url: "/Report/getSalesOrders",
+                data: dat,
                 type: "GET",
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     $.each(data, function (index, item) {
+                        if (!BaanCompanyId || BaanCompanyId === undefined) {
+                            data = [];
+                        }
+                        var ass_end = item.assembly_endstr != "<not available>" ? item.assembly_endstr : item.ProdOrder_PlnDlvDateStr;
+                        var ass_start = item.assembly_startstr != "<not available>" ? item.assembly_startstr : item.MinStartDateStr;
+                        item["initassemblydaynew"] = item.assembly_startstr != "<not available>" ? item.assembly_startstr : moment(item.SO_Ln_PlnRecDate).subtract(7, 'days');
+
                         if (item.projplan) {
-                            item['View'] = "<span>View</span>";
+                            item['View'] = "<span title='View Backguard'>" + '@ViewBag.View' + "</span>";
                         } else {
                             item['View'] = "";
                         }
                         item['Details'] = '';
                         item['Commitment'] = '';
+                        item['assembly_days'] = item.assembly_days != '' ? item.assembly_days : 7;
                         item['start_date'] = {
-                            "display": item.MinStartDateStr,
-                            "timestamp": moment(item.MinStartDateStr).format("YYYY/MM/DD")
+                            "display": ass_start,
+                            "timestamp": moment(ass_start).format("YYYY/MM/DD")
                         };
                         item['end_date'] = {
-                            "display": item.MaxDelivDateStr,
-                            "timestamp": moment(item.MaxDelivDateStr).format("YYYY/MM/DD")
+                            "display": ass_end,
+                            "timestamp": moment(ass_end).format("YYYY/MM/DD")
+                        };
+                        item['PRD'] = {
+                            "display": item.SO_Ln_PlnRecDateStr,
+                            "timestamp": moment(item.SO_Ln_PlnRecDateStr).format("YYYY/MM/DD")
                         };
                     });
 
-                    table = $('#table_id').DataTable({
-                        data: data,
-                        columns: [
-                            { data: 'PlanName' },
-                            { data: 'Commitment', render: editIcon },
-                            { data: 'Details'},
-                            { data: 'SO_QtyOpen' },
-                            { data: 'View' },
-                            { data: 'SO_Project' },
-                            { data: 'SO_CustomerName', render: substringCustomerName },
-                            { data: 'SO_Ln_OpenAmount_Str' },
-                            {
-                                data: {
-                                    _: "start_date.display",
-                                    sort: "start_date.timestamp"
-                                }
-                            },
-                            { data: 'SO_Ln_PlnRecDateStr' },
-                            { 
-                                data: 
+                    if (!$.fn.dataTable.isDataTable('#table_id')) {
+                        table = $('#table_id').DataTable({
+                            data: data,
+                            columns: [
+                                { data: 'ProdOrderNr' },
+                                { data: 'Commitment', render: editIcon },
+                                { data: 'Details', render: detailIcon },
+                                { data: 'ProdOrder_QtyOrd' },
+                                { data: 'View' },
+                                { data: 'PlanName' },
+                                { data: 'ProdOrder_Status' },
+                                { data: 'SO_CustomerName', render: substringCustomerName },
+                                { data: 'SO_Ln_OpenAmount_Str' },
+                                { data: 'assembly_days' },
                                 {
-                                    _: "end_date.display",
-                                    sort: "end_date.timestamp"
+                                    data:
+                                    {
+                                        _: "end_date.display",
+                                        sort: "end_date.timestamp"
+                                    }
+                                },
+                                {
+                                    data:
+                                    {
+                                        _: "PRD.display",
+                                        sort: 'PRD.timestamp'
+                                    }
+                                },
+                                { data: 'SO_Item' },
+                                { data: 'Item_Description' },
+                                { data: 'SO_PLS_Name', render: substringPLSName },
+                                { data: 'Item_PumpLine' },
+                                { data: 'Item_PumpType' },
+                                { data: 'Oper_ComplTotal' }
+                            ],
+                            columnDefs: [
+                                {
+                                    orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
+                                }
+                            ],
+                            createdRow: function (row, data, dataIndex) {
+                                $(row).find('td').eq(5).attr("title", "Sales Order Number: " + data.SO_Nr);
+                                $(row).find('td').eq(10).addClass(reviewDate(data.end_date, 'display'));
+
+                                if (moment(data.initassemblydaynew).isSameOrBefore(moment())) {
+                                    $(row).addClass('table-active');
+
+                                    if (hasNotStarted(data.Oper_ComplTotal)) {
+                                        $(row).find('td').eq(16).addClass('bg-danger');
+                                    }
+                                    if (!data.ReadyToShip) {
+                                        $(row).find('td').eq(11).addClass('bg-warning');
+                                        data["class"] = "yellow";
+                                    }
+                                }
+
+                                if (data.isBetweenMaxDateAndPRD) {
+                                    $(row).find('td').eq(10).addClass('bg-warning');
+                                    data["class"] = "yellow";
+                                }
+
+                                if (data.isBiggerThanPRD || data.PRDIsOut) {
+                                    $(row).find('td').eq(11).addClass('bg-danger');
+                                    data["class"] = "red";
+                                    table_active += 1;
+                                }
+
+
+                                if (data.SO_CustomerName.length > 15) {
+                                    $(row).find('td').eq(7).attr("title", data.SO_CustomerName);
+                                }
+
+                                if (data.SO_PLS_Name.length > 10) {
+                                    $(row).find('td').eq(14).attr("title", data.SO_PLS_Name);
+                                }
+
+                                if (data.assembly_end != "<not available>" && data.assembly_startstr != "<not available>") {
+                                    $(row).find('td').eq(10).attr("title", "Baan End date: " + data.MaxDelivDateStr);
                                 }
                             },
-                            { data: 'SO_Item' },
-                            { data: 'Item_Description' },
-                            { data: 'SO_PLS_Name', render: substringPLSName },
-                            { data: 'Item_PumpLine' },
-                            { data: 'Item_PumpType' },
-                            { data: 'Oper_ComplTotal' }
-                        ],
-                        columnDefs: [
-                            {
-                                orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16]
-                            }
-                        ],
-                        createdRow: function (row, data, dataIndex) {
-                            if (data.beforeToday) {
-                                $(row).addClass('table-active');
+                            order: [[10, "asc"]],
+                            paging: true,
+                            pageLength: 200,
+                            orderClasses: false, //false = remove class shorting 1
+                            ordering: true,
+                            searching: true,
+                            fixedHeader: {
+                                header: true,
+                                footer: true
+                            },
+                            dom: 'rt<"bottom"iflp<"clear">>',
+                            lengthMenu: [[10, 50, 100, 200, -1], [10, 50, 100, 200, "All"]],
+                            responsive: true
+                        });
+                    }
 
-                                if (hasNotStarted(data.Oper_ComplTotal)) {
-                                    $(row).find('td').eq(16).addClass('bg-danger');
-                                }
-                            }                            
-
-                            if (data.isBetweenMaxDateAndPRD) {
-                                $(row).find('td').eq(10).addClass('bg-warning');
-                            }
-
-                            if (data.isBiggerThanPRD || data.PRDIsOut) {
-                                $(row).find('td').eq(10).addClass('bg-danger');
-                                table_active += 1;
-                            }
-
-                            if (data.SO_CustomerName.length > 15) {
-                                $(row).find('td').eq(6).attr("title", data.SO_CustomerName);
-                            }
-
-                            if (data.SO_PLS_Name.length > 10) {
-                                $(row).find('td').eq(13).attr("title", data.SO_PLS_Name);
-                            }
-                        },                        
-                        order: [[10, "asc"]],
-                        paging: true,
-                        pageLength: 200,
-                        orderClasses: false, //false = remove class shorting 1
-                        ordering: true,
-                        searching: true,
-                        fixedHeader: {
-                            header: true,
-                            footer: true
-                        },
-                        dom: 'rt<"bottom"iflp<"clear">>',
-                        lengthMenu: [[10, 50, 100, 200, -1], [10, 50, 100, 200, "All"]],
-                        responsive: true
-                    });
-                    console.log("totales", table.data().count())
                     if (data.length <= 10) {
                         $("#table-body").css('overflow-y', 'auto')
                     }
 
                     if (!show_amount) {
-                        table.columns("7").visible(false);
-                        $("#table_id_ thead tr th:nth-child(8), #table_id_ colgroup col:nth-child(8)").hide();
-                        $("#table_id colgroup col:nth-child(8)").hide();
+                        table.columns("8").visible(false);
+                        $("#table_id_ thead tr th:nth-child(9), #table_id_ colgroup col:nth-child(9)").hide();
+                        $("#table_id colgroup col:nth-child(9)").hide();
                     }
+
+                    ///By default se esconde Prod.Line and PumpType
+                    if (hideLineInformation) {
+                        table.columns("16").visible(false);
+                        $("#table_id_ thead tr th:nth-child(17), #table_id_ colgroup col:nth-child(17)").hide();
+                        $("#table_id colgroup col:nth-child(17)").hide();
+
+                        table.columns("15").visible(false);
+                        $("#table_id_ thead tr th:nth-child(16), #table_id_ colgroup col:nth-child(16)").hide();
+                        $("#table_id colgroup col:nth-child(16)").hide();
+                    }
+
 
                     $("#table_id").show();
                     $("#table_id_wrapper").removeClass("container-fluid");
@@ -331,6 +551,15 @@
             });
         }
 
+        var detailIcon = function (data, type, row) {
+            if (row.BaanCompany && row.ProdOrderNr) {
+                return data + '<span title="Detail" style="font-size:15px" class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>';
+            } else {
+                return '';
+            }
+
+        }
+
         var editIcon = function (data, type, row) {
             if (type === 'display') {
                 if (row.ReadyToShip && !row.HasChangedPRD) {
@@ -342,58 +571,120 @@
             return data;
         };
 
-        var substringCustomerName = function ( data, type, row ) {
+        var substringCustomerName = function (data, type, row) {
             if (data.length > 15) {
                 return data.substring(0, 14) + "...";
             } else {
                 return data;
-            }            
+            }
         }
 
         var substringPLSName = function (data, type, row) {
             if (data.length > 15) {
-                return data.substring(0, 12) + "...";
+                return data.substring(0, 11) + "...";
             } else {
                 return data;
             }
         }
-        
-        $("#table_id tbody").on("click", "td", function () {
-            if ($(this).index() === 1) {
-                openModal($(this)[0].textContent);
-                var ajj;
-                $.map(table.rows(this).data(), function (item) {
-                    assembly_order = item.ProdOrderNr;
-                    var data = {
-                        ProdOrderNr: item.ProdOrderNr,
-                        SO_Item: item.SO_Item,
-                        Item_Description: item.Item_Description,
-                        SO_Project: item.SO_Project,
-                        MaxDelivDateStr: item.MaxDelivDateStr,
-                        SO_Nr: item.SO_Nr,
-                        SO_Ln: item.SO_Ln,
-                        SO_Sq: item.SO_Sq,
-                        //para guardar en Assembly_commitment y posteriormente quitar el hasChangerPRD
-                    }
-                    $('#modal-body').load('/Commitment/Index', data);
-                    SO_Nr = item.SO_Nr;
-                    SO_Ln = item.SO_Ln;
-                    SO_Sq = item.SO_Sq;
-                    ProdOrderNr = item.ProdOrderNr;
 
-                });
-            } else if ($(this).index() === 4) {
-                $.map(table.rows(this).data(), function (item) {
-                    if (item.projplan && item.BaanCompany) {
-                        var W = screen.width - 220;
-                        var H = screen.height - 300;
-                        var xpos = 100;
-                        var ypos = 100;
-                        window.open("http://172.20.4.63/RP_TimingPlan/projDetails.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "popup", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
-                    }
-                });
+        function getInfoButtons() {
+            if (BaanCompanyId) {
+                getErrorsInfo('getMultipleStartOperations');
+                getErrorsInfo('getOperationLessOrders');
+                getErrorsInfo('getSchedulerScrambledSequences');
+                getErrorsInfo('getTimeLessOperations');
             }
-        });
+        }
+
+        function getPlanners() {
+            var planner_selected = $("#planners").val();
+            $("#planners").empty();
+            var dat = {
+                job: BaanCompanyId
+            }
+            $.ajax({
+                url: "/Report/getPlanners",
+                data: dat,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    var stillplanner = false;
+                    if (planner_selected) {
+                        _.find(response, function (item) {
+                            if (item.SO_PLS_Name == planner_selected) {
+                                stillplanner = true;
+                            }
+                        });
+                        
+
+                        if (stillplanner == false) {
+                            planner_selected = 'ALL';
+                            $("#planners").val('ALL').trigger('change');
+                            plannerEmpty = false;
+                        }
+                    }
+
+                    var isSelected = planner_selected == null ? 'true' : 'false';
+                    $("#planners").append("<option value='false' selected=" + isSelected + " disabled='disabled'>Planners</option>");
+                    var allSelected = planner_selected == 'ALL' ? 'true' : 'false';
+
+                    if (planner_selected == 'ALL') {
+                        $("#planners").append("<option value='ALL' selected='true' attr2='false'>ALL</option>");
+                    } else {
+                        $("#planners").append("<option value='ALL' attr2='false'>ALL</option>");
+                    }                   
+
+                    $.each(response, function (key, value) {
+                        locations = response;
+                        if (value.SO_PLS_Name == planner_selected) {
+                            $('#planners').append($("<option selected='true'></option>").attr('value', value.SO_PLS_Name).attr('attr2', value.HasPls).text((value.SO_PLS_Name)));
+
+                        } else {
+                            $('#planners').append($("<option></option>").attr('value', value.SO_PLS_Name).attr('attr2', value.HasPls).text((value.SO_PLS_Name)));
+                        }
+                    });
+
+                    getSalesOrders();
+                }
+
+            });
+        }
+        
+        function getMultipleStartOperationsInfo(data) {
+            multipleStartOperationsInfo = data;
+            if (multipleStartOperationsInfo.length > 0) {
+                $("#multiplestartoperation").addClass('btn-danger').removeClass('btn-info');
+            } else if (multipleStartOperationsInfo.length < 1) {
+                $("#multiplestartoperation").addClass('btn-info').removeClass('btn-danger');
+            }
+        }
+        
+        function getOperationLessOrdersData(data) {
+            operationLessOrdersData = data;
+            if (operationLessOrdersData.length > 0) {
+                $("#operationlessorders").addClass('btn-danger').removeClass('btn-info');
+            } else if (operationLessOrdersData.length < 1) {
+                $("#operationlessorders").addClass('btn-info').removeClass('btn-danger');
+            }
+        }
+
+        function getSchedulerScrambledSequencesData(data) {
+            schedulerScrambledSequences = data;
+            if (schedulerScrambledSequences.length > 0) {
+                $("#schedulerscrambledsequences").addClass('btn-danger').removeClass('btn-info');
+            } else if (schedulerScrambledSequences.length < 1) {
+                $("#schedulerscrambledsequences").addClass('btn-info').removeClass('btn-danger');
+            }
+        }
+        
+        function getTimeLessOperationsData(data) {
+            timeLessOperations = data;
+            if (timeLessOperations.length > 0) {
+                $("#timelessoperations").addClass('btn-danger').removeClass('btn-info');
+            } else if (timeLessOperations.length < 1) {
+                $("#timelessoperations").addClass('btn-info').removeClass('btn-danger');
+            }
+        }
 
         function openModal(OrderNumber) {
             $('#exampleModalLabel').text('Capture of commitment');
@@ -424,21 +715,288 @@
                 return false;
             }
         }
+        
+        function openConfirmModal() {
+            $("#confirmModal").modal({
+            });
+            table.reload();
+        }
+
+        function getPercent() {
+            $('#forecast_percent').text(table_active > 0 ? ((table.data().count() - table_active) * 100 / table.data().count()).toFixed(2) + " %" : 0 + " %");
+        }
+
+        function openOpTimeModal() {
+            if (tableOpTime != undefined) {
+                tableOpTime.destroy();
+            }
+            $("#modalOpTime").modal({
+                backdrop: "static"
+            });
+
+            $("#modalOpTimeLabel").text('Missing Operation Time');
+            columnas = [{ data: 'Order' },
+                        { data: 'Item' },
+                        { data: 'Description' },
+                        { data: 'Operation' },
+                        { data: 'TaskDescription' }]
+
+            tableOpTime = $("#op-time-body").DataTable({
+                data: timeLessOperations,
+                columns: columnas,
+                paging: true,
+                pageLength: 20,
+                orderClasses: false, //false = remove class shorting 1
+                ordering: true,
+                searching: true,
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
+                dom: 'rt<"bottom"iflp<"clear">>',
+                lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+                responsive: true
+            });
+
+            $("#op-time-body_wrapper").removeClass("container-fluid");
+            $("#op-time-body thead").hide();
+        }
+
+        function openErrorModal(item) {
+            if (tableErrors != undefined) {
+                tableErrors.destroy();
+            }
+            $("#modalErrors").modal({
+                backdrop: "static"
+            });
+
+            if (item == "getMultipleStartOperations" || item == "getOperationLessOrders") {
+                $("#modalErrorsLabel").text(item == "getMultipleStartOperations" ? 'Multiple Start Operations' : 'Operation Less Orders');
+                columnas = [{ data: 'Company' },
+                            { data: 'Order' },
+                            { data: 'Item' },
+                            { data: 'Description' }]
+            }
+
+            if (item == "getSchedulerScrambledSequences") {
+                $("#modalErrorsLabel").text('Scheduler Scrambled Sequences');
+                columnas = [{ data: 'Type' },
+                            { data: 'OrderOperation' },
+                            { data: 'OrderProduction' },
+                            { data: 'Status' }]
+            }
+
+            tableErrors = $("#permissions_body").DataTable({
+                data: item == 'getMultipleStartOperations' ? multipleStartOperationsInfo : item == 'getOperationLessOrders' ? operationLessOrdersData : item == 'getSchedulerScrambledSequences' ? schedulerScrambledSequences : timeLessOperations,
+
+                columns: columnas,
+                paging: true,
+                pageLength: 20,
+                orderClasses: false, //false = remove class shorting 1
+                ordering: true,
+                searching: true,
+                fixedHeader: {
+                    header: true,
+                    footer: true
+                },
+                dom: 'rt<"bottom"iflp<"clear">>',
+                lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+                responsive: true
+            });
+
+            if (item == "getSchedulerScrambledSequences") {
+                console.log("scheduler scrambled sequences", item);
+                $("#permissions_body colgroup col").css({ 'width': '25%' });
+                $("#genericheaders").hide();
+                $("#schedulerheaders").show();
+                $("#timelessheaders").hide();
+                $(".task_description").hide();
+            }
+
+            if (item == "getTimeLessOperations") {
+                console.log("time less operations", item);
+                $("#permissions_body colgroup col").css({ 'width': '25%' });
+                $("#genericheaders").hide();
+                $("#schedulerheaders").hide();
+                $("#timelessheaders").show();
+                $(".task_description").show();
+            }
+
+            if (item == "getMultipleStartOperations" || item == "getOperationLessOrders") {
+                $("#permissions_body colgroup col").css({ 'width': '33.3%' });
+                tableErrors.columns("0").visible(false);
+                $(".company").hide();
+                $("#genericheaders").show();
+                $("#schedulerheaders").hide();
+                $("#timelessheaders").hide();
+                $(".task_description").hide();
+            }
+
+            $("#permissions_body_wrapper").removeClass("container-fluid");
+            $("#permissions_body thead").hide();
+
+        }
+
+        function getErrorsInfo(item) {
+            //console.log("get errors", item);
+            var columnas;
+            var width;
+
+            var data = {
+                locationSelected: BaanCompanyId == undefined ? "ALL" : BaanCompanyId,
+                company: locationId
+            }
+            $.ajax({
+                url: "/Report/" + item,
+                data: data,
+                type: "GET",
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+                    if (item == "getMultipleStartOperations") {
+                        getMultipleStartOperationsInfo(response);
+                        $("#multiplestartoperation").prop('disabled', false);
+                    } else if (item == "getOperationLessOrders") {
+                        getOperationLessOrdersData(response);
+                        $("#operationlessorders").prop('disabled', false);
+                    } else if (item == "getSchedulerScrambledSequences") {
+                        getSchedulerScrambledSequencesData(response);
+                        $("#schedulerscrambledsequences").prop('disabled', false);
+                    } else if (item == 'getTimeLessOperations') {
+                        getTimeLessOperationsData(response);
+                        $("#timelessoperations").prop('disabled', false);
+                    };
+                }
+            });
+        }
+
+        function disabledButtons() {
+            $("#multiplestartoperation").prop('disabled', true);
+            $("#operationlessorders").prop('disabled', true);
+            $("#schedulerscrambledsequences").prop('disabled', true);
+            $("#timelessoperations").prop('disabled', true);
+            $("#planners").prop('disabled', true);
+        }
+
+        function enabledButtons() {
+            $("#multiplestartoperation").prop('disabled', false);
+            $("#operationlessorders").prop('disabled', false);
+            $("#schedulerscrambledsequences").prop('disabled', false);
+            $("#timelessoperations").prop('disabled', false);
+            $("#planners").prop('disabled', false);
+        }
+
+        //Revisar fechas para semaforeo de Dibujo y Botones
+        function reviewDate(item, property) {
+            date = moment(item[property]);
+            //console.log("date", date);
+            if (moment(date).isAfter(today) && moment(date).isBetween(today, sevendays)) {
+                return "bg-warning";//amarillo
+            } else if (moment(item[property]).isSameOrBefore(today)) {
+                return "bg-danger";//rojo
+            }
+        }
+
+        $("#table_id tbody").on("click", "td", function () {
+            permission_user = false;
+            if ($(this).index() === 1) {
+                $("#save").prop('disabled', true);
+                openModal($(this)[0].textContent);
+                $.map(table.rows(this).data(), function (item) {
+
+                    if (permissions.length > 0) {
+                        _.find(permissions, function (o) {
+                            if (o.location == item.Location && o.aliasname == aliasname) {
+                                permission_user = true;
+                            }
+                        });
+                    }
+                    assembly_order = item.ProdOrderNr;
+                    var data = {
+                        ProdOrderNr: item.ProdOrderNr,
+                        SO_Item: item.SO_Item,
+                        Item_Description: item.Item_Description,
+                        SO_Project: item.SO_Project,
+                        MaxDelivDateStr: item.MaxDelivDateStr,
+                        SO_Nr: item.SO_Nr,
+                        SO_Ln: item.SO_Ln,
+                        SO_Sq: item.SO_Sq,
+                        SO_Ln_PlnRecDateStr: item.SO_Ln_PlnRecDateStr,
+                        permission_user: permission_user,
+                        DaysBuffer: item.DaysBuffer,
+                        BaanCompany: item.BaanCompany,
+                        PlanName: item.PlanName,
+                        projplan: item.projplan
+
+                        //para guardar en Assembly_commitment y posteriormente quitar el hasChangerPRD
+                    }
+                    $('#modal-body').load('/Commitment/Index', data);
+                    SO_Nr = item.SO_Nr;
+                    SO_Ln = item.SO_Ln;
+                    SO_Sq = item.SO_Sq;
+                    ProdOrderNr = item.ProdOrderNr;
+
+                });
+            } else if ($(this).index() === 4) {
+                $.map(table.rows(this).data(), function (item) {
+                    if (item.projplan && item.BaanCompany) {
+                        var W = screen.width - 220;
+                        var H = screen.height - 300;
+                        var xpos = 100;
+                        var ypos = 100;
+                        window.open("http://172.20.4.63/RP_TimingPlan/projDetailsShaperd.aspx?projplan=" + item.projplan + "&planName=" + item.PlanName + "%20%20%20%20%20%20%20%20%20%20%20%20%20%20&company=" + item.BaanCompany, "_blank", "toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=1100,height=750");
+                    }
+                });
+            } else if ($(this).index() === 2) {
+                $.map(table.rows(this).data(), function (item) {
+                    var W;
+                    if ($(document).width() > 1519) {
+                        W = 1700;
+                    } else {
+                        W = 1316;
+                    }
+                    var data = {
+                        OrderType: item.OrderType,
+                    };
+                    var W = W;
+                    var H = screen.height - 300;
+                    var xpos = 100;
+                    var ypos = 100;
+
+                    if (item.BaanCompany != "" && item.ProdOrderNr != "") {
+                        window.open("/Detail/Index?OrderType=" + item.OrderType + "&BaanCompany=" + item.BaanCompany + "&ProdOrderNr=" + item.ProdOrderNr + "&MaxDelivDate=" + item.end_date.display + "&Projplan=" + item.projplan + "&Location=" + item.Location + "&username=" + '@ViewBag.User', "_blank", "menubar=0, scrollbars=1, resizable=1, " + "width=" + W + ", height=" + H + ", left=" + xpos + ", top=" + ypos);
+                }
+                })
+            }
+        });
+        $("#planners").change(function () {
+            planner = $(this).children("option:selected").val();
+            plannerEmpty = $('option:selected', this).attr('attr2');
+        });
+
+        $("#locations").change(function () {
+            BaanCompanyId = $('option:selected', this).attr('attr2');
+            locationId = $('option:selected', this).attr('locationid');
+        });
 
         $("#save").on('click', function (event) {
             event.stopImmediatePropagation();
             var assemblyObj = {
                 assembly_number: assembly_order,
-                final_buffer: $("#final_buffer").val(),
-                assembly_days: $("#assembly_days").val(),
-                machining_days: $("#machining_days").val(),
+                final_buffer: active_commitment == false && $("#final_buffer").val() == '' ? 0 : $("#final_buffer").val(),
+                assembly_days: active_commitment == false && $("#assembly_days").val() == '' ? 0 : $("#assembly_days").val(),
+                machining_days: active_commitment == false && $("#machining_days").val() == '' ? 0 : $("#machining_days").val(),
                 bom_date: $('#bomdate').data('date'),
                 casting_date: $('#castingdate').data('date'),
                 readytoship: $('#readytoship')[0].innerHTML,
+                maxdelivdate: $("#maxdelivdate")[0].innerHTML,
                 SO_Nr: SO_Nr,
                 SO_Ln: SO_Ln,
                 SO_Sq: SO_Sq,
                 ProdOrderNr: assembly_order,
+                assembly_start: $("#assemblydayscalculated")[0].innerHTML,
+                assembly_end: $("#assemblystart")[0].innerHTML,
+                active: $("#final_buffer").val() == '' || $("#assembly_days").val() == '' || $("#machining_days").val() == '' ? false : true
+
             };
 
             $.ajax({
@@ -458,9 +1016,9 @@
 
                     setTimeout(function () {
                         $("#confirmModal #closeConfirm").click();
-                    }, 2000);
+                    }, 1500);
 
-                    table.destroy();
+                    table.clear();
                     getSalesOrders($("#locations").val());
                 },
                 dataType: 'json',
@@ -468,29 +1026,33 @@
             });
         });
 
-        function openConfirmModal() {
-            $("#confirmModal").modal({
-            });
-            table.reload();
-        }
-
         $('#myInputTextField').keyup(function () {
             table.search($(this).val()).draw();
-        })
-
-        $("#locations").on('change', function (ev) {
-            $("#table_id").hide();
-            table.destroy();
-            getSalesOrders($(this).val());
         });
 
-        function getPercent() {
-            console.log("Ordenes no en tiempo: ", table_active);
-            $('#forecast_percent').text(table_active > 0 ? ((table.data().count() - table_active) * 100 / table.data().count()).toFixed(2) + " %" : 0 + " %");
-        }
+        $("#search").on('click', function (ev) {
+            $("#myInputTextField").val("");
+            
+            //deshabilitamos los botones mientras obtenemos la informacion
+            $("#multiplestartoperation").prop('disabled', true);
+            $("#operationlessorders").prop('disabled', true);
+            $("#schedulerscrambledsequences").prop('disabled', true);
+            $("#timelessoperations").prop('disabled', true);
+
+            $("#table_id").hide();
+            table.clear();
+            getPlanners();
+            //getSalesOrders();
+
+            //obtenemos la informacion de cada botón.
+            getErrorsInfo('getMultipleStartOperations');
+            getErrorsInfo('getOperationLessOrders');
+            getErrorsInfo('getSchedulerScrambledSequences');
+            getErrorsInfo('getTimeLessOperations');            
+        });       
 
         $('#orderbydate').on('click', function () {
-            $("#orderbyordericon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            $("#orderbyordericon, orderbyprd").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             if ($(this).hasClass("up")) {
                 table.order([10, 'asc']).draw();
                 $("#orderbyicon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
@@ -504,10 +1066,10 @@
                 return false;
 
             }
-        })
+        });
 
         $("#orderbyorder").on('click', function () {
-            $("#orderbyicon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            $("#orderbyicon, orderbyprd").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
             if ($(this).hasClass("up")) {
                 table.order([0, 'asc']).draw();
                 $("#orderbyordericon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
@@ -517,6 +1079,58 @@
                 $("#orderbyordericon").addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
                 $(this).addClass("up").removeClass("down"); return;
             }
+        });
+
+        $("#orderbyprd").on('click', function () {
+            $("#orderbyordericon, #orderbyicon").addClass('glyphicon-minus').removeClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+            if ($(this).hasClass("up")) {
+                table.order([11, 'asc']).draw();
+                $("#orderbyprdicon").addClass('glyphicon-chevron-up').removeClass('glyphicon-chevron-down');
+                $(this).addClass("down").removeClass("up"); return;
+            } else {
+                table.order([11, 'desc']).draw();
+                $("#orderbyprdicon").addClass('glyphicon-chevron-down').removeClass('glyphicon-chevron-up');
+                $(this).addClass("up").removeClass("down"); return;
+            }
         })
+
+        $("#multiplestartoperation").on('click', function () {
+            openErrorModal('getMultipleStartOperations')
+        });
+
+        $("#operationlessorders").on('click', function () {
+            openErrorModal('getOperationLessOrders')
+        });
+
+        $("#schedulerscrambledsequences").on('click', function () {
+            openErrorModal('getSchedulerScrambledSequences')
+        });
+
+        $("#timelessoperations").on('click', function () {
+            openOpTimeModal('getTimeLessOperations')
+        });
+
+        $("#reset").on('click', function () {
+            $("#final_buffer").val('').trigger('change');
+            $("#assembly_days").val('').trigger('change');
+            $("#machining_days").val('').trigger('change');
+
+            $("#finalbuffercalculated").text('');
+            $("#readytoship").text('');
+            $("#assemblystart").text('');
+            $("#assemblydayscalculated").text('');
+            $("#componentdate").text('');
+
+            $("#machiningend").text('');
+            $("#machiningstart").text('');
+            $("#manufacturing").text('');
+            $("#foundry").text('');
+            $("#fabrications").text('');
+            $("#boyoutdate").text('');
+
+            $("#bomdatevalue").val('');
+            $("#castingdateval").val('');
+            active_commitment = false;
+        });  
     });
 </script>

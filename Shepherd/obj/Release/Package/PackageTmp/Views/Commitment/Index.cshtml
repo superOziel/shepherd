@@ -7,25 +7,28 @@
 
 <div id="commitment_info" style="display:none">
     <div class="row">
-        <div class="col-sm-10">
-            <b>Assembly Order: @ViewBag.Assembly / Item #: @ViewBag.SO_Item / @ViewBag.Item_Description</b> 
+        <div class="col-sm-12">
+            <div class="col-sm-10">
+                <b>Assembly Order: @ViewBag.Assembly / Item #: @ViewBag.SO_Item / @ViewBag.Item_Description</b> 
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
-            <div style="text-align: left">   
-                <b>Project #: @ViewBag.SO_Project</b>
+        <div class="col-sm-12">
+            <div class="col-sm-6" style="text-align: left">   
+                <b style="text-align: left">Project #: @ViewBag.SO_Project</b>
+            </div>
+            <div class="col-sm-6" style="text-align: right">
+                <b style="text-align:right"><a href="/#" id="view">View</a></b>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 text-align-right">
-        <b><a href="#" id="view">View</a></b>
-    </div> 
+     
 </div>
 
-<div class="row" id="headers" style="display: none">
+<div class="row margin-top-10" id="headers" style="display: none">
     <div class="col-sm-4"></div>
     <div class="col-sm-3 text-align-center bold">Start</div>
     <div class="col-sm-2">&nbsp;</div>
@@ -39,7 +42,7 @@
             <div class="col-sm-5"></div>
             <div class="col-sm-3">
                 <div class='input-group date' id='castingdate'>
-                    <input type='text' class="form-control" id="castingdateval" />
+                    <input type='text' class="form-control" id="castingdateval" autocomplete="off" onkeydown="return false" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -50,7 +53,7 @@
             <div class="col-sm-5 margin-top-10"></div>
             <div class="col-sm-3 margin-top-10">
                 <div class='input-group date' id='bomdate'>
-                    <input type='text' class="form-control" id="bomdatevalue" />
+                    <input type='text' class="form-control" id="bomdatevalue" autocomplete="off" onkeydown="return false"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -58,7 +61,7 @@
             </div>
         </li>
         <li class="list-group-item" style="background-color:#c0c1c1">
-            <div class="col-sm-4 bold text-align-right"> Boyouts & Remaining Parts: </div>
+            <div class="col-sm-4 bold text-align-right"> Buyouts & Remaining Parts: </div>
             <div class="col-sm-5"> &nbsp;</div>
             <div class="col-sm-3 text-align-center"> <label id="boyoutdate"></label>&nbsp;</div>
 
@@ -76,7 +79,7 @@
 
             <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Machining:</label>&nbsp;</div>
             <div class="col-sm-3 text-align-center"> <label id="machiningstart" class="vertical-align-center"></label>&nbsp;</div>
-            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="machining_days" placeholder="Days" disabled>&nbsp;</div>
+            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="machining_days" placeholder="Days" autocomplete="off" disabled>&nbsp;</div>
             <div class="col-sm-3 text-align-center"> <label id="machiningend" class="vertical-align-center"></label>&nbsp;</div>
 
         </li>
@@ -88,7 +91,7 @@
             <div class="col-sm-12 no-padding-sides" >
                 <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Assembly:</label>&nbsp;</div>
                 <div class="col-sm-3 text-align-center"> <label id="assemblydayscalculated" class="vertical-align-center"></label>&nbsp;</div>
-                <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="assembly_days" placeholder="Days" disabled>&nbsp;</div>
+                <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="assembly_days" placeholder="Days" autocomplete="off" disabled>&nbsp;</div>
                 <div class="col-sm-3 text-align-center"> <label id="assemblystart" class="vertical-align-center"></label>&nbsp;</div>
             </div>
             
@@ -100,10 +103,8 @@
             
             <div class="col-sm-4 text-align-right"> <label class="vertical-align-center">Buffer:</label>&nbsp;</div>
             <div class="col-sm-3 text-align-center"> <label id="finalbuffercalculated" class="vertical-align-center"></label>&nbsp;</div>
-            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="final_buffer" placeholder="Days" >&nbsp;</div>
-            <div class="col-sm-3 text-align-center"> <label class="vertical-align-center">@ViewBag.MaxDelivDateStr</label>&nbsp;</div>
-
-
+            <div class="col-sm-2" style="height:24px"> <input type="text" class="form-control height-sm" id="final_buffer" placeholder="Days" autocomplete="off" >&nbsp;</div>
+            <div class="col-sm-3 text-align-center"> <label class="vertical-align-center" id="maxdelivdate">@ViewBag.MaxDelivDateStr</label>&nbsp;</div>
         </li>
   </ul>
 </div>
@@ -116,10 +117,14 @@
 
         $('#bomdate').datetimepicker({
             format: 'MM/DD/YYYY',
+        }).on('dp.change', function (e) {
+            removeDisabledButton();
         });
 
         $('#castingdate').datetimepicker({
             format: 'MM/DD/YYYY',
+        }).on('dp.change', function (e) {
+            removeDisabledButton();
         });
 
         var assembly_order;
@@ -130,6 +135,8 @@
         var machining_start;
         var MaxDelivDateStr = moment('@ViewBag.MaxDelivDateStr');
         var assemblydayscalculated;
+
+        var daysBuffer = '@ViewBag.DaysBuffer'
 
         $('#readytoshipdiv').hide();
         $('#boyoutdatediv').hide();
@@ -142,8 +149,22 @@
         $('#machiningenddiv').hide();
         $('#machiningstartdiv').hide();
 
+        var permission_user = '@ViewBag.Permission_user' == "False" ? false : true;
+        console.log("Permiso en Modal de Compromiso ", '@ViewBag.Permission_user')
+
+        if (!permission_user) {
+            $("#final_buffer").attr('disabled', 'disabled');
+            $("#assembly_days").attr('disabled', 'disabled');
+            $("#machining_days").attr('disabled', 'disabled');
+            $("#bomdatevalue").attr('disabled', 'disabled');
+            $("#castingdateval").attr('disabled', 'disabled');
+            $("#reset").attr('disabled', 'disabled');
+
+        }
+
         $('#final_buffer').change(function (data) {
             calculateFinalBuffer();
+            removeDisabledButton();
 
             if ($('#assembly_days').val()) {
                 calculateAssemblyDays();
@@ -156,6 +177,7 @@
 
         $('#assembly_days').change(function (data) {
             calculateAssemblyDays();
+            removeDisabledButton();
 
             if ($("#machining_days").val()) {
                 calculateMachiningStart();
@@ -165,7 +187,19 @@
         $('#machining_days').change(function () {
             //Machining start
             calculateMachiningStart();
+            removeDisabledButton();
+
         });
+
+        $("#bomdatevalue").change(function (data) {
+            console.log("bom date change", data)
+            removeDisabledButton();
+        });
+
+        $("#castingdate").change(function () {
+            removeDisabledButton();
+        });
+
         assembly_order = '@ViewBag.Assembly';
         var SO_Nr = '@ViewBag.SO_Nr';
         var SO_Ln = '@ViewBag.SO_Ln';
@@ -180,6 +214,7 @@
         getCommitment();
 
         function getCommitment() {
+            console.log("inicio get commitment")
             $.ajax({
                 type: 'GET',
                 data: data,
@@ -187,7 +222,9 @@
                 url: '/Commitment/GetCommitment',
                 contentType: 'application/json; charset=utf-8',
                 success: function (commitment) {
-                    if (commitment) {
+                    console.log("Commitment en getCommmitment", commitment)
+
+                    if (commitment != null) {
                         console.log("tiene commitment: ", commitment);
                         $("#final_buffer").val(commitment.final_buffer);
                         $("#assembly_days").val(commitment.assembly_days);
@@ -197,35 +234,64 @@
                         $('#bomdatevalue').val(moment(commitment.bom_date).format('MM/DD/YYYY'));
                         $('#castingdateval').val(moment(commitment.casting_date).format('MM/DD/YYYY'));
 
-                        calculateFinalBuffer();
-                        calculateAssemblyDays();
-                        calculateMachiningStart();
+                        
+                    } else {
+                        $("#final_buffer").val(daysBuffer).trigger('change');
+                        $("#assembly_days").val('7').trigger('change');
+                        $("#machining_days").val('28').trigger('change');
                     }
+
+                    calculateFinalBuffer();
+                    calculateAssemblyDays();
+                    calculateMachiningStart();
                     
+                }, error: function (err) {
+                    console.log("error", err);
+                    $("#final_buffer").val(daysBuffer).trigger('change');
+                    $("#assembly_days").val('7').trigger('change');
+                    $("#machining_days").val('28').trigger('change');
                 }
             });
         }
 
         function calculateFinalBuffer() {
             var final_buffer_input = $("#final_buffer").val();
+            console.log("final_buffer_input", final_buffer_input);
             var MaxDelivDateStrDay = moment('@ViewBag.MaxDelivDateStr');
+            console.log("MaxDelivDateStrDay", MaxDelivDateStrDay);
             var final_buffer_local = MaxDelivDateStrDay.subtract(parseInt(final_buffer_input), 'days').format('MM/DD/YYYY');
+            console.log("final_buffer_local", final_buffer_local, "final_buffer_local domingo", checkDomingo(final_buffer_local))
             final_buffer = checkDomingo(final_buffer_local);
             $('#finalbuffercalculated').text(final_buffer);
             $('#assemblystart').text(final_buffer);
 
             //Ready to ship que es final buffer + 1 día
             calculateReadyToShip(final_buffer);
-            $("#assembly_days").removeAttr('disabled');
+            if (permission_user) {
+                $("#assembly_days").removeAttr('disabled');
+            }
+            
+        }
+
+        function removeDisabledButton() {
+            console.log("entra a removeDisableButton");
+            if ($('#assembly_days').val() && $('#machining_days').val() && $('#bomdate').data('date') && $('#castingdate').data('date')) {
+                $('#save').removeAttr('disabled')
+            } else {
+                $('#save').removeAttr('enabled')
+            }
         }
 
         function calculateAssemblyDays(assembly_days) {
             var assembly_days = $('#assembly_days').val();
             assemblydayscalculated = moment(final_buffer).subtract(parseInt(assembly_days), 'days').format('MM/DD/YYYY');
             assemblydayscalculated = checkDomingo(assemblydayscalculated);
+            console.log("assemblydayscalculated", assemblydayscalculated);
 
             $('#assemblydayscalculated').text(assemblydayscalculated);
-            $("#machining_days").removeAttr('disabled');
+            if (permission_user) {
+                $("#machining_days").removeAttr('disabled');
+            }
             //Component date día antes de comenzar ensamble
             calculateComponentDate();
 
@@ -242,6 +308,7 @@
         function calculateComponentDate() {
             componentdate = moment(assemblydayscalculated).subtract(1, 'days').format('MM/DD/YYYY');
             componentdate = checkDomingo(componentdate)
+            console.log("component date", componentdate);
             $('#machiningend').text(componentdate);
             $('#componentdate').text(componentdate);
             $('#componentdatediv').show();
@@ -298,10 +365,18 @@
             }
         }
 
-        $("#view").on('click', function (){
+        $("#view").on('click', function () {
+            var dat = {
+                ProdOrderNr: '@ViewBag.Assembly',
+                SO_Nr: '@ViewBag.SO_Nr',
+                SO_Ln: '@ViewBag.SO_Ln',
+                SO_Sq: '@ViewBag.SO_Sq'
+            };
+            console.log("view dat", dat)
             $.ajax({
+                url: '/Commitment/getSaleOrder',
+                data: dat,
                 type: 'GET',
-                url: '/Commitment/getSaleOrder?assembly_number=' + assembly_order,
                 contentType: 'application/json; charset=utf-8',
                 success: function (item) {
                     var W = screen.width - 220;
@@ -312,5 +387,23 @@
                 }
             });
         });
+
+        $("#assembly_days, #machining_days").on("keypress keyup blur", function (event) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            console.log("event whitch", event)
+            if ((event.which < 48 || event.which > 57 )) {
+                event.preventDefault();
+            }
+        });
+
+        $("#final_buffer").on("keypress keyup blur", function (event) {
+            //$(this).val($(this).val().replace(/[^\d].+/, ""));
+            console.log("event whitch", event)
+            if ((event.which < 44 || event.which > 57 || event.which === 46 || event.which === 47)) {
+                event.preventDefault();
+            }
+        });
+
+        
     });
 </script>
